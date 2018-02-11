@@ -680,7 +680,7 @@
 <p>P.S. The historical commit is <a href="http://roudakov.ru/" target="_blank" rel="noopener">here</a> for the record.</p>
 <h2 id="Version-7-4"><a href="#Version-7-4" class="headerlink" title="Version 7.4"></a>Version 7.4</h2><p>This long overdue version is a snapshot of the current source tree with all the<br>changes that happened during the past year. Sorry for taking so long!</p>
 <p>Along with the changes in code highlight.js has finally got its new home at<br><a href="http://highlightjs.org/" target="_blank" rel="noopener">http://highlightjs.org/</a>, moving from its cradle on Software Maniacs which it<br>outgrew a long time ago. Be sure to report any bugs about the site to</p>
-<p><a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#105;&#110;&#x66;&#111;&#64;&#104;&#x69;&#103;&#x68;&#x6c;&#x69;&#x67;&#104;&#116;&#x6a;&#x73;&#46;&#x6f;&#114;&#x67;">&#105;&#110;&#x66;&#111;&#64;&#104;&#x69;&#103;&#x68;&#x6c;&#x69;&#x67;&#104;&#116;&#x6a;&#x73;&#46;&#x6f;&#114;&#x67;</a>.</p>
+<p><a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x69;&#x6e;&#x66;&#111;&#64;&#x68;&#x69;&#103;&#x68;&#x6c;&#105;&#x67;&#104;&#x74;&#x6a;&#x73;&#x2e;&#x6f;&#114;&#103;">&#x69;&#x6e;&#x66;&#111;&#64;&#x68;&#x69;&#103;&#x68;&#x6c;&#105;&#x67;&#104;&#x74;&#x6a;&#x73;&#x2e;&#x6f;&#114;&#103;</a>.</p>
 <p>On to what’s new…</p>
 <p>New languages:</p>
 <ul>
@@ -956,7 +956,7 @@
             <div class="content flex-col">
                 <p><strong>likernel</strong></p>
                 <p><em></em></p>
-                <p>用户页面中作者相关的描述性文字，如不需要设为 false</p>
+                <p>人生苦短，我用Python。</p>
             </div>
 
             
@@ -1020,23 +1020,38 @@
         
 
 
-<section class="comments" id="comments">
-    <div id="disqus_thread"></div>
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
     <script>
-    var disqus_shortname = 'likernel.disqus.com';
-    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "uXYvhiuon3PDtB04U5cybn5O-gzGzoHsz",
+            appKey: "U2OaXISftiiRmTnfW8IfxDJQ",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-
-
-
-
-
-
-
-
+    <!-- Valine Comments end -->
 
 
 
