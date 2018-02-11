@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>django实现MySQL数据库连接池 | likernel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对mysql的性能会产生较大的影响。实际使用中，通常会使用数据库的连接池来访问数据库达到资源复用的目的。这里介绍一下在django中如何实现数据库连接池。">
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?0cf5c472fa86e2055da7103f5ff06b27"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>django实现MySQL数据库连接池 | likernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="django,web开发,数据库">
+    <meta name="description" content="Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对mysql的性能会产生较大的影响。实际使用中，通常会使用数据库的连接池来访问数据库达到资源复用的目的。这里介绍一下在django中如何实现数据库连接池。">
 <meta name="keywords" content="django,web开发,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django实现MySQL数据库连接池">
@@ -19,76 +37,170 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django实现MySQL数据库连接池">
 <meta name="twitter:description" content="Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对mysql的性能会产生较大的影响。实际使用中，通常会使用数据库的连接池来访问数据库达到资源复用的目的。这里介绍一下在django中如何实现数据库连接池。">
-<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
-  
-    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="likernel" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">likernel</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">主页</a>
-        
-          <a class="main-nav-link" href="/archives">文章归档</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">likernel</h5>
+          <a href="mailto:daqingv5@foxmail.com" title="daqingv5@foxmail.com" class="mail">daqingv5@foxmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-django实现MySQL数据库连接池" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/07/26/django实现MySQL数据库连接池/" class="article-date">
-  <time datetime="2017-07-26T01:33:53.000Z" itemprop="datePublished">2017-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      django实现MySQL数据库连接池
-    </h1>
-  
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/daqingv5" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.twitter.com/likernel" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
 
-      </header>
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">django实现MySQL数据库连接池</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">django实现MySQL数据库连接池</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T01:33:53.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对mysql的性能会产生较大的影响。实际使用中，通常会使用数据库的连接池来访问数据库达到资源复用的目的。这里介绍一下在django中如何实现数据库连接池。<br><a id="more"></a></p>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DBUtils"><span class="post-toc-number">1.</span> <span class="post-toc-text">DBUtils</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-django实现MySQL数据库连接池"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">django实现MySQL数据库连接池</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 09:33:53" datetime="2017-07-26T01:33:53.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对mysql的性能会产生较大的影响。实际使用中，通常会使用数据库的连接池来访问数据库达到资源复用的目的。这里介绍一下在django中如何实现数据库连接池。<br><a id="more"></a></p>
 <h4 id="DBUtils"><a href="#DBUtils" class="headerlink" title="DBUtils"></a>DBUtils</h4><p>DBUtils是一套python数据库连接池包，并允许对非线程安全的数据库接口进行线程安全包装。DBUtils来自Webware for Python。</p>
 <p>下载地址：<a href="https://pypi.python.org/pypi/DBUtils/" target="_blank" rel="noopener">DBUtils</a></p>
 <p>DBUtils提供两种外部接口：</p>
@@ -96,144 +208,419 @@
 <li>PersistentDB ：提供线程专用的数据库连接，并自动管理连接。</li>
 <li>PooledDB ：提供线程间可共享的数据库连接，并自动管理连接。</li>
 </ol>
-<p>将下载下来的源码解压，放在应用程序根目录”database”中，修改SteadyDB.py文件，在类 SteadyDBConnection 中添加3个成员方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def autocommit(self, *args, **kwargs):</span><br><span class="line">     self._con.autocommit(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">def get_server_info(self):</span><br><span class="line">    return self._con.get_server_info()</span><br><span class="line"></span><br><span class="line">@property</span><br><span class="line">def encoders(self):</span><br><span class="line">    return self._con.encoders</span><br></pre></td></tr></table></figure></p>
-<p>修改 PooledDB.py 和 PersistentDB.py 两个文件，将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from DBUtils.SteadyDB import connect</span><br></pre></td></tr></table></figure></p>
-<p>改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from .SteadyDB import connect</span><br></pre></td></tr></table></figure></p>
-<p>将Django中的mysql模块加入应用程序目录中,将backends目录下的 __init__.py文件和mysql目录复制到database目录下的db目录中，目录结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">应用程序根目录</span><br><span class="line">|</span><br><span class="line">| -- database</span><br><span class="line">     |</span><br><span class="line">     | -- DBUtils</span><br><span class="line">     | -- db</span><br><span class="line">          |</span><br><span class="line">          | -- __init__.py</span><br><span class="line">          | -- mysql</span><br></pre></td></tr></table></figure></p>
-<p>在mysql目录下添加pool.py文件，如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># coding:utf-8</span><br><span class="line">&apos;&apos;&apos;A connection pool of MySQL in Django 1.5 based on DBUtils.&apos;&apos;&apos;</span><br><span class="line">import MySQLdb</span><br><span class="line">from database.DBUtils.PooledDB import PooledDB</span><br><span class="line"></span><br><span class="line">class ConnectionWrapper(object):</span><br><span class="line">    def __init__(self, connection):</span><br><span class="line">        self._conn = connection</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, method):</span><br><span class="line">        &apos;&apos;&apos; 代理数据库连接的属性方法 &apos;&apos;&apos;</span><br><span class="line">        return getattr(self._conn, method)</span><br><span class="line"></span><br><span class="line">    def close(self):</span><br><span class="line">        &apos;&apos;&apos; 代理Django的关闭数据库连接 &apos;&apos;&apos;</span><br><span class="line">        self._conn.close()</span><br><span class="line"></span><br><span class="line">class DBWrapper(object):</span><br><span class="line">    def __init__(self, module):</span><br><span class="line">        self._connection = None</span><br><span class="line">        self._db = module</span><br><span class="line">        self._pool = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, item):</span><br><span class="line">        return getattr(self._db, item)</span><br><span class="line"></span><br><span class="line">    def _clear_connections(self, **kwargs):</span><br><span class="line">        &apos;&apos;&apos; 关闭已有连接 &apos;&apos;&apos;</span><br><span class="line">        conn = MySQLdb.connect(**kwargs)</span><br><span class="line">        cursor = conn.cursor()</span><br><span class="line">        sql = &apos;&apos;</span><br><span class="line">        cursor.execute(&apos;show full processlist;&apos;)</span><br><span class="line">        processlist = cursor.fetchall()</span><br><span class="line">        for th in processlist:</span><br><span class="line">            if th[3] == kwargs.get(&apos;db&apos;) and th[0] != conn.thread_id():</span><br><span class="line">                sql += &apos;kill %s;&apos; % th[0]</span><br><span class="line">        if len(sql.split(&apos;;&apos;)) &gt; 1:</span><br><span class="line">            cursor.execute(sql)</span><br><span class="line">        cursor.close()</span><br><span class="line">        conn.close()</span><br><span class="line"></span><br><span class="line">    def connect(self, *args, **kwargs):</span><br><span class="line">        &apos;&apos;&apos; 创建连接 &apos;&apos;&apos;</span><br><span class="line">        db = kwargs.get(&apos;db&apos;)</span><br><span class="line">        if db not in self._pool:</span><br><span class="line">            size = kwargs.get(&apos;size&apos;)</span><br><span class="line">            if &apos;size&apos; in kwargs:</span><br><span class="line">                kwargs.pop(&apos;size&apos;)</span><br><span class="line">            self._clear_connections(**kwargs)</span><br><span class="line">            self._pool[db] = PooledDB(self._db, mincached=size, maxcached=size, *args, **kwargs)</span><br><span class="line">        self._connection = self._pool[db].connection()</span><br><span class="line">        return ConnectionWrapper(self._connection)</span><br></pre></td></tr></table></figure></p>
-<p>修改mysql目录下的 base.py 文件，在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import MySQLdb as Database</span><br></pre></td></tr></table></figure></p>
-<p>下添加两行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from .pool import DBWrapper</span><br><span class="line">Database = DBWrapper(Database)</span><br></pre></td></tr></table></figure></p>
-<p>修改类 DatabaseWrapper 中的方法 get_connection_params，在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if settings_dict[&apos;PORT&apos;]:</span><br><span class="line">    kwargs[&apos;port&apos;] = int(settings_dict[&apos;PORT&apos;])</span><br></pre></td></tr></table></figure></p>
-<p>下添加如下代码，使连接池支持”SIZE”参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if settings_dict.get(&apos;SIZE&apos;):</span><br><span class="line">    kwargs[&apos;size&apos;] = int(settings_dict[&apos;SIZE&apos;])</span><br></pre></td></tr></table></figure></p>
-<p>在settings.py配置文件的数据库项中，可以通过配置”SIZE”参数来指定连接池中某数据库的连接数量，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        # &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,</span><br><span class="line">        &apos;ENGINE&apos;: &apos;database.db.mysql&apos;,</span><br><span class="line">        &apos;NAME&apos;: &apos;cartoon&apos;,</span><br><span class="line">        &apos;USER&apos;: &apos;root&apos;,</span><br><span class="line">        &apos;PASSWORD&apos;: &apos;root&apos;,</span><br><span class="line">        &apos;HOST&apos;: &apos;&apos;,</span><br><span class="line">        &apos;PORT&apos;: &apos;&apos;,</span><br><span class="line">        # 指定10个连接到cartoon库</span><br><span class="line">        &apos;SIZE&apos;: &apos;10&apos;,     # Default &apos;0&apos; means unlimit connection pool size</span><br><span class="line">        &apos;OPTIONS&apos;: &#123;</span><br><span class="line">            &apos;init_command&apos;: &apos;SET default_storage_engine=INNODB&apos;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>至此，连接池改造完成。</p>
-<p>运行程序，进入mysql命令行，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show full processlist;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到连接池里面所有的连接。<br>[^1]: 参考链接： <a href="http://www.jianshu.com/p/e210e6380ade" target="_blank" rel="noopener">Django实现MySQL连接池</a>.</p>
+<p>将下载下来的源码解压，放在应用程序根目录”database”中，修改SteadyDB.py文件，在类 SteadyDBConnection 中添加3个成员方法:</p>
+<pre><code>def autocommit(self, *args, **kwargs):
+     self._con.autocommit(*args, **kwargs)
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/" data-id="cjdiz17xd0023gkulttu5q28e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web开发/">web开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+def get_server_info(self):
+    return self._con.get_server_info()
 
-    </footer>
-  </div>
-  
+@property
+def encoders(self):
+    return self._con.encoders
+</code></pre><p>修改 PooledDB.py 和 PersistentDB.py 两个文件，将</p>
+<pre><code>from DBUtils.SteadyDB import connect
+</code></pre><p>改为：</p>
+<pre><code>from .SteadyDB import connect
+</code></pre><p>将Django中的mysql模块加入应用程序目录中,将backends目录下的 __init__.py文件和mysql目录复制到database目录下的db目录中，目录结构如下:</p>
+<pre><code>应用程序根目录
+|
+| -- database
+     |
+     | -- DBUtils
+     | -- db
+          |
+          | -- __init__.py
+          | -- mysql
+</code></pre><p>在mysql目录下添加pool.py文件，如下:</p>
+<pre><code># coding:utf-8
+&#39;&#39;&#39;A connection pool of MySQL in Django 1.5 based on DBUtils.&#39;&#39;&#39;
+import MySQLdb
+from database.DBUtils.PooledDB import PooledDB
+
+class ConnectionWrapper(object):
+    def __init__(self, connection):
+        self._conn = connection
+
+    def __getattr__(self, method):
+        &#39;&#39;&#39; 代理数据库连接的属性方法 &#39;&#39;&#39;
+        return getattr(self._conn, method)
+
+    def close(self):
+        &#39;&#39;&#39; 代理Django的关闭数据库连接 &#39;&#39;&#39;
+        self._conn.close()
+
+class DBWrapper(object):
+    def __init__(self, module):
+        self._connection = None
+        self._db = module
+        self._pool = {}
+
+    def __getattr__(self, item):
+        return getattr(self._db, item)
+
+    def _clear_connections(self, **kwargs):
+        &#39;&#39;&#39; 关闭已有连接 &#39;&#39;&#39;
+        conn = MySQLdb.connect(**kwargs)
+        cursor = conn.cursor()
+        sql = &#39;&#39;
+        cursor.execute(&#39;show full processlist;&#39;)
+        processlist = cursor.fetchall()
+        for th in processlist:
+            if th[3] == kwargs.get(&#39;db&#39;) and th[0] != conn.thread_id():
+                sql += &#39;kill %s;&#39; % th[0]
+        if len(sql.split(&#39;;&#39;)) &gt; 1:
+            cursor.execute(sql)
+        cursor.close()
+        conn.close()
+
+    def connect(self, *args, **kwargs):
+        &#39;&#39;&#39; 创建连接 &#39;&#39;&#39;
+        db = kwargs.get(&#39;db&#39;)
+        if db not in self._pool:
+            size = kwargs.get(&#39;size&#39;)
+            if &#39;size&#39; in kwargs:
+                kwargs.pop(&#39;size&#39;)
+            self._clear_connections(**kwargs)
+            self._pool[db] = PooledDB(self._db, mincached=size, maxcached=size, *args, **kwargs)
+        self._connection = self._pool[db].connection()
+        return ConnectionWrapper(self._connection)
+</code></pre><p>修改mysql目录下的 base.py 文件，在</p>
+<pre><code>import MySQLdb as Database
+</code></pre><p>下添加两行</p>
+<pre><code>from .pool import DBWrapper
+Database = DBWrapper(Database)
+</code></pre><p>修改类 DatabaseWrapper 中的方法 get_connection_params，在</p>
+<pre><code>if settings_dict[&#39;PORT&#39;]:
+    kwargs[&#39;port&#39;] = int(settings_dict[&#39;PORT&#39;])
+</code></pre><p>下添加如下代码，使连接池支持”SIZE”参数</p>
+<pre><code>if settings_dict.get(&#39;SIZE&#39;):
+    kwargs[&#39;size&#39;] = int(settings_dict[&#39;SIZE&#39;])
+</code></pre><p>在settings.py配置文件的数据库项中，可以通过配置”SIZE”参数来指定连接池中某数据库的连接数量，如：</p>
+<pre><code>DATABASES = {
+    &#39;default&#39;: {
+        # &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,
+        &#39;ENGINE&#39;: &#39;database.db.mysql&#39;,
+        &#39;NAME&#39;: &#39;cartoon&#39;,
+        &#39;USER&#39;: &#39;root&#39;,
+        &#39;PASSWORD&#39;: &#39;root&#39;,
+        &#39;HOST&#39;: &#39;&#39;,
+        &#39;PORT&#39;: &#39;&#39;,
+        # 指定10个连接到cartoon库
+        &#39;SIZE&#39;: &#39;10&#39;,     # Default &#39;0&#39; means unlimit connection pool size
+        &#39;OPTIONS&#39;: {
+            &#39;init_command&#39;: &#39;SET default_storage_engine=INNODB&#39;,
+        },
+    }
+}
+</code></pre><p>至此，连接池改造完成。</p>
+<p>运行程序，进入mysql命令行，执行</p>
+<pre><code>show full processlist;
+</code></pre><p>可以看到连接池里面所有的连接。<br>[^1]: 参考链接： <a href="http://www.jianshu.com/p/e210e6380ade" target="_blank" rel="noopener">Django实现MySQL连接池</a>.</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
     
-<nav id="article-nav">
-  
-    <a href="/2017/07/27/Introduce-django/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    <div class="content">
         
-          Introduce django
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-11T15:46:21.611Z" itemprop="dateUpdated">2018-02-11 23:46:21</time>
+</span><br>
+
+
         
-      </div>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/07/26/django实现MySQL数据库连接池/" target="_blank" rel="external">http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://likernel.github.io">
+            <img src="/img/head.jpg" alt="likernel">
+            likernel
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web开发/">web开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/&title=《django实现MySQL数据库连接池》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/&title=《django实现MySQL数据库连接池》 — likernel&source=Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对m..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《django实现MySQL数据库连接池》 — likernel&url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
   
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/27/Introduce-django/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Introduce django</h4>
+      </a>
+    </div>
   
-    <a href="/2017/07/26/广度优先搜索（BFS）/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">广度优先搜索（BFS）</div>
-    </a>
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/广度优先搜索（BFS）/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">广度优先搜索（BFS）</h4>
+      </a>
+    </div>
   
 </nav>
 
-  
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'likernel';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </article>
 
-</section>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢你请我吃糖！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Linux/" style="font-size: 14.29px;">Linux</a> <a href="/tags/PyQt5/" style="font-size: 11.43px;">PyQt5</a> <a href="/tags/django/" style="font-size: 12.86px;">django</a> <a href="/tags/docker/" style="font-size: 11.43px;">docker</a> <a href="/tags/leetcode/" style="font-size: 17.14px;">leetcode</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/web开发/" style="font-size: 12.86px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15.71px;">排序</a> <a href="/tags/操作系统/" style="font-size: 11.43px;">操作系统</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.43px;">深度学习</a> <a href="/tags/算法/" style="font-size: 18.57px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weipay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weipay.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/31/Docker基础/">Docker基础</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
-          </li>
-        
-      </ul>
+    <div class="bottom">
+        <p><span>likernel &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 likernel<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">主页</a>
-  
-    <a href="/archives" class="mobile-nav-link">文章归档</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
 
-  </div>
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/&title=《django实现MySQL数据库连接池》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/&title=《django实现MySQL数据库连接池》 — likernel&source=Python可以使用MySQLdb进行数据库操作，但是每次连接MySQL数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对m..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《django实现MySQL数据库连接池》 — likernel&url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/07/26/django实现MySQL数据库连接池/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqElEQVR42u3aQXLjMAwEQP//09nzVq3kGVDY6NA8uVKxhOaBhAF8PvH6uVjJt67+cv+0q//8bCw8PDy8h0LPX5AEPQs3iefLpuPh4eGt8ZKgk0Dzo7+9fq4+f7Hg4eHhvYB3nua2Cfo9FQ8PD+/9vPvCQX7Et5cKHh4e3tt4bTrbrjw1Ty6hlVoLHh4eXszLk+D3fF7p7+Hh4eEdd9XzdLZNnZ8t8l5Gi4eHh7fAyw/cvSbWfVnhZAvw8PDwNnj5F9rya3ugP9UY+ysGPDw8vDXe/WvyAz0Jri0uzNpgRaaPh4eHV/LaR+cDB+dpdDKaEI0O4OHh4S3w2kM/+VZ+MbRpff0cPDw8vDVePsY0a/MnqXC7ZUUDDA8PD2+B114MLWOWoM/weHh4eHu8WRI8S8pbZF5uuHwjHh4e3i/x8kpwOxAwux6KyjQeHh7eGm8W7uzIbpP1o4YZHh4e3n/k5ZWMdrR0doXkm/Vpdw4PDw9vxJtdCSeH/klaX5Qw8PDw8JZ5s9Bnyfd5+SNKsvHw8PAWeHkpoQ0l35rkqkie/CVOPDw8vId4eSGgJeXhJkMDs9QcDw8Pb493MnKah3UedJ524+Hh4W3z8lBmweXJ+sNjr3h4eHgLvJOxgKKFfzBkcL5NeHh4eHu8tqQ7a4bl72phR90zPDw8vAPeUyMCs+Q4D70oNOPh4eGt8drGfEtqAe0a/mLAw8PDK3k/5cofPWtrnbTT/rGteHh4eAu82bF7Em4edHK1fJ5aeHh4eCUvb+TnqXZ7PeS8uiGHh4eHt8bLE9x2WKpN2Z8tUuDh4eG9gXeeiJ8nysUT8PDw8F7Duy8r5EXedjShbp7h4eHhrfFO0tzZQNWzJeMvFwMeHh7eo7ynftHnJYx84CBJuB8oW+Dh4eGlsf0BqGDuA0G3NRoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>

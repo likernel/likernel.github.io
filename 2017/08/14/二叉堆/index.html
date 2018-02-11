@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>二叉堆 | likernel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。">
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?0cf5c472fa86e2055da7103f5ff06b27"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>二叉堆 | likernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,数据结构">
+    <meta name="description" content="为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。">
 <meta name="keywords" content="算法,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉堆">
@@ -24,76 +42,170 @@
 <meta name="twitter:title" content="二叉堆">
 <meta name="twitter:description" content="为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。">
 <meta name="twitter:image" content="http://likernel.github.io/assets/images/2017/08/max_heap.png">
-<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
-  
-    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="likernel" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">likernel</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">主页</a>
-        
-          <a class="main-nav-link" href="/archives">文章归档</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">likernel</h5>
+          <a href="mailto:daqingv5@foxmail.com" title="daqingv5@foxmail.com" class="mail">daqingv5@foxmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-二叉堆" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/14/二叉堆/" class="article-date">
-  <time datetime="2017-08-13T21:09:20.000Z" itemprop="datePublished">2017-08-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      二叉堆
-    </h1>
-  
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/daqingv5" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.twitter.com/likernel" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
 
-      </header>
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">二叉堆</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">二叉堆</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-13T21:09:20.000Z" itemprop="datePublished" class="page-time">
+  2017-08-14
+</time>
+
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。<br><a id="more"></a></p>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#优先队列"><span class="post-toc-number">1.</span> <span class="post-toc-text">优先队列</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二叉堆"><span class="post-toc-number">2.</span> <span class="post-toc-text">二叉堆</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基本操作"><span class="post-toc-number">3.</span> <span class="post-toc-text">基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#插入"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">插入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#删除"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">删除</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实现二叉堆"><span class="post-toc-number">4.</span> <span class="post-toc-text">实现二叉堆</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-二叉堆"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">二叉堆</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-14 05:09:20" datetime="2017-08-13T21:09:20.000Z"  itemprop="datePublished">2017-08-14</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。<br><a id="more"></a></p>
 <h1 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h1><p>我们都知道队列（Queue）这种先进先出（FIFO）的数据结构。队列还有一种变体叫做“优先队列”（Priority Queue）。</p>
 <p>优先队列的出队（Dequeue）操作和队列一样，都是从队首出队。但在优先队列的内部，元素的次序却是由“优先级”来决定：高优先级的元素排在队首，而低优先级的元素则排在后面。这样，优先队列的入队（Enqueue）操作就比较复杂，需要将元素根据优先级尽量排到队列前面。</p>
 <p>我们很自然地会想到用之前学的排序算法和队列的方法来实现优先队列。但是，在列表里插入一个元素的时间复杂度是O(n)，对列表进行排序的时间复杂度是O(nlogn)。其实可以用别的方法来降低时间复杂度。一个实现优先队列的经典方法便是采用二叉堆（Binary Heap）。二叉堆能将优先队列的入队和出队复杂度都保持在O(logn)。</p>
@@ -101,142 +213,422 @@
 <p>二叉树的性质：除了最底层，该树是完全充满的。而且是从左向右填充。</p>
 <p>二叉堆的性质：二叉堆是完全二叉树或者是近似完全二叉树。当父节点的键值大于或等于它的每一个子节点的键值时我们称它为最大堆，反之称之为最小堆。可以看出它兼具堆和二叉树二者的性质。</p>
 <p>下图就是一个最大堆：</p>
-<p><img src="/assets/images/2017/08/max_heap.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2017/08/max_heap.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>二叉堆是用数组实现的，我们注意一点，通常为了方便二叉堆的操作，我们在数组的第一个元素a[0]中是不存放堆的元素的，我们习惯从1开始对这个堆进行编号，如下图所示：</p>
 <p><img src="/assets/images/2017/08/heap_index.png" alt=""></p>
 <p>我们可以发现这样的规律：</p>
 <p>1.PARENT(i)=i/2　　<br>2.LEFT(i) = 2*i 　　<br>3.RIGHT(i) = 2*i+1。</p>
 <h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>二叉堆的基本操作中最重要的一点就是，不管如何操作，要随时维护这个堆。最基本的两个操作为：shift up和shift down。</p>
 <h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>在插入操作的时候，会破坏上述堆的性质，所以需要进行shift up的操作，来维护这个堆，实际上就是不停的交换，例如，在上面的最大堆的基础上插入20这个数，具体过程如下：</p>
-<p><img src="/assets/images/2017/08/shiftup.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2017/08/shiftup.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>在删除操作的时候，也会破坏上述堆的性质，所以需要进行shift down的操作。删除操作先是待删元素和末尾元素交换，末尾元素依次进行shift down操作，还是上面的例子，具体过程如下：</p>
-<p><img src="/assets/images/2017/08/shiftdown.png" alt=""></p>
-<h1 id="实现二叉堆"><a href="#实现二叉堆" class="headerlink" title="实现二叉堆"></a>实现二叉堆</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 二叉堆</span><br><span class="line">class BinaryHeap(object):</span><br><span class="line">    # 建堆</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.item_list = [0] #第0项元素代表堆中存放的实际元素的个数</span><br><span class="line"></span><br><span class="line">    # 插入</span><br><span class="line">    def insert(self, new_item):</span><br><span class="line">        self.item_list.append(new_item)</span><br><span class="line">        self.item_list[0] += 1 #记录元素个数的增加</span><br><span class="line">        self.shiftup(self.item_list[0])   # shiftup</span><br><span class="line"></span><br><span class="line">    # 向上调整</span><br><span class="line">    def shiftup(self, index):</span><br><span class="line">        while index/2 &gt; 0: #父节点存在</span><br><span class="line">            if self.item_list[index] &lt; self.item_list[index/2]: #如果当前节点比父亲节点更小，则交换</span><br><span class="line">                temp = self.item_list[index]</span><br><span class="line">                self.item_list[index] = self.item_list[index/2]</span><br><span class="line">                self.item_list[index/2] = temp</span><br><span class="line">                index = index/2 #继续调整</span><br><span class="line">            else: #如果当前节点不比父节点小</span><br><span class="line">                break #停止调整</span><br><span class="line"></span><br><span class="line">    # 返回具有最小键值的项，并将项留在堆中。</span><br><span class="line">    def get_min(self):</span><br><span class="line">        if self.item_list[0]&gt;0: #不为空，返回堆顶</span><br><span class="line">            return self.item_list[1]</span><br><span class="line">        else:</span><br><span class="line">            return None</span><br><span class="line"></span><br><span class="line">    # 返回具有最小键值的项，从堆中删除该项。</span><br><span class="line">    def pop_min(self):</span><br><span class="line">        if self.item_list[0] == 0: #如果为空，返回None</span><br><span class="line">            return None</span><br><span class="line">        else:</span><br><span class="line">            top_min = self.item_list[1] #将堆顶元素</span><br><span class="line">            self.item_list[1] = self.item_list[self.item_list[0]] #将最后一个元素移动到堆顶</span><br><span class="line">            self.item_list[0] -= 1</span><br><span class="line">            self.shiftdown(1) #向下调整</span><br><span class="line">            return top_min</span><br><span class="line"></span><br><span class="line">    # 向下调整</span><br><span class="line">    def shiftdown(self, index):</span><br><span class="line">        while 2*index &lt;= self.item_list[0]: #子节点存在</span><br><span class="line">            if 2*index+1 &lt;= self.item_list[0]: #左右子节点都存在</span><br><span class="line">                if self.item_list[2*index]&lt;self.item_list[2*index+1]: #左子节点更小</span><br><span class="line">                    if self.item_list[index]&gt;self.item_list[2*index]: #比左子节点更大，交换</span><br><span class="line">                        temp = self.item_list[index]</span><br><span class="line">                        self.item_list[index] = self.item_list[2*index]</span><br><span class="line">                        self.item_list[2*index] = temp</span><br><span class="line">                        index = 2*index #继续调整</span><br><span class="line">                    else: #没有比子节点更大，停止调整</span><br><span class="line">                        break</span><br><span class="line">                else: #右子节点更小</span><br><span class="line">                    if self.item_list[index]&gt;self.item_list[2*index+1]: #比右子节点更大，交换</span><br><span class="line">                        temp = self.item_list[index]</span><br><span class="line">                        self.item_list[index] = self.item_list[2*index+1]</span><br><span class="line">                        self.item_list[2*index+1] = temp</span><br><span class="line">                        index = 2*index+1 #继续调整</span><br><span class="line">                    else: #没有比子节点更大，停止调整</span><br><span class="line">                        break</span><br><span class="line">            else: #只存在左节点</span><br><span class="line">                if self.item_list[index]&gt;self.item_list[2*index]: #比左子节点更大，交换</span><br><span class="line">                    temp = self.item_list[index]</span><br><span class="line">                    self.item_list[index] = self.item_list[2*index]</span><br><span class="line">                    self.item_list[2*index] = temp</span><br><span class="line">                else: #没有比子节点更大，停止调整</span><br><span class="line">                    break</span><br><span class="line"></span><br><span class="line">    # 判断是否为空</span><br><span class="line">    def isEmpty(self):</span><br><span class="line">        return 0 == self.item_list[0]</span><br><span class="line"></span><br><span class="line">    # 返回堆中的项数</span><br><span class="line">    def size(self):</span><br><span class="line">        return self.item_list[0]</span><br><span class="line"></span><br><span class="line">    #从列表构建一个新的堆。覆盖掉当前的堆</span><br><span class="line">    def build_heap(self, input_list):</span><br><span class="line">        self.item_list = [0]+input_list</span><br><span class="line">        self.item_list[0] = len(input_list)</span><br><span class="line">        for index in range(self.item_list[0]/2, 0, -1): #从最后一个有叶节点的元素起逐个向下调整</span><br><span class="line">            self.shiftdown(index)</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2017/08/shiftdown.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="实现二叉堆"><a href="#实现二叉堆" class="headerlink" title="实现二叉堆"></a>实现二叉堆</h1><pre><code>
+# 二叉堆
+class BinaryHeap(object):
+    # 建堆
+    def __init__(self):
+        self.item_list = [0] #第0项元素代表堆中存放的实际元素的个数
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://likernel.github.io/2017/08/14/二叉堆/" data-id="cjdiz17yi003ugkuln6xj7rzc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+    # 插入
+    def insert(self, new_item):
+        self.item_list.append(new_item)
+        self.item_list[0] += 1 #记录元素个数的增加
+        self.shiftup(self.item_list[0])   # shiftup
 
-    </footer>
-  </div>
-  
+    # 向上调整
+    def shiftup(self, index):
+        while index/2 &gt; 0: #父节点存在
+            if self.item_list[index] &lt; self.item_list[index/2]: #如果当前节点比父亲节点更小，则交换
+                temp = self.item_list[index]
+                self.item_list[index] = self.item_list[index/2]
+                self.item_list[index/2] = temp
+                index = index/2 #继续调整
+            else: #如果当前节点不比父节点小
+                break #停止调整
+
+    # 返回具有最小键值的项，并将项留在堆中。
+    def get_min(self):
+        if self.item_list[0]&gt;0: #不为空，返回堆顶
+            return self.item_list[1]
+        else:
+            return None
+
+    # 返回具有最小键值的项，从堆中删除该项。
+    def pop_min(self):
+        if self.item_list[0] == 0: #如果为空，返回None
+            return None
+        else:
+            top_min = self.item_list[1] #将堆顶元素
+            self.item_list[1] = self.item_list[self.item_list[0]] #将最后一个元素移动到堆顶
+            self.item_list[0] -= 1
+            self.shiftdown(1) #向下调整
+            return top_min
+
+    # 向下调整
+    def shiftdown(self, index):
+        while 2*index &lt;= self.item_list[0]: #子节点存在
+            if 2*index+1 &lt;= self.item_list[0]: #左右子节点都存在
+                if self.item_list[2*index]&lt;self.item_list[2*index+1]: #左子节点更小
+                    if self.item_list[index]&gt;self.item_list[2*index]: #比左子节点更大，交换
+                        temp = self.item_list[index]
+                        self.item_list[index] = self.item_list[2*index]
+                        self.item_list[2*index] = temp
+                        index = 2*index #继续调整
+                    else: #没有比子节点更大，停止调整
+                        break
+                else: #右子节点更小
+                    if self.item_list[index]&gt;self.item_list[2*index+1]: #比右子节点更大，交换
+                        temp = self.item_list[index]
+                        self.item_list[index] = self.item_list[2*index+1]
+                        self.item_list[2*index+1] = temp
+                        index = 2*index+1 #继续调整
+                    else: #没有比子节点更大，停止调整
+                        break
+            else: #只存在左节点
+                if self.item_list[index]&gt;self.item_list[2*index]: #比左子节点更大，交换
+                    temp = self.item_list[index]
+                    self.item_list[index] = self.item_list[2*index]
+                    self.item_list[2*index] = temp
+                else: #没有比子节点更大，停止调整
+                    break
+
+    # 判断是否为空
+    def isEmpty(self):
+        return 0 == self.item_list[0]
+
+    # 返回堆中的项数
+    def size(self):
+        return self.item_list[0]
+
+    #从列表构建一个新的堆。覆盖掉当前的堆
+    def build_heap(self, input_list):
+        self.item_list = [0]+input_list
+        self.item_list[0] = len(input_list)
+        for index in range(self.item_list[0]/2, 0, -1): #从最后一个有叶节点的元素起逐个向下调整
+            self.shiftdown(index)
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
     
-<nav id="article-nav">
-  
-    <a href="/2017/08/14/栈和队列/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    <div class="content">
         
-          栈和队列
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-11T15:28:25.308Z" itemprop="dateUpdated">2018-02-11 23:28:25</time>
+</span><br>
+
+
         
-      </div>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/08/14/二叉堆/" target="_blank" rel="external">http://likernel.github.io/2017/08/14/二叉堆/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://likernel.github.io">
+            <img src="/img/head.jpg" alt="likernel">
+            likernel
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/08/14/二叉堆/&title=《二叉堆》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/08/14/二叉堆/&title=《二叉堆》 — likernel&source=为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/08/14/二叉堆/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《二叉堆》 — likernel&url=http://likernel.github.io/2017/08/14/二叉堆/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/08/14/二叉堆/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
   
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/14/栈和队列/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">栈和队列</h4>
+      </a>
+    </div>
   
-    <a href="/2017/08/13/归并排序/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">归并排序</div>
-    </a>
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/13/归并排序/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">归并排序</h4>
+      </a>
+    </div>
   
 </nav>
 
-  
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'likernel';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </article>
 
-</section>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢你请我吃糖！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Linux/" style="font-size: 14.29px;">Linux</a> <a href="/tags/PyQt5/" style="font-size: 11.43px;">PyQt5</a> <a href="/tags/django/" style="font-size: 12.86px;">django</a> <a href="/tags/docker/" style="font-size: 11.43px;">docker</a> <a href="/tags/leetcode/" style="font-size: 17.14px;">leetcode</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/web开发/" style="font-size: 12.86px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15.71px;">排序</a> <a href="/tags/操作系统/" style="font-size: 11.43px;">操作系统</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.43px;">深度学习</a> <a href="/tags/算法/" style="font-size: 18.57px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weipay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weipay.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/31/Docker基础/">Docker基础</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
-          </li>
-        
-      </ul>
+    <div class="bottom">
+        <p><span>likernel &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 likernel<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">主页</a>
-  
-    <a href="/archives" class="mobile-nav-link">文章归档</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
 
-  </div>
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/08/14/二叉堆/&title=《二叉堆》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/08/14/二叉堆/&title=《二叉堆》 — likernel&source=为了介绍堆排序这种算法，我们先总结一下堆这种数据结构。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/08/14/二叉堆/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《二叉堆》 — likernel&url=http://likernel.github.io/2017/08/14/二叉堆/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/08/14/二叉堆/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3awYrDMAxF0f7/T2e2HQa790mZQuTrVQlp45OCkCW9Xnhdb+vv9dXn1bf2v7C/v7VkyJDxWMa1XfttkU2s7l99a//cJVWGDBkHMEgoJHh+D7+y35sMGTJkkHvu3agMGTJkfDPgkgOtDBkyZHAGCZ1p0Aw2AQL0bWdxGTJkPJDBq+7f//wv/Q0ZMmQ8inGFi7ce021djSVDhozZjNpj+JhFP4gHwx8yZMgYykgfVsvTUkw6wCFDhowTGJ10MG0t8HJeENZlyJBxMKNf9Cff7bQwZciQcQKjkwjWhi1IEtl5iTJkyJjK4AkcH4wgmyCjFcGLliFDxlBGrZRGalxxMhcehn99liFDxmGMWoEsbXzyKyQ0y5Ah4xzGhzZh2GLkh95as2HZiZUhQ8ZQRu1geddxNB6t6LwhGTJkDGKkjclagE4B8bCFDBkyRjB4QS396U4x7obinQwZMgYxOgGRH0TTK+lhWIYMGbMZ/ME8Eaw1CUjR7cOuZMiQcQyjNs5F0kSSn6aN0mXAlSFDxlBGrfRPXkStkBePd8iQIeMARjpIypsBtVSS71aGDBmzGVe4+uljLdCj/0GGDBlDGWmYq5XhOr9QHLaQIUPGOAYJsmngS4cqeCAOzuIyZMgYx+gUwvoxPh22kCFDhoxakOXlueI4BSm6yZAhQwYumaWH2HQ448MAqwwZMoYyyCG2NmbaaTPsX6sMGTLOYXSOjnzki7cta2mlDBkyhjJ+AJJPIuBX+OTaAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>

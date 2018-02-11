@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>Python迭代器 | likernel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要介绍Python迭代器的相关知识。">
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?0cf5c472fa86e2055da7103f5ff06b27"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Python迭代器 | likernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="python">
+    <meta name="description" content="本文主要介绍Python迭代器的相关知识。">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python迭代器">
@@ -21,222 +39,562 @@
 <meta name="twitter:title" content="Python迭代器">
 <meta name="twitter:description" content="本文主要介绍Python迭代器的相关知识。">
 <meta name="twitter:image" content="http://likernel.github.io/assets/images/2017/08/relationships.png">
-<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
-  
-    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="likernel" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">likernel</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">主页</a>
-        
-          <a class="main-nav-link" href="/archives">文章归档</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">likernel</h5>
+          <a href="mailto:daqingv5@foxmail.com" title="daqingv5@foxmail.com" class="mail">daqingv5@foxmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Python迭代器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/05/Python迭代器/" class="article-date">
-  <time datetime="2017-08-04T22:12:34.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      Python迭代器
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文主要介绍Python迭代器的相关知识。<br><a id="more"></a><br>在此之前，先用一幅图，了解下容器(container)、可迭代对象(iterable)、迭代器(iterator)、生成器(generator)、列表/集合/字典推导式(list,set,dict comprehension)等概念的一些关系（本图片来源于互联网，由于画的很好，这里借鉴过来）。<br><img src="/assets/images/2017/08/relationships.png" alt=""></p>
-<h2 id="容器-container"><a href="#容器-container" class="headerlink" title="容器(container)"></a>容器(container)</h2><p>容器是一种把多个元素组织在一起的数据结构，容器中的元素可以逐个地迭代获取，可以用<code>in</code>,<code>not in</code>关键字判断元素是否包含在容器中。通常这类数据结构把所有的元素存储在内存中（也有一些特例，并不是所有的元素都放在内存，比如迭代器和生成器对象）在Python中，常见的容器对象有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list, deque, ....</span><br><span class="line">set, frozensets, ....</span><br><span class="line">dict, defaultdict, OrderedDict, Counter, ....</span><br><span class="line">tuple, namedtuple, ....</span><br><span class="line">str</span><br></pre></td></tr></table></figure></p>
-<p>容器比较容易理解，因为你就可以把它看作是一个盒子、一栋房子、一个柜子，里面可以塞任何东西。从技术角度来说，当它可以用来询问某个元素是否包含在其中时，那么这个对象就可以认为是一个容器。</p>
-<h2 id="可迭代对象-iterable"><a href="#可迭代对象-iterable" class="headerlink" title="可迭代对象(iterable)"></a>可迭代对象(iterable)</h2><p>可直接作用域for循环的类型，主要包括以下几类：</p>
-<p>1.集合数据类型，如 list 、 tuple 、 dict 、 set 、 str 等；<br>2.generator ，包括生成器和带 yield 的generator function。</p>
-<p>这些可以直接作用于 for 循环的对象统称为可迭代对象： Iterable 。</p>
-<h2 id="判断是否可以迭代"><a href="#判断是否可以迭代" class="headerlink" title="判断是否可以迭代"></a>判断是否可以迭代</h2><p>可以使用 isinstance() 判断一个对象是否是 Iterable 对象:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from collections import Iterable</span><br><span class="line">isinstance([], Iterable)   # True</span><br><span class="line">isinstance(&#123;&#125;, Iterable)   # True</span><br><span class="line">isinstance(&apos;abc&apos;, Iterable)   # True</span><br><span class="line">isinstance((x for x in range(10)), Iterable)  # True</span><br><span class="line">isinstance(100, Iterable)   # False</span><br></pre></td></tr></table></figure></p>
-<p>而生成器不但可以作用于 for 循环，还可以被 next() 函数不断调用并返回下一个值，直到最后抛出 StopIteration 错误表示无法继续返回下一个值了。</p>
-<h2 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器(Iterator)"></a>迭代器(Iterator)</h2><p>它是一个带状态的对象，他能在你调用next()方法的时候返回容器中的下一个值。如果容器中没有更多元素了，则抛出StopIteration异常。</p>
-<p>所以，迭代器就是实现了工厂模式的对象，它在你每次你询问要下一个值的时候给你返回。</p>
-<p>比如itertools函数返回的都是迭代器对象。</p>
-<p>生成无限序列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from itertools import count</span><br><span class="line">&gt;&gt;&gt; counter = count(start=13)</span><br><span class="line">&gt;&gt;&gt; next(counter)</span><br><span class="line">13</span><br><span class="line">&gt;&gt;&gt; next(counter)</span><br><span class="line">14</span><br></pre></td></tr></table></figure></p>
-<p>从一个有限序列中生成无限序列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from itertools import cycle</span><br><span class="line">&gt;&gt;&gt; colors = cycle([&apos;red&apos;, &apos;white&apos;, &apos;blue&apos;])</span><br><span class="line">&gt;&gt;&gt; next(colors)</span><br><span class="line">&apos;red&apos;</span><br><span class="line">&gt;&gt;&gt; next(colors)</span><br><span class="line">&apos;white&apos;</span><br><span class="line">&gt;&gt;&gt; next(colors)</span><br><span class="line">&apos;blue&apos;</span><br><span class="line">&gt;&gt;&gt; next(colors)</span><br><span class="line">&apos;red&apos;</span><br></pre></td></tr></table></figure></p>
-<p>从无限的序列中生成有限序列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from itertools import islice</span><br><span class="line">&gt;&gt;&gt; colors = cycle([&apos;red&apos;, &apos;white&apos;, &apos;blue&apos;])  # infinite</span><br><span class="line">&gt;&gt;&gt; limited = islice(colors, 0, 4)            # finite</span><br><span class="line">&gt;&gt;&gt; for x in limited:                         </span><br><span class="line">...     print(x)</span><br><span class="line">red</span><br><span class="line">white</span><br><span class="line">blue</span><br><span class="line">red</span><br></pre></td></tr></table></figure></p>
-<p>为了更直观地感受迭代器内部的执行过程，我们自定义一个迭代器，以斐波那契数列为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Fib:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.prev = 0</span><br><span class="line">        self.curr = 1</span><br><span class="line"></span><br><span class="line">    def __iter__(self):</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">    def __next__(self):</span><br><span class="line">        value = self.curr</span><br><span class="line">        self.curr += self.prev</span><br><span class="line">        self.prev = value</span><br><span class="line">        return value</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; f = Fib()</span><br><span class="line">&gt;&gt;&gt; list(islice(f, 0, 10))</span><br><span class="line">[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]</span><br></pre></td></tr></table></figure></p>
-<p>实例变量prev和curr用户维护迭代器内部的状态。每次调用next()方法的时候做两件事：</p>
-<p>1.为下一次调用next()方法修改状态<br>2.为当前这次调用生成返回结果</p>
-<p>迭代器就像一个懒加载的工厂，等到有人需要的时候才给它生成值返回，没调用的时候就处于休眠状态等待下一次调用。</p>
-<h2 id="判断Iterator对象"><a href="#判断Iterator对象" class="headerlink" title="判断Iterator对象"></a>判断Iterator对象</h2><p>可以使用 isinstance()判断一个对象是否是Iterator对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from collections import Iterator</span><br><span class="line">isinstance((x for x in range(10)), Iterator)  # True</span><br><span class="line">isinstance([], Iterator)  # False</span><br><span class="line">isinstance(&#123;&#125;, Iterator)  # False</span><br><span class="line">isinstance(&apos;abc&apos;, Iterator)  # False</span><br><span class="line">isinstance(100, Iterator)  # False</span><br></pre></td></tr></table></figure></p>
-<h2 id="iter-函数"><a href="#iter-函数" class="headerlink" title="iter()函数"></a>iter()函数</h2><p>生成器都是Iterator对象，但 list、dict、str 虽然是 Iterable，却不是Iterator。</p>
-<p>把 list、dict 、str等Iterable变成Iterator可以使用iter() 函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">isinstance(iter([]), Iterator)  # True</span><br><span class="line">isinstance(iter(&apos;abc&apos;), Iterator)  # True</span><br></pre></td></tr></table></figure></p>
-<p><strong>参考资料：</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://likernel.github.io/2017/08/05/Python迭代器/" data-id="cjdiz17x3001rgkul1lx8fmy7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/08/07/Python闭包/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
         
-          Python闭包
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
         
-      </div>
-    </a>
-  
-  
-    <a href="/2017/08/04/leetcode-Divide-Two-Integers/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">leetcode--Divide Two Integers</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Linux/" style="font-size: 14.29px;">Linux</a> <a href="/tags/PyQt5/" style="font-size: 11.43px;">PyQt5</a> <a href="/tags/django/" style="font-size: 12.86px;">django</a> <a href="/tags/docker/" style="font-size: 11.43px;">docker</a> <a href="/tags/leetcode/" style="font-size: 17.14px;">leetcode</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/web开发/" style="font-size: 12.86px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15.71px;">排序</a> <a href="/tags/操作系统/" style="font-size: 11.43px;">操作系统</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.43px;">深度学习</a> <a href="/tags/算法/" style="font-size: 18.57px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
         
-          <li>
-            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/daqingv5" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
         
-          <li>
-            <a href="/2018/01/31/Docker基础/">Docker基础</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="http://www.twitter.com/likernel" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
         
-          <li>
-            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
         
       </ul>
     </div>
   </div>
-
-  
 </aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python迭代器</div>
         
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 likernel<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
     </div>
-  </div>
-</footer>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Python迭代器</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-04T22:12:34.000Z" itemprop="datePublished" class="page-time">
+  2017-08-05
+</time>
+
+
+            
+        </h5>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">主页</a>
-  
-    <a href="/archives" class="mobile-nav-link">文章归档</a>
-  
-</nav>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+</header>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器-container"><span class="post-toc-number">1.</span> <span class="post-toc-text">容器(container)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可迭代对象-iterable"><span class="post-toc-number">2.</span> <span class="post-toc-text">可迭代对象(iterable)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断是否可以迭代"><span class="post-toc-number">3.</span> <span class="post-toc-text">判断是否可以迭代</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#迭代器-Iterator"><span class="post-toc-number">4.</span> <span class="post-toc-text">迭代器(Iterator)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断Iterator对象"><span class="post-toc-number">5.</span> <span class="post-toc-text">判断Iterator对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#iter-函数"><span class="post-toc-number">6.</span> <span class="post-toc-text">iter()函数</span></a></li></ol>
+        </nav>
+    </aside>
 
 
-<script src="/js/script.js"></script>
+<article id="post-Python迭代器"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python迭代器</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-05 06:12:34" datetime="2017-08-04T22:12:34.000Z"  itemprop="datePublished">2017-08-05</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文主要介绍Python迭代器的相关知识。<br><a id="more"></a><br>在此之前，先用一幅图，了解下容器(container)、可迭代对象(iterable)、迭代器(iterator)、生成器(generator)、列表/集合/字典推导式(list,set,dict comprehension)等概念的一些关系（本图片来源于互联网，由于画的很好，这里借鉴过来）。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2017/08/relationships.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="容器-container"><a href="#容器-container" class="headerlink" title="容器(container)"></a>容器(container)</h2><p>容器是一种把多个元素组织在一起的数据结构，容器中的元素可以逐个地迭代获取，可以用<code>in</code>,<code>not in</code>关键字判断元素是否包含在容器中。通常这类数据结构把所有的元素存储在内存中（也有一些特例，并不是所有的元素都放在内存，比如迭代器和生成器对象）在Python中，常见的容器对象有：</p>
+<pre><code>list, deque, ....
+set, frozensets, ....
+dict, defaultdict, OrderedDict, Counter, ....
+tuple, namedtuple, ....
+str
+</code></pre><p>容器比较容易理解，因为你就可以把它看作是一个盒子、一栋房子、一个柜子，里面可以塞任何东西。从技术角度来说，当它可以用来询问某个元素是否包含在其中时，那么这个对象就可以认为是一个容器。</p>
+<h2 id="可迭代对象-iterable"><a href="#可迭代对象-iterable" class="headerlink" title="可迭代对象(iterable)"></a>可迭代对象(iterable)</h2><p>可直接作用域for循环的类型，主要包括以下几类：</p>
+<p>1.集合数据类型，如 list 、 tuple 、 dict 、 set 、 str 等；<br>2.generator ，包括生成器和带 yield 的generator function。</p>
+<p>这些可以直接作用于 for 循环的对象统称为可迭代对象： Iterable 。</p>
+<h2 id="判断是否可以迭代"><a href="#判断是否可以迭代" class="headerlink" title="判断是否可以迭代"></a>判断是否可以迭代</h2><p>可以使用 isinstance() 判断一个对象是否是 Iterable 对象:</p>
+<pre><code>from collections import Iterable
+isinstance([], Iterable)   # True
+isinstance({}, Iterable)   # True
+isinstance(&#39;abc&#39;, Iterable)   # True
+isinstance((x for x in range(10)), Iterable)  # True
+isinstance(100, Iterable)   # False
+</code></pre><p>而生成器不但可以作用于 for 循环，还可以被 next() 函数不断调用并返回下一个值，直到最后抛出 StopIteration 错误表示无法继续返回下一个值了。</p>
+<h2 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器(Iterator)"></a>迭代器(Iterator)</h2><p>它是一个带状态的对象，他能在你调用next()方法的时候返回容器中的下一个值。如果容器中没有更多元素了，则抛出StopIteration异常。</p>
+<p>所以，迭代器就是实现了工厂模式的对象，它在你每次你询问要下一个值的时候给你返回。</p>
+<p>比如itertools函数返回的都是迭代器对象。</p>
+<p>生成无限序列：</p>
+<pre><code>&gt;&gt;&gt; from itertools import count
+&gt;&gt;&gt; counter = count(start=13)
+&gt;&gt;&gt; next(counter)
+13
+&gt;&gt;&gt; next(counter)
+14
+</code></pre><p>从一个有限序列中生成无限序列：</p>
+<pre><code>&gt;&gt;&gt; from itertools import cycle
+&gt;&gt;&gt; colors = cycle([&#39;red&#39;, &#39;white&#39;, &#39;blue&#39;])
+&gt;&gt;&gt; next(colors)
+&#39;red&#39;
+&gt;&gt;&gt; next(colors)
+&#39;white&#39;
+&gt;&gt;&gt; next(colors)
+&#39;blue&#39;
+&gt;&gt;&gt; next(colors)
+&#39;red&#39;
+</code></pre><p>从无限的序列中生成有限序列：</p>
+<pre><code>&gt;&gt;&gt; from itertools import islice
+&gt;&gt;&gt; colors = cycle([&#39;red&#39;, &#39;white&#39;, &#39;blue&#39;])  # infinite
+&gt;&gt;&gt; limited = islice(colors, 0, 4)            # finite
+&gt;&gt;&gt; for x in limited:                         
+...     print(x)
+red
+white
+blue
+red
+</code></pre><p>为了更直观地感受迭代器内部的执行过程，我们自定义一个迭代器，以斐波那契数列为例：</p>
+<pre><code>class Fib:
+    def __init__(self):
+        self.prev = 0
+        self.curr = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        value = self.curr
+        self.curr += self.prev
+        self.prev = value
+        return value
+
+&gt;&gt;&gt; f = Fib()
+&gt;&gt;&gt; list(islice(f, 0, 10))
+[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+</code></pre><p>实例变量prev和curr用户维护迭代器内部的状态。每次调用next()方法的时候做两件事：</p>
+<p>1.为下一次调用next()方法修改状态<br>2.为当前这次调用生成返回结果</p>
+<p>迭代器就像一个懒加载的工厂，等到有人需要的时候才给它生成值返回，没调用的时候就处于休眠状态等待下一次调用。</p>
+<h2 id="判断Iterator对象"><a href="#判断Iterator对象" class="headerlink" title="判断Iterator对象"></a>判断Iterator对象</h2><p>可以使用 isinstance()判断一个对象是否是Iterator对象：</p>
+<pre><code>from collections import Iterator
+isinstance((x for x in range(10)), Iterator)  # True
+isinstance([], Iterator)  # False
+isinstance({}, Iterator)  # False
+isinstance(&#39;abc&#39;, Iterator)  # False
+isinstance(100, Iterator)  # False
+</code></pre><h2 id="iter-函数"><a href="#iter-函数" class="headerlink" title="iter()函数"></a>iter()函数</h2><p>生成器都是Iterator对象，但 list、dict、str 虽然是 Iterable，却不是Iterator。</p>
+<p>把 list、dict 、str等Iterable变成Iterator可以使用iter() 函数：</p>
+<pre><code>isinstance(iter([]), Iterator)  # True
+isinstance(iter(&#39;abc&#39;), Iterator)  # True
+</code></pre><p><strong>参考资料：</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-11T15:38:39.967Z" itemprop="dateUpdated">2018-02-11 23:38:39</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/08/05/Python迭代器/" target="_blank" rel="external">http://likernel.github.io/2017/08/05/Python迭代器/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://likernel.github.io">
+            <img src="/img/head.jpg" alt="likernel">
+            likernel
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
 
 
 
-  </div>
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/08/05/Python迭代器/&title=《Python迭代器》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/08/05/Python迭代器/&title=《Python迭代器》 — likernel&source=本文主要介绍Python迭代器的相关知识。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/08/05/Python迭代器/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python迭代器》 — likernel&url=http://likernel.github.io/2017/08/05/Python迭代器/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/08/05/Python迭代器/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/07/Python闭包/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Python闭包</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/04/leetcode-Divide-Two-Integers/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">leetcode--Divide Two Integers</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'likernel';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢你请我吃糖！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weipay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weipay.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>likernel &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/08/05/Python迭代器/&title=《Python迭代器》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/08/05/Python迭代器/&title=《Python迭代器》 — likernel&source=本文主要介绍Python迭代器的相关知识。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/08/05/Python迭代器/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python迭代器》 — likernel&url=http://likernel.github.io/2017/08/05/Python迭代器/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/08/05/Python迭代器/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aQZKDMAwFUe5/aeYACaa/RKYKq71KATF+LFSypePA4/wYV898Pk/m5P9qDRkyZLyWcS7H+gV8EVdzkt/rtcmQIWMOgwTQ9b+urqw/DaferFmGDBkyQLpGwnQa1mXIkCGjxuABlITm9K4MGTImM9I0jmxu+XWyMX5sLy5DhowXMvip+////kl9Q4YMGa9inOFIiwS8eMCD7JdVyZAhY2tG7SgtPdwnQZxcv3mLDBkyhjHW20XO6LeFkTXIkCFjbwa31o7PSDmhs9H9kuHKkCFjO0Y6Ub9FoxOO0V0ZMmRsx0iLgp3GiLT9KwjxMmTI2JpBjrfIdLVgXcNcrlaGDBlbM9aFw37A7XeCBJ9JhgwZ2zHIonkQrD1JjuRursiQIWMAIw18fNObFglqW2IZMmRMYHTaKUhyyVPGoEOEL0iGDBlbMPpJG/9Mv0giZciQMY3BATztI1vTNFjLkCFjDiMNlOnmthbE+ZwyZMiYw0hfXCtS8hJpMSWVIUPGGEZtulp075cKbqocMmTI2JTBU7T0mCwtQpAgK0OGjJmM/lLSOY9wXM4gQ4aMTRlnONI0rn9Ih9gyZMjYmpGGOc7rN16kiaMMGTL2ZvAl1hI4viVuBVwZMmQMYAS73vCVJPnjn+kmz5UhQ4aM9lF+7S0PxHgZMmQMY3QSvrTZgpcZZMiQMYGRFgOeKiHUPoQMGTKmMWotDrVDuvS47eF2DRkyZLyP8QdDx2qYyEY0zgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>

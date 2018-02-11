@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>Docker基础 | likernel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：  Build once，Run anywhere，Configur">
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?0cf5c472fa86e2055da7103f5ff06b27"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Docker基础 | likernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="docker">
+    <meta name="description" content="Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：  Build once，Run anywhere，Configur">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker基础">
@@ -25,76 +43,170 @@
 <meta name="twitter:title" content="Docker基础">
 <meta name="twitter:description" content="Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：  Build once，Run anywhere，Configur">
 <meta name="twitter:image" content="http://likernel.github.io/assets/images/2018/01/docker-liucheng.png">
-<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
-  
-    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="likernel" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">likernel</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">主页</a>
-        
-          <a class="main-nav-link" href="/archives">文章归档</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">likernel</h5>
+          <a href="mailto:daqingv5@foxmail.com" title="daqingv5@foxmail.com" class="mail">daqingv5@foxmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Docker基础" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/31/Docker基础/" class="article-date">
-  <time datetime="2018-01-31T04:41:15.000Z" itemprop="datePublished">2018-01-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      Docker基础
-    </h1>
-  
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/daqingv5" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.twitter.com/likernel" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
 
-      </header>
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Docker基础</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Docker基础</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-31T04:41:15.000Z" itemprop="datePublished" class="page-time">
+  2018-01-31
+</time>
+
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：</p>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker"><span class="post-toc-number">1.</span> <span class="post-toc-text">Docker</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Docker仓库"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">Docker仓库</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Docker自身程序"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">Docker自身程序</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Docker工作流程"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">Docker工作流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Docker分层"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">Docker分层</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#镜像和容器"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">镜像和容器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Docker变更管理"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">Docker变更管理</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Docker基础"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Docker基础</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-31 12:41:15" datetime="2018-01-31T04:41:15.000Z"  itemprop="datePublished">2018-01-31</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：</p>
 <blockquote>
 <p>Build once，Run anywhere，Configure once，Run anything.</p>
 </blockquote>
@@ -102,15 +214,41 @@
 <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>如果把Docker当做一个独立的软件来看，它就是用Golang写的开源程序，采用C/S架构，包含Docker Server和Docker Client。docker生态包括两个部分：Docker仓库和Docker自身程序。</p>
 <h4 id="Docker仓库"><a href="#Docker仓库" class="headerlink" title="Docker仓库"></a>Docker仓库</h4><p>官方的Docker仓库地址为：<a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a>，上面的应用非常丰富，既有各大公司打包的应用，也有大量个人开发者提供的应用。</p>
 <h4 id="Docker自身程序"><a href="#Docker自身程序" class="headerlink" title="Docker自身程序"></a>Docker自身程序</h4><p>Docker运行在Linux操作系统之上，属于用户态程序，通过一些接口和内核交互。Docker Daemon作为Server端，在宿主机上以后台守护进程的形式运行。Docker Client使用比较灵活，既可以在本机上以bin命令的形式发送指令，也可在远端通过RESTful API的形式发送指令；Docker的Server端接受指令并把指令分解为一系列任务去执行。</p>
-<h4 id="Docker工作流程"><a href="#Docker工作流程" class="headerlink" title="Docker工作流程"></a>Docker工作流程</h4><p>一图胜千言：<br><img src="/assets/images/2018/01/docker-liucheng.png" alt=""></p>
+<h4 id="Docker工作流程"><a href="#Docker工作流程" class="headerlink" title="Docker工作流程"></a>Docker工作流程</h4><p>一图胜千言：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2018/01/docker-liucheng.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 <p>可以理解为github版的应用部署解决方案。</p>
 <h4 id="Docker分层"><a href="#Docker分层" class="headerlink" title="Docker分层"></a>Docker分层</h4><p>首先，用户的需求是：把软件运行起来，至于如何安装软件、软件运行在什么操作系统上，用户不太关心。就把软件和它依赖的环境（操作系统、共享库）、配置文件打包在一起，以虚拟机的形式放到官方库。但是，这样存在一个问题：我们不需要每次安装软件都带上它依赖的操作系统，因此引入了分层。比如操作系统是第一层，依赖库和第三方软件是第二层，应用的软件包和配置文件是第三层。如果两个应用有相同的底层，就可以共享这些库。例如下图中应用A和B需要的操作系统一样，就可以共享这一层。</p>
-<p><img src="/assets/images/2018/01/share-1.png" alt=""><br>但是这样共享层存在冲突问题，这时候就要规定他们的优先级，一般下层和上层有相同的文件和配置时，上层覆盖下层，数据以上层数据为主。我们给每个应用一个优先级最高的空白层，如果需要修改下层文件，就把这个文件拷贝到这个空白层即可。如下图：</p>
-<p><img src="/assets/images/2018/01/conflict.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2018/01/share-1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>但是这样共享层存在冲突问题，这时候就要规定他们的优先级，一般下层和上层有相同的文件和配置时，上层覆盖下层，数据以上层数据为主。我们给每个应用一个优先级最高的空白层，如果需要修改下层文件，就把这个文件拷贝到这个空白层即可。如下图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2018/01/conflict.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>这样从应用A的角度来说，文件已经修改成功，而从应用B的角度来看，文件没发生任何变化。这就是Docker的分层和写时拷贝策略</p>
 <h4 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h4><p>主流的虚拟机一般比较笨重（需要消耗大量的系统资源，如：CPU、内存），因此我们最好使用容器类虚拟机（例如OpenVZ、VServer、LXC），这是一种内核虚拟化技术，与宿主机运行在相同的Linux内核，不需要指令级模拟，性能消耗非常小，是非常轻量级的虚拟化容器。Docker使用的就是LXC（后来推出了libcontainer）。</p>
 <p>接下来就讨论镜像和容器：在Docker的官方仓库里只有一些完整的文件系统和程序包，没有动态生成新文件的需求，此为镜像（image）。把镜像下载到宿主机对外提供服务时，有可能需要修改文件（比如输出新日志到日志文件中），此为容器。</p>
-<p><img src="/assets/images/2018/01/image-container.png" alt=""><br>仓库中的应用都是以镜像的形式存在的，把镜像从Docker仓库拉到本机，以这个镜像为模板启动应用就叫容器。这是Docker最核心的两个概念，所有的指令和文档都是围绕镜像和容器展开的。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2018/01/image-container.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>仓库中的应用都是以镜像的形式存在的，把镜像从Docker仓库拉到本机，以这个镜像为模板启动应用就叫容器。这是Docker最核心的两个概念，所有的指令和文档都是围绕镜像和容器展开的。</p>
 <h4 id="Docker变更管理"><a href="#Docker变更管理" class="headerlink" title="Docker变更管理"></a>Docker变更管理</h4><p>举个栗子，现有一个应用的Docker镜像，V1.0版本有三层。<br>接下来需要做如下修改：</p>
 <ul>
 <li>修改位于第一层的文件A。</li>
@@ -124,133 +262,318 @@
 <li>在第四层创建以个文件C。</li>
 </ul>
 <p>这时候版本就变为了V1.1，我们发布到Docker仓库时，只需要把第四层上传到仓库即可。</p>
-<p><img src="/assets/images/2018/01/version-change.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2018/01/version-change.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[^1]: 《循序渐进学Docker》李金榜，尹烨等. 编著</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://likernel.github.io/2018/01/31/Docker基础/" data-id="cjdiz17vh0000gkulzzijbqgu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+        </div>
 
-    </footer>
-  </div>
-  
+        <blockquote class="post-copyright">
     
-<nav id="article-nav">
-  
-    <a href="/2018/01/31/Ubuntu下安装Docker/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    <div class="content">
         
-          Ubuntu下安装Docker
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-11T14:49:33.142Z" itemprop="dateUpdated">2018-02-11 22:49:33</time>
+</span><br>
+
+
         
-      </div>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/01/31/Docker基础/" target="_blank" rel="external">http://likernel.github.io/2018/01/31/Docker基础/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://likernel.github.io">
+            <img src="/img/head.jpg" alt="likernel">
+            likernel
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2018/01/31/Docker基础/&title=《Docker基础》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2018/01/31/Docker基础/&title=《Docker基础》 — likernel&source=Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2018/01/31/Docker基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker基础》 — likernel&url=http://likernel.github.io/2018/01/31/Docker基础/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2018/01/31/Docker基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
   
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/01/31/Ubuntu下安装Docker/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Ubuntu下安装Docker</h4>
+      </a>
+    </div>
   
-    <a href="/2018/01/25/PyQt5之信号与槽/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">PyQt5之信号与槽</div>
-    </a>
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/25/PyQt5之信号与槽/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">PyQt5之信号与槽</h4>
+      </a>
+    </div>
   
 </nav>
 
-  
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'likernel';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </article>
 
-</section>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢你请我吃糖！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Linux/" style="font-size: 14.29px;">Linux</a> <a href="/tags/PyQt5/" style="font-size: 11.43px;">PyQt5</a> <a href="/tags/django/" style="font-size: 12.86px;">django</a> <a href="/tags/docker/" style="font-size: 11.43px;">docker</a> <a href="/tags/leetcode/" style="font-size: 17.14px;">leetcode</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/web开发/" style="font-size: 12.86px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15.71px;">排序</a> <a href="/tags/操作系统/" style="font-size: 11.43px;">操作系统</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.43px;">深度学习</a> <a href="/tags/算法/" style="font-size: 18.57px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weipay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weipay.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/31/Docker基础/">Docker基础</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
-          </li>
-        
-      </ul>
+    <div class="bottom">
+        <p><span>likernel &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 likernel<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">主页</a>
-  
-    <a href="/archives" class="mobile-nav-link">文章归档</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
 
-  </div>
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2018/01/31/Docker基础/&title=《Docker基础》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2018/01/31/Docker基础/&title=《Docker基础》 — likernel&source=Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2018/01/31/Docker基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Docker基础》 — likernel&url=http://likernel.github.io/2018/01/31/Docker基础/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2018/01/31/Docker基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQZKDMAwEwPz/09kHbMWZsditwrRPqUCA5qDIkl6veL1/rd9HP52fXDP/1WhhYGDclvFervUN8lt+umbyef1sGBgYz2F8uvH60vmv8qPrcz5+j4GBgbEXBJdpZf4NBgYGxiR0Jglfm2JiYGBgTDaxLSm6fVyAu2wvjoGBcUNGXiz7/89/0t/AwMC4FeNdrr3Sf54a7i0MDIyzGXmAu6qpeVXAxcDAeA6jDZF5ca1tGIxeFgYGxtGMvBw2aRLMqe3ABwYGxqmMNsgmQXC+Pa6PYmBgHMrYG8bKG59r3voV5ENmGBgYZzP2wujemEW7Zc1fMQYGxtmMawNicoV2nCK6DgYGxmMYOan9Pt+mbiadGBgYhzLyG0+aAZMNcDEtgoGBcTSjbRa2wxZt2jcarcDAwDiOMWkMtKW6PNVrR9AwMDDOZuRhNGklJgG3HfOKXhwGBsbRjDxpy7evE/BeAoqBgfEcxqTE35bt8lJd3WzAwMA4lNFuQefnTF7cl2ELDAyMoxlt4T7JMZMz2+D7JeBiYGAczchDZ57AJeMaRZNyfS8MDIxDGXuFsDxMt0F5tP/GwMA4lJGvHNMG1vmmFwMD4wmMtqHYjkHkQXwUcDEwMB7ASAptedEtTyvbf4CoB4uBgYFRhuY24WtDPAYGBkZexM9HvtrWwjqgY2BgPIcxeYi/TiUvLrdhYGDckNFuHefb172HuKCpiYGBcT/GD99r8C7H6JpnAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>

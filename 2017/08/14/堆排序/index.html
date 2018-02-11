@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>堆排序 | likernel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。">
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?0cf5c472fa86e2055da7103f5ff06b27"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>堆排序 | likernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="算法,排序">
+    <meta name="description" content="之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。">
 <meta name="keywords" content="算法,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆排序">
@@ -21,212 +39,539 @@
 <meta name="twitter:title" content="堆排序">
 <meta name="twitter:description" content="之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。">
 <meta name="twitter:image" content="http://likernel.github.io/assets/images/2017/08/HeapSort.png">
-<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
-  
-    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="likernel" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">likernel</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">主页</a>
-        
-          <a class="main-nav-link" href="/archives">文章归档</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">likernel</h5>
+          <a href="mailto:daqingv5@foxmail.com" title="daqingv5@foxmail.com" class="mail">daqingv5@foxmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-堆排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/14/堆排序/" class="article-date">
-  <time datetime="2017-08-14T00:39:38.000Z" itemprop="datePublished">2017-08-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      堆排序
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。<br><a id="more"></a></p>
-<h1 id="Heapify"><a href="#Heapify" class="headerlink" title="Heapify"></a>Heapify</h1><h2 id="MAX-HEAPIFY"><a href="#MAX-HEAPIFY" class="headerlink" title="MAX-HEAPIFY"></a>MAX-HEAPIFY</h2><p>通过让A[i]的值在最大堆中shift down，从而使得下标i为根结点的子树重新遵循最大堆的性质。</p>
-<p>参照《算法导论》给出相应伪码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MAX-HEAPIFY(A, i)</span><br><span class="line">    l = LEFT(i)</span><br><span class="line">    r = RIGHT(i)</span><br><span class="line">    # 找到i，i的左子树的根结点，i的右子树的根结点中值最大的结点</span><br><span class="line">    if l &lt;= A.heap-size and A[l] &gt; A[i]</span><br><span class="line">        largest = l</span><br><span class="line">    else largest = i</span><br><span class="line">    if r &lt;= A.heap-size and A[r] &gt; A[largest]</span><br><span class="line">        largest = r</span><br><span class="line"></span><br><span class="line">    if largest != i</span><br><span class="line">        exchange A[i] with A[largest]</span><br><span class="line">        MAX-HEAPIFY(A, largest)</span><br></pre></td></tr></table></figure></p>
-<p>若值最大的结点不是i，则把最大的值跟i指定的值交换。然后继续对原值最大的结点递归进行MAX-HEAPIFY操作，若值最大的结点就是i，说明以i为根结点的子树已是最大堆，函数结束。</p>
-<p>##BUILD-MAX-HEAP<br>构建最大堆，伪码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line">    A.heap-size = A.length</span><br><span class="line">    for i = A.length/2 downto 1 #自底向上</span><br><span class="line">        MAX-HEAPIFY(A, i)</span><br></pre></td></tr></table></figure></p>
-<h2 id="HEAPSORT"><a href="#HEAPSORT" class="headerlink" title="HEAPSORT"></a>HEAPSORT</h2><p>堆排序的实现，伪码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HEAPSORT(A)</span><br><span class="line">    BUILD-MAX-HEAP(A) # 最大元素总是在根结点A[1]中</span><br><span class="line">    for i = A.length downto 2</span><br><span class="line">        exchange A[1] with A[i] # 将最大元素往后放在正确的位置i上</span><br><span class="line">        A.heap-size = A.heap-size - 1 # 去掉结点n</span><br><span class="line">        MAX-HEAPIFY(A, 1) # 维护，以保证去掉结点n后的堆还是最大堆</span><br></pre></td></tr></table></figure></p>
-<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>堆排序的实现思路关键就是上面HEAPIFY操作。</p>
-<p>1.首先，构建最大堆<br>2.最大堆的一个性质：最大的元素就是堆顶的元素。我们每次就选择这个元素，这就像选择排序中选择的操作。我们这里不借助中间数组，直接和当前堆尾元素交换。<br>3.使最大元素在尾部不动，前面构成一个堆，维护这个堆，对其进行MAX-HEAPIFY，是前面变成最大堆<br>4.重复上述操作，在堆的规模缩小的同时，完成排序。</p>
-<p>具体过程如下图：</p>
-<p><img src="/assets/images/2017/08/HeapSort.png" alt=""></p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">heap_size = 0</span><br><span class="line">left = lambda i: 2*i+1</span><br><span class="line">right = lambda i: 2*i+2</span><br><span class="line"></span><br><span class="line">def Heapify(arr, i):</span><br><span class="line">    l, r = left(i), right(i)</span><br><span class="line">    largest = l if l &lt; heap_size and arr[l] &gt; arr[i] else i</span><br><span class="line">    largest = r if r &lt; heap_size and arr[r] &gt; arr[largest] else largest</span><br><span class="line">    if i != largest:</span><br><span class="line">        arr[i], arr[largest] = arr[largest], arr[i]</span><br><span class="line">        Heapify(arr,largest)</span><br><span class="line"></span><br><span class="line">def BuildMaxHeap(arr):</span><br><span class="line">    global heap_size</span><br><span class="line">    heap_size = len(arr)</span><br><span class="line">    for i in range(len(arr)//2-1,-1,-1):</span><br><span class="line">        Heapify(arr,i)</span><br><span class="line"></span><br><span class="line">def HeapSort(arr):</span><br><span class="line">    global heap_size</span><br><span class="line">    BuildMaxHeap(arr)</span><br><span class="line">    for i in range(len(arr)-1,-1,-1):</span><br><span class="line">        arr[i], arr[0] = arr[0], arr[i]</span><br><span class="line">        heap_size -= 1</span><br><span class="line">        Heapify(arr,0)</span><br><span class="line">    return arr</span><br></pre></td></tr></table></figure>
-<p>备注：很多情况下都使用arr[0]来维护堆的大小（算法导论中是采用的这种方式），这里为了直接返回排序的数组，并未这样处理，响应的规律也有所改变，但大同小异。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://likernel.github.io/2017/08/14/堆排序/" data-id="cjdiz17yi0041gkulfsi3xzi2" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/08/14/并查集/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
         
-          并查集
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
         
-      </div>
-    </a>
-  
-  
-    <a href="/2017/08/14/栈和队列/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">栈和队列</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Linux/" style="font-size: 14.29px;">Linux</a> <a href="/tags/PyQt5/" style="font-size: 11.43px;">PyQt5</a> <a href="/tags/django/" style="font-size: 12.86px;">django</a> <a href="/tags/docker/" style="font-size: 11.43px;">docker</a> <a href="/tags/leetcode/" style="font-size: 17.14px;">leetcode</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/web开发/" style="font-size: 12.86px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15.71px;">排序</a> <a href="/tags/操作系统/" style="font-size: 11.43px;">操作系统</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数据结构/" style="font-size: 11.43px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.43px;">深度学习</a> <a href="/tags/算法/" style="font-size: 18.57px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
         
-          <li>
-            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/daqingv5" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
         
-          <li>
-            <a href="/2018/01/31/Docker基础/">Docker基础</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="http://www.twitter.com/likernel" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
         
-          <li>
-            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
         
       </ul>
     </div>
   </div>
-
-  
 </aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">堆排序</div>
         
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 likernel<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
     </div>
-  </div>
-</footer>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">堆排序</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-14T00:39:38.000Z" itemprop="datePublished" class="page-time">
+  2017-08-14
+</time>
+
+
+            
+        </h5>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">主页</a>
-  
-    <a href="/archives" class="mobile-nav-link">文章归档</a>
-  
-</nav>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+</header>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Heapify"><span class="post-toc-number">1.</span> <span class="post-toc-text">Heapify</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MAX-HEAPIFY"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">MAX-HEAPIFY</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HEAPSORT"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">HEAPSORT</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#堆排序"><span class="post-toc-number">2.</span> <span class="post-toc-text">堆排序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现思路"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">实现思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">实现</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
 
 
-<script src="/js/script.js"></script>
+<article id="post-堆排序"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">堆排序</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-14 08:39:38" datetime="2017-08-14T00:39:38.000Z"  itemprop="datePublished">2017-08-14</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。<br><a id="more"></a></p>
+<h1 id="Heapify"><a href="#Heapify" class="headerlink" title="Heapify"></a>Heapify</h1><h2 id="MAX-HEAPIFY"><a href="#MAX-HEAPIFY" class="headerlink" title="MAX-HEAPIFY"></a>MAX-HEAPIFY</h2><p>通过让A[i]的值在最大堆中shift down，从而使得下标i为根结点的子树重新遵循最大堆的性质。</p>
+<p>参照《算法导论》给出相应伪码:</p>
+<pre><code>MAX-HEAPIFY(A, i)
+    l = LEFT(i)
+    r = RIGHT(i)
+    # 找到i，i的左子树的根结点，i的右子树的根结点中值最大的结点
+    if l &lt;= A.heap-size and A[l] &gt; A[i]
+        largest = l
+    else largest = i
+    if r &lt;= A.heap-size and A[r] &gt; A[largest]
+        largest = r
+
+    if largest != i
+        exchange A[i] with A[largest]
+        MAX-HEAPIFY(A, largest)
+</code></pre><p>若值最大的结点不是i，则把最大的值跟i指定的值交换。然后继续对原值最大的结点递归进行MAX-HEAPIFY操作，若值最大的结点就是i，说明以i为根结点的子树已是最大堆，函数结束。</p>
+<p>##BUILD-MAX-HEAP<br>构建最大堆，伪码：</p>
+<pre><code>BUILD-MAX-HEAP(A)
+    A.heap-size = A.length
+    for i = A.length/2 downto 1 #自底向上
+        MAX-HEAPIFY(A, i)
+</code></pre><h2 id="HEAPSORT"><a href="#HEAPSORT" class="headerlink" title="HEAPSORT"></a>HEAPSORT</h2><p>堆排序的实现，伪码：</p>
+<pre><code>HEAPSORT(A)
+    BUILD-MAX-HEAP(A) # 最大元素总是在根结点A[1]中
+    for i = A.length downto 2
+        exchange A[1] with A[i] # 将最大元素往后放在正确的位置i上
+        A.heap-size = A.heap-size - 1 # 去掉结点n
+        MAX-HEAPIFY(A, 1) # 维护，以保证去掉结点n后的堆还是最大堆
+</code></pre><h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>堆排序的实现思路关键就是上面HEAPIFY操作。</p>
+<p>1.首先，构建最大堆<br>2.最大堆的一个性质：最大的元素就是堆顶的元素。我们每次就选择这个元素，这就像选择排序中选择的操作。我们这里不借助中间数组，直接和当前堆尾元素交换。<br>3.使最大元素在尾部不动，前面构成一个堆，维护这个堆，对其进行MAX-HEAPIFY，是前面变成最大堆<br>4.重复上述操作，在堆的规模缩小的同时，完成排序。</p>
+<p>具体过程如下图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2017/08/HeapSort.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code>heap_size = 0
+left = lambda i: 2*i+1
+right = lambda i: 2*i+2
+
+def Heapify(arr, i):
+    l, r = left(i), right(i)
+    largest = l if l &lt; heap_size and arr[l] &gt; arr[i] else i
+    largest = r if r &lt; heap_size and arr[r] &gt; arr[largest] else largest
+    if i != largest:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        Heapify(arr,largest)
+
+def BuildMaxHeap(arr):
+    global heap_size
+    heap_size = len(arr)
+    for i in range(len(arr)//2-1,-1,-1):
+        Heapify(arr,i)
+
+def HeapSort(arr):
+    global heap_size
+    BuildMaxHeap(arr)
+    for i in range(len(arr)-1,-1,-1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heap_size -= 1
+        Heapify(arr,0)
+    return arr
+</code></pre><p>备注：很多情况下都使用arr[0]来维护堆的大小（算法导论中是采用的这种方式），这里为了直接返回排序的数组，并未这样处理，响应的规律也有所改变，但大同小异。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-11T15:28:44.919Z" itemprop="dateUpdated">2018-02-11 23:28:44</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/08/14/堆排序/" target="_blank" rel="external">http://likernel.github.io/2017/08/14/堆排序/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://likernel.github.io">
+            <img src="/img/head.jpg" alt="likernel">
+            likernel
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
 
 
 
-  </div>
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/08/14/堆排序/&title=《堆排序》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/08/14/堆排序/&title=《堆排序》 — likernel&source=之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/08/14/堆排序/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《堆排序》 — likernel&url=http://likernel.github.io/2017/08/14/堆排序/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/08/14/堆排序/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/14/并查集/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">并查集</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/14/栈和队列/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">栈和队列</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'likernel';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢你请我吃糖！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weipay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/weipay.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>likernel &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://likernel.github.io/2017/08/14/堆排序/&title=《堆排序》 — likernel&pic=http://likernel.github.io/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2017/08/14/堆排序/&title=《堆排序》 — likernel&source=之前介绍了二叉堆的相关内容，这里继续前面的知识，介绍一下Heapify的内容，进而具体介绍另一种O(nlogn)的排序算法–堆排序。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://likernel.github.io/2017/08/14/堆排序/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《堆排序》 — likernel&url=http://likernel.github.io/2017/08/14/堆排序/&via=http://likernel.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://likernel.github.io/2017/08/14/堆排序/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOUlEQVR42u3au27EMAxEUf//TztAqgCBpJmhXIi6rhYb28uTguBDzyNf7+81//7/57/X6NnRU88XFwwYMI5lvNNrHu48oPmvzPF6bDBgwLiHoSTTUXB6InaTu/J+GDBgwFDumSdT5Rs9ccOAAQOGknB3Na5uSQoDBgwYburUQ3fb0c97cRgwYBzIqDSWX3/+cL8BAwaMQxiveelPZcO7MCoYMGC0ZszXjfrxiOyvlYGddB4EBgwYLRjfLSDdttY9KLZItTBgwGjHMIbvAjIb9CvxDO+BAQPGNQy3pNNDryxEpc8wYMBozVDWAJXQs/VnPSnDgAGjE2PX6N99gzvCW4wFYcCA0Zrh7hCUO/eO20odOQwYMFowslZTDzdbSboHPmDAgNGbkS0D3IxulHfyEgIGDBj3MPRyMAvRLRaVf9+wtoUBA0ZTRrZQ1H9AGcNlRWTpyAUMGDCOYig3VQ497Gp9F8/CgAHjAkbWuGbrzGxtuYgQBgwYrRl6m6oP9LOFpZvWh00sDBgw2jH0V+ttrVs+zteW9qANBgwYTRnZMQv3QEa2SJCQMGDAaM1wi7xsPZCVkvpSEwYMGL0Zr3kpT+06/2CUpzBgwGjNqB/PcovFXW+GAQPGbQw9yeoBKQ1qJU0bEzsYMGA0YihhKUWeDnaz/qINhgEDBgzzQIa+TnCTsjE1hAEDxsWMLIHqyVpfhZYSLgwYMA5kVJYB2SIzW3NKZ9xgwIDRjuE2kJXFZL1MLGFgwIBxHuMHPBqJh1f3PCoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>
