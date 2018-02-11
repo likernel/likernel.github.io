@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>python实现链表 | likernel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前只是介绍过链表这种数据结构，但是，没有进行详细的讲解，虽然这种数据结构在很多时候，特别是在读取元素的时候，并不是显得很高效，但是仍然值得我们学习，链表问题也是面试中常见的问题，比如：链表的逆置，因此深入的学习这种数据结构很有必要。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python实现链表">
+<meta property="og:url" content="http://likernel.github.io/2017/08/15/python实现链表/index.html">
+<meta property="og:site_name" content="likernel">
+<meta property="og:description" content="之前只是介绍过链表这种数据结构，但是，没有进行详细的讲解，虽然这种数据结构在很多时候，特别是在读取元素的时候，并不是显得很高效，但是仍然值得我们学习，链表问题也是面试中常见的问题，比如：链表的逆置，因此深入的学习这种数据结构很有必要。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-11T15:36:52.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python实现链表">
+<meta name="twitter:description" content="之前只是介绍过链表这种数据结构，但是，没有进行详细的讲解，虽然这种数据结构在很多时候，特别是在读取元素的时候，并不是显得很高效，但是仍然值得我们学习，链表问题也是面试中常见的问题，比如：链表的逆置，因此深入的学习这种数据结构很有必要。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
+  
+    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">likernel</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">文章归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python实现链表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/15/python实现链表/" class="article-date">
+  <time datetime="2017-08-15T03:08:28.000Z" itemprop="datePublished">2017-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python实现链表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前只是介绍过链表这种数据结构，但是，没有进行详细的讲解，虽然这种数据结构在很多时候，特别是在读取元素的时候，并不是显得很高效，但是仍然值得我们学习，链表问题也是面试中常见的问题，比如：链表的逆置，因此深入的学习这种数据结构很有必要。<br><a id="more"></a></p>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>链表是实现了数据之间保持逻辑顺序，但存储空间不必按顺序的方法。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>1.节点：每一个节点有两个域，左边部份叫值域，用于存放用户数据；右边叫指针域，一般是存储着到下一个元素的指针。<br>2.head节点：head是一个特殊的节点，head节点永远指向第一个节点。<br>3.tail节点：tail节点也是一个特殊的节点，tail节点永远指向最后一个节点。<br>4.None：链表中最后一个节点指针域的指针指向None值。</p>
+<h2 id="常用方法："><a href="#常用方法：" class="headerlink" title="常用方法："></a>常用方法：</h2><p>1.LinkedList() 创建空链表，不需要参数，返回值是空链表<br>2.is_empty() 测试链表是否为空，不需要参数，返回值是布尔值<br>3.append(data) 在尾部增加一个元素作为列表最后一个。参数是要追加的元素，无返回值<br>4.iter() 遍历链表，无参数，无返回值，此方法一般是一个生成器<br>5.insert(idx,value) 插入一个元素，参数为插入元素的索引和值<br>6.remove(idx)移除1个元素，参数为要移除的元素或索引，并修改链表<br>7.size() 返回链表的元素数，不需要参数，返回值是个整数<br>8.find(item) 查找链表某元素，参数为要查找的元素或索引，返回是布尔值</p>
+<p>#节点类<br>python用类来实现链表的数据结构，节点类中包含两个属性，数据和指针：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Node:</span><br><span class="line">    def __init__(self, data):</span><br><span class="line">        self.data = data</span><br><span class="line">        self.next = None</span><br></pre></td></tr></table></figure></p>
+<p>此节点类只有一个构建函数，接收一个数据参数，其中next表示指针域的指针，实例化后得到一个节点对象，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node = Node(4)</span><br></pre></td></tr></table></figure></p>
+<p>备注：此节点对象数据为4，指针指向None。</p>
+<h1 id="链表类"><a href="#链表类" class="headerlink" title="链表类"></a>链表类</h1><p>创建空链表，不需要参数，返回值是空链表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class LinkedList:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.head = None</span><br><span class="line">        self.tail = None</span><br></pre></td></tr></table></figure></p>
+<p>此类实例后会生成一个链表对象，初始化了head和tail节点，且两节点都指向None，实例化代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">link_list = LinkedList()</span><br></pre></td></tr></table></figure></p>
+<h1 id="is-empty方法"><a href="#is-empty方法" class="headerlink" title="is_empty方法"></a>is_empty方法</h1><p>is_empty方法检查链表是否是一个空链表，这个方法只需要检查head节点是否指向None即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def is_empty(self):</span><br><span class="line">        return self.head is None</span><br></pre></td></tr></table></figure></p>
+<p>#append方法<br>append方法表示增加元素到链表，这和insert方法不同，前者使新增加的元素成为链表中第一个节点，而后者是根据索引值来判断插入到链表的哪个位置。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def append(self, data):</span><br><span class="line">        node = Node(data)</span><br><span class="line">        if self.head is None:</span><br><span class="line">            self.head = node</span><br><span class="line">            self.tail = node</span><br><span class="line">        else:</span><br><span class="line">            self.tail.next = node</span><br><span class="line">            self.tail = node</span><br></pre></td></tr></table></figure></p>
+<h1 id="iter方法实现"><a href="#iter方法实现" class="headerlink" title="iter方法实现"></a>iter方法实现</h1><p>iter方法用来遍历链表，分两种情况：<br>1.空链表<br>2.遍历链表时从head开始，直到一个节点的next指向None结束，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def iter(self):</span><br><span class="line">        if not self.head:</span><br><span class="line">            return</span><br><span class="line">        cur = self.head</span><br><span class="line">        yield cur.data</span><br><span class="line">        while cur.next:</span><br><span class="line">            cur = cur.next</span><br><span class="line">            yield cur.data</span><br></pre></td></tr></table></figure></p>
+<p>备注：使用局部变量cur指向head,把对应的data yield出来，再对cur的next指针指向的对象做while循环，直到next指向None，这样就遍历了链表。</p>
+<h1 id="insert方法"><a href="#insert方法" class="headerlink" title="insert方法"></a>insert方法</h1><p>采用遍历的方式找到需要插入，改变对应的指针域所指的位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def insert(self, idx, value):</span><br><span class="line">        cur = self.head</span><br><span class="line">        cur_idx = 0</span><br><span class="line">        if cur is None:</span><br><span class="line">            raise Exception(&apos;The list is an empty list&apos;)</span><br><span class="line">        while cur_idx &lt; idx-1:</span><br><span class="line">            cur = cur.next</span><br><span class="line">            if cur is None:</span><br><span class="line">                raise Exception(&apos;list length less than index&apos;)</span><br><span class="line">            cur_idx += 1</span><br><span class="line">        node = Node(value)</span><br><span class="line">        node.next = cur.next</span><br><span class="line">        cur.next = node</span><br><span class="line">        if node.next is None:</span><br><span class="line">            self.tail = node</span><br></pre></td></tr></table></figure></p>
+<p>#remove方法<br>remove方法接收一个idx参数，表示要删除节点的索引，此方法要考虑以下几种情况：<br>1.空链表，直接抛出异常<br>2.删除第一个节点时，移动head到删除节点的next指针指向的对象<br>3.链表只有一个节点时，把head与tail都指向None即可<br>4.删除最后一个节点时，需要移动tail到上一个节点<br>5.遍历链表时要判断给定的索引是否大于链表的长度，如果大于则抛出异常信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def remove(self, idx):</span><br><span class="line">       cur = self.head</span><br><span class="line">       cur_idx = 0</span><br><span class="line">       if self.head is None:  # 空链表时</span><br><span class="line">           raise Exception(&apos;The list is an empty list&apos;)</span><br><span class="line">       while cur_idx &lt; idx-1:</span><br><span class="line">           cur = cur.next</span><br><span class="line">           if cur is None:</span><br><span class="line">               raise Exception(&apos;list length less than index&apos;)</span><br><span class="line">           cur_idx += 1</span><br><span class="line">       if idx == 0:   # 当删除第一个节点时</span><br><span class="line">           self.head = cur.next</span><br><span class="line">           cur = cur.next</span><br><span class="line">           return</span><br><span class="line">       if self.head is self.tail:   # 当只有一个节点的链表时</span><br><span class="line">           self.head = None</span><br><span class="line">           self.tail = None</span><br><span class="line">           return</span><br><span class="line">       cur.next = cur.next.next</span><br><span class="line">       if cur.next is None:  # 当删除的节点是链表最后一个节点时</span><br><span class="line">           self.tail = cur</span><br></pre></td></tr></table></figure></p>
+<h1 id="size方法"><a href="#size方法" class="headerlink" title="size方法"></a>size方法</h1><p>size函数不接收参数，返回链表中节点的个数，遍历链表，用一个累加器count来计算节点的个数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def size(self):</span><br><span class="line">        current = self.head</span><br><span class="line">        count = 0</span><br><span class="line">        if current is None:</span><br><span class="line">            return &apos;The list is an empty list&apos;</span><br><span class="line">        while current is not None:</span><br><span class="line">            count += 1</span><br><span class="line">            current = current.next</span><br><span class="line">        return count</span><br></pre></td></tr></table></figure></p>
+<h1 id="find方法"><a href="#find方法" class="headerlink" title="find方法"></a>find方法</h1><p>find函数接收一个item参数，表示查找节点中数据域的值。find方法遍历链表，每到一个节点把当前节点的data值与item作比较：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def find(self, item):</span><br><span class="line">        current = self.head</span><br><span class="line">        found = False</span><br><span class="line">        while current is not None and not found:</span><br><span class="line">            if current.data == item:</span><br><span class="line">                found = True</span><br><span class="line">            else:</span><br><span class="line">                current = current.next</span><br><span class="line">        return found</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://likernel.github.io/2017/08/15/python实现链表/" data-id="cjdiyi1vh0033kgul510zcrpa" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/17/Python进程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python进程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/14/并查集/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">并查集</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/"> - python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-排序/"> - 算法 - 排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyQt5/">PyQt5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web开发/">web开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/python/" style="font-size: 13.33px;"> - python</a> <a href="/tags/算法-排序/" style="font-size: 10px;"> - 算法 - 排序</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/PyQt5/" style="font-size: 11.67px;">PyQt5</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a> <a href="/tags/python/" style="font-size: 18.33px;">python</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.67px;">深度学习</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/Docker基础/">Docker基础</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 likernel<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章归档</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

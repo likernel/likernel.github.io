@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python多态 | likernel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="主要针对之前的鸭子类型，我们对Python的多态的知识点进行一个总结。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python多态">
+<meta property="og:url" content="http://likernel.github.io/2017/08/10/Python多态/index.html">
+<meta property="og:site_name" content="likernel">
+<meta property="og:description" content="主要针对之前的鸭子类型，我们对Python的多态的知识点进行一个总结。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-11T15:38:18.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python多态">
+<meta name="twitter:description" content="主要针对之前的鸭子类型，我们对Python的多态的知识点进行一个总结。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
+  
+    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">likernel</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">文章归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python多态" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/10/Python多态/" class="article-date">
+  <time datetime="2017-08-10T01:05:07.000Z" itemprop="datePublished">2017-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python多态
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主要针对之前的鸭子类型，我们对Python的多态的知识点进行一个总结。<br><a id="more"></a></p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>先看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &quot;This is a book&quot;.count(&quot;s&quot;)</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; [1,2,4,3,5,3].count(3)</span><br><span class="line">2</span><br></pre></td></tr></table></figure></p>
+<p>上面的count()的作用是数一数某个元素在对象中出现的次数。从例子中可以看出，我们并没有限定count的参数。类似的例子还有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = lambda x,y:x+y</span><br><span class="line">&gt;&gt;&gt; f(2,3)</span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; f(&quot;qiw&quot;,&quot;sir&quot;)</span><br><span class="line">&apos;qiwsir&apos;</span><br><span class="line">&gt;&gt;&gt; f([&quot;python&quot;,&quot;java&quot;],[&quot;c++&quot;,&quot;lisp&quot;])</span><br><span class="line">[&apos;python&apos;, &apos;java&apos;, &apos;c++&apos;, &apos;lisp&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>在那个lambda函数中，我们没有限制参数的类型，也一定不能限制，因为如果限制了，就不是pythonic了。在使用的时候，可以给参数任意类型，都能到的不报错的结果。当然，这样做之所以合法，更多的是来自于+的功能强悍。</p>
+<p>其实上面的例子就体现了什么叫做多态。其实就是“有多种形式”，就算不知道变量（参数）所引用的对象类型，也一样能进行操作，来者不拒。</p>
+<p>下面给一个关于猫和狗的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding=utf-8</span><br><span class="line"></span><br><span class="line">&quot;the code is from: http://zetcode.com/lang/python/oop/&quot;</span><br><span class="line"></span><br><span class="line">__metaclass__ = type</span><br><span class="line"></span><br><span class="line">class Animal:</span><br><span class="line">    def __init__(self, name=&quot;&quot;):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    def talk(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class Cat(Animal):</span><br><span class="line">    def talk(self):</span><br><span class="line">        print &quot;Meow!&quot;</span><br><span class="line"></span><br><span class="line">class Dog(Animal):</span><br><span class="line">    def talk(self):</span><br><span class="line">        print &quot;Woof!&quot;</span><br><span class="line"></span><br><span class="line">a = Animal()</span><br><span class="line">a.talk()    # 无结果</span><br><span class="line"></span><br><span class="line">c = Cat(&quot;Missy&quot;)</span><br><span class="line">c.talk()    # Meow!</span><br><span class="line"></span><br><span class="line">d = Dog(&quot;Rocky&quot;)</span><br><span class="line">d.talk()    # Woof!</span><br></pre></td></tr></table></figure></p>
+<p>代码中有Cat和Dog两个类，都继承了类Animal，它们都有talk()方法，输入不同的动物名称，会得出相应的结果。</p>
+<p>备注：</p>
+<blockquote>
+<p>可以回忆一下鸭子类型里面的内容，可以加深你的理解。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://likernel.github.io/2017/08/10/Python多态/" data-id="cjdiyi1u3000xkgulrc9orzvh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/13/插入排序/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          插入排序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/09/Python2和Python3的区别/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python2和Python3的区别</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/"> - python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法-排序/"> - 算法 - 排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyQt5/">PyQt5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web开发/">web开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/python/" style="font-size: 13.33px;"> - python</a> <a href="/tags/算法-排序/" style="font-size: 10px;"> - 算法 - 排序</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/PyQt5/" style="font-size: 11.67px;">PyQt5</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a> <a href="/tags/python/" style="font-size: 18.33px;">python</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 11.67px;">深度学习</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/Docker基础/">Docker基础</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 likernel<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章归档</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
