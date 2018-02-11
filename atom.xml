@@ -82,9 +82,9 @@ sudo apt-get install apt-transport-https ca-certificates
     </summary>
     
     
-      <category term="python" scheme="http://likernel.github.io/tags/python/"/>
-    
       <category term="PyQt5" scheme="http://likernel.github.io/tags/PyQt5/"/>
+    
+      <category term="python" scheme="http://likernel.github.io/tags/python/"/>
     
   </entry>
   
@@ -104,9 +104,9 @@ sudo apt-get install apt-transport-https ca-certificates
     </summary>
     
     
-      <category term="python" scheme="http://likernel.github.io/tags/python/"/>
-    
       <category term="PyQt5" scheme="http://likernel.github.io/tags/PyQt5/"/>
+    
+      <category term="python" scheme="http://likernel.github.io/tags/python/"/>
     
   </entry>
   
