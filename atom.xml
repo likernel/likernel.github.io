@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>likernel</title>
+  <icon>https://www.gravatar.com/avatar/d0e54b3b2e11646353dba604f4cd06d9</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://likernel.github.io/"/>
+  <updated>2018-02-11T12:36:22.951Z</updated>
+  <id>http://likernel.github.io/</id>
+  
+  <author>
+    <name>likernel</name>
+    <email>daqingv5@foxmail.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu下安装Docker</title>
+    <link href="http://likernel.github.io/2018/01/31/Ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85Docker/"/>
+    <id>http://likernel.github.io/2018/01/31/Ubuntu下安装Docker/</id>
+    <published>2018-01-31T08:51:27.000Z</published>
+    <updated>2018-02-11T12:36:22.951Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文主要介绍在Ubuntu下Docker的安装。</p><h2 id="Ubuntu下安装Docker"><a href="#Ubuntu下安装Docker" class="headerlink" title="Ubuntu下安装Docker"></a>Ubuntu下安装Docker</h2><h4 id="检查当前内核版本："><a href="#检查当前内核版本：" class="headerlink" title="检查当前内核版本："></a>检查当前内核版本：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line">4.14.0-041400-generic</span><br></pre></td></tr></table></figure><p>内核版本要求最低为 3.10。</p><h4 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h4><p>Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：<br>1.更新包信息，确保APT能使用https的方式，并安装CA证书：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure></p><p>2.添加GPG密钥：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure></p><p>3.在文件 /etc/apt/sources.list.d/docker.list中添加相应的源。对于16.04版本的系统：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure></p><p>4.更新APT包索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p><p>5.确保 APT 现在是从设置的仓库中下载Docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy docker-engine</span><br></pre></td></tr></table></figure></p><p>执行后输出：<br><img src="/assets/images/2018/01/docker1.png" alt=""><br>6.对于Ubuntu 16.04，推荐安装linux-image-extra-* 内核包。这些包能允许我们使用aufs存储驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure></p><h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y docker-engine</span><br></pre></td></tr></table></figure><p>开启守护进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></p><p>确认docker正确安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure></p><p>输出如下：</p><p><img src="/assets/images/2018/01/docker2.png" alt=""></p><p>查看 docker 守护进程的状态：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></table></figure></p><p>输出如下：</p><p><img src="/assets/images/2018/01/docker3.png" alt=""><br>如果不想每次运行Docker都使用sudo权限，可以把用户加到Docker组中，该组在Docker安装时自动创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $(whoami)</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文主要介绍在Ubuntu下Docker的安装。&lt;/p&gt;
+&lt;h2 id=&quot;Ubuntu下安装Docker&quot;&gt;&lt;a href=&quot;#Ubuntu下安装Docker&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu下安装Docker&quot;&gt;&lt;/a&gt;Ubuntu下安装
+      
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="http://likernel.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--4 Sum</title>
+    <link href="http://likernel.github.io/2017/07/23/leetcode-4-Sum/"/>
+    <id>http://likernel.github.io/2017/07/23/leetcode-4-Sum/</id>
+    <published>2017-07-23T08:18:35.000Z</published>
+    <updated>2018-02-11T10:27:51.649Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="4-Sum"><a href="#4-Sum" class="headerlink" title="4 Sum"></a>4 Sum</h3><p>Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.</p><p>The solution set must not contain duplicate quadruplets.</p><a id="more"></a><p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">given array S = [1, 0, -1, 0, -2, 2], and target = 0.</span><br><span class="line">A solution set is:</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p><p><strong>思路：</strong><br>n重循环这里就不做赘述了，而且可能会引起超时，肯定不是出题者的本意，这里使用hash表来实现。</p><ol><li>将问题转化为3sum，即我们可以将两个元素求和之后当做一个元素处理。首先建立一个字典dict，字典的key值为数组中每两个元素的和，每个key对应的value为这两个元素的下标组成的元组。</li><li>接下来就转化为3sum的问题，有一些细节仍需要处理，我们需要找到满足的value。</li><li>根据value找到对应的下标，判断下标是否和当前遍历元素的下标重复。不重复则将结果添加至结果集中。</li></ol><p><strong>实现：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">def fourSum(self, nums, target):</span><br><span class="line">        nums_len, res, dict = len(nums), set(), &#123;&#125;</span><br><span class="line">        if nums_len &lt; 4: return []</span><br><span class="line">        nums.sort()</span><br><span class="line">        # 将值添加至至dict</span><br><span class="line">        for i in range(nums_len):</span><br><span class="line">            for j in range(i+1, nums_len):</span><br><span class="line">                if nums[i]+nums[j] not in dict:</span><br><span class="line">                    dict[nums[i]+nums[j]] = [(i,j)]</span><br><span class="line">                else:</span><br><span class="line">                    dict[nums[i]+nums[j]].append((i,j))</span><br><span class="line">        # 查找Value   </span><br><span class="line">        for i in range(nums_len):</span><br><span class="line">            for j in range(i+1, nums_len-2):</span><br><span class="line">                V = target-nums[i]-nums[j]</span><br><span class="line">                if V in dict:</span><br><span class="line">                    for k in dict[V]:</span><br><span class="line">                        if k[0] &gt; j: res.add((nums[i],nums[j],nums[k[0]],nums[k[1]]))</span><br><span class="line">        return [list(i) for i in res]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;4-Sum&quot;&gt;&lt;a href=&quot;#4-Sum&quot; class=&quot;headerlink&quot; title=&quot;4 Sum&quot;&gt;&lt;/a&gt;4 Sum&lt;/h3&gt;&lt;p&gt;Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.&lt;/p&gt;
+&lt;p&gt;The solution set must not contain duplicate quadruplets.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--3 Sum</title>
+    <link href="http://likernel.github.io/2017/07/23/leetcode-3-Sum/"/>
+    <id>http://likernel.github.io/2017/07/23/leetcode-3-Sum/</id>
+    <published>2017-07-23T08:12:02.000Z</published>
+    <updated>2018-02-11T10:22:22.963Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="3-Sum"><a href="#3-Sum" class="headerlink" title="3 Sum"></a>3 Sum</h3><p>Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.</p><p>The solution set must not contain duplicate triplets.</p><a id="more"></a><p><strong>Example：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">given array S = [-1, 0, 1, 2, -1, -4],</span><br><span class="line">A solution set is:</span><br><span class="line">[</span><br><span class="line">  [-1, 0, 1],</span><br><span class="line">  [-1, -1, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p><p><strong>思路：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.首先，还是进行排序处理，然后对三个数我们分别做如下处理：</span><br><span class="line">2.第一个数当做基准数，从数组第一个数开始一直向右遍历到倒数第三个数。</span><br><span class="line">3.另外两个数我们每次都只从基准数右边选取，可以将右边部分当做一个新的数组。</span><br><span class="line">4.借助两个变量（类似于指针），分别指向这个新数组最左和最右元素即为剩下要处理的两个数。</span><br><span class="line">5.有了这三个数我们做如下讨论：</span><br><span class="line">6.如果这三个数之和小于0，则左指针加1；大于0则右指针减1；否则，满足条件，把当前三个数加入结果集，两个指针同时向中间移动。</span><br><span class="line">7.两指针相遇，则基准数下所有结果已经遍历完成，基准数加1，继续寻找结果。</span><br><span class="line">8.这里我们所有结果找到了，但是没有处理重复，思路如下：</span><br><span class="line">9.在基准数操作的时候，有这种情况，如果这个基准数和上一个基准数一样，那么，后面的操作就重复了，得到的结果也会重复，所以，在操作之前，需要判断基准数是否和上一个重复，这样可以避免重复。</span><br><span class="line">10.同样在指针操作的时候，如果和指向的上一个数字一样，也会造成重复，所以，也需要进行判断处理。</span><br></pre></td></tr></table></figure></p><p><strong>解法：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def threeSum(self, nums):</span><br><span class="line">        nums.sort()</span><br><span class="line">        res,i = [],0</span><br><span class="line">        for i in range(len(nums)-2):</span><br><span class="line">            if i == 0 or nums[i] != nums[i-1]:</span><br><span class="line">                lp ,rp= i+1 ,len(nums)-1</span><br><span class="line">                while lp &lt; rp:</span><br><span class="line">                    if nums[i]+nums[lp]+nums[rp] &lt; 0:</span><br><span class="line">                        lp += 1</span><br><span class="line">                    elif nums[i]+nums[lp]+nums[rp] &gt; 0:</span><br><span class="line">                        rp -= 1</span><br><span class="line">                    else:</span><br><span class="line">                        res.append([nums[i],nums[lp],nums[rp]])</span><br><span class="line">                        lp += 1</span><br><span class="line">                        rp -= 1</span><br><span class="line">                        while lp &lt; rp and nums[lp] == nums[lp-1]:</span><br><span class="line">                            lp += 1</span><br><span class="line">                        while lp &lt; rp and nums[rp] == nums[rp+1]:</span><br><span class="line">                            rp -= 1</span><br><span class="line">            i += 1</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure></p><p>备注：在判断指针指向重复的时候一定要使用while，不能用if，因为你不清楚是否是连续重复，如果用if，判断了一次就跳出循环了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;3-Sum&quot;&gt;&lt;a href=&quot;#3-Sum&quot; class=&quot;headerlink&quot; title=&quot;3 Sum&quot;&gt;&lt;/a&gt;3 Sum&lt;/h3&gt;&lt;p&gt;Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.&lt;/p&gt;
+&lt;p&gt;The solution set must not contain duplicate triplets.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数组" scheme="http://likernel.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+</feed>
