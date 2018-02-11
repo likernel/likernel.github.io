@@ -187,10 +187,24 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要介绍在Ubuntu下Docker的安装。<br>
-        
-          <a class="article-more-a" href="/2018/01/31/Ubuntu下安装Docker/#more">more >></a>
-        
+        <p>本文主要介绍在Ubuntu下Docker的安装。</p>
+<h2 id="Ubuntu下安装Docker"><a href="#Ubuntu下安装Docker" class="headerlink" title="Ubuntu下安装Docker"></a>Ubuntu下安装Docker</h2><h4 id="检查当前内核版本："><a href="#检查当前内核版本：" class="headerlink" title="检查当前内核版本："></a>检查当前内核版本：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line">4.14.0-041400-generic</span><br></pre></td></tr></table></figure>
+<p>内核版本要求最低为 3.10。</p>
+<h4 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h4><p>Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：<br>1.更新包信息，确保APT能使用https的方式，并安装CA证书：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure></p>
+<p>2.添加GPG密钥：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure></p>
+<p>3.在文件 /etc/apt/sources.list.d/docker.list中添加相应的源。对于16.04版本的系统：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure></p>
+<p>4.更新APT包索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p>
+<p>5.确保 APT 现在是从设置的仓库中下载Docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy docker-engine</span><br></pre></td></tr></table></figure></p>
+<p>执行后输出：<br><img src="/assets/images/2018/01/docker1.png" alt=""><br>6.对于Ubuntu 16.04，推荐安装linux-image-extra-* 内核包。这些包能允许我们使用aufs存储驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y docker-engine</span><br></pre></td></tr></table></figure>
+<p>开启守护进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></p>
+<p>确认docker正确安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure></p>
+<p>输出如下：</p>
+<p><img src="/assets/images/2018/01/docker2.png" alt=""></p>
+<p>查看 docker 守护进程的状态：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></table></figure></p>
+<p>输出如下：</p>
+<p><img src="/assets/images/2018/01/docker3.png" alt=""><br>如果不想每次运行Docker都使用sudo权限，可以把用户加到Docker组中，该组在Docker安装时自动创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $(whoami)</span><br></pre></td></tr></table></figure></p>
+
       
 
       
@@ -523,10 +537,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
@@ -536,6 +546,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
             
             <div class="clearfix"></div>
