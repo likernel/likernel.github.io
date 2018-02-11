@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://likernel.github.io/"/>
-  <updated>2018-02-11T12:36:22.951Z</updated>
+  <updated>2018-02-11T14:46:28.577Z</updated>
   <id>http://likernel.github.io/</id>
   
   <author>
@@ -21,22 +21,373 @@
     <link href="http://likernel.github.io/2018/01/31/Ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85Docker/"/>
     <id>http://likernel.github.io/2018/01/31/Ubuntu下安装Docker/</id>
     <published>2018-01-31T08:51:27.000Z</published>
-    <updated>2018-02-11T12:36:22.951Z</updated>
+    <updated>2018-02-11T14:46:28.577Z</updated>
     
-    <content type="html"><![CDATA[<p>本文主要介绍在Ubuntu下Docker的安装。</p><h2 id="Ubuntu下安装Docker"><a href="#Ubuntu下安装Docker" class="headerlink" title="Ubuntu下安装Docker"></a>Ubuntu下安装Docker</h2><h4 id="检查当前内核版本："><a href="#检查当前内核版本：" class="headerlink" title="检查当前内核版本："></a>检查当前内核版本：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line">4.14.0-041400-generic</span><br></pre></td></tr></table></figure><p>内核版本要求最低为 3.10。</p><h4 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h4><p>Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：<br>1.更新包信息，确保APT能使用https的方式，并安装CA证书：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure></p><p>2.添加GPG密钥：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure></p><p>3.在文件 /etc/apt/sources.list.d/docker.list中添加相应的源。对于16.04版本的系统：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure></p><p>4.更新APT包索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p><p>5.确保 APT 现在是从设置的仓库中下载Docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy docker-engine</span><br></pre></td></tr></table></figure></p><p>执行后输出：<br><img src="/assets/images/2018/01/docker1.png" alt=""><br>6.对于Ubuntu 16.04，推荐安装linux-image-extra-* 内核包。这些包能允许我们使用aufs存储驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure></p><h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y docker-engine</span><br></pre></td></tr></table></figure><p>开启守护进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></p><p>确认docker正确安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure></p><p>输出如下：</p><p><img src="/assets/images/2018/01/docker2.png" alt=""></p><p>查看 docker 守护进程的状态：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></table></figure></p><p>输出如下：</p><p><img src="/assets/images/2018/01/docker3.png" alt=""><br>如果不想每次运行Docker都使用sudo权限，可以把用户加到Docker组中，该组在Docker安装时自动创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $(whoami)</span><br></pre></td></tr></table></figure></p>]]></content>
+    <content type="html"><![CDATA[<p>本文主要介绍在Ubuntu下Docker的安装。</p><h2 id="Ubuntu下安装Docker"><a href="#Ubuntu下安装Docker" class="headerlink" title="Ubuntu下安装Docker"></a>Ubuntu下安装Docker</h2><h4 id="检查当前内核版本："><a href="#检查当前内核版本：" class="headerlink" title="检查当前内核版本："></a>检查当前内核版本：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line">4.14.0-041400-generic</span><br></pre></td></tr></table></figure><p>内核版本要求最低为 3.10。</p><h4 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h4><p>Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：<br>1.更新包信息，确保APT能使用https的方式，并安装CA证书：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure></p><a id="more"></a><p>2.添加GPG密钥：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure></p><p>3.在文件 /etc/apt/sources.list.d/docker.list中添加相应的源。对于16.04版本的系统：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure></p><p>4.更新APT包索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p><p>5.确保 APT 现在是从设置的仓库中下载Docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy docker-engine</span><br></pre></td></tr></table></figure></p><p>执行后输出：<br><img src="/assets/images/2018/01/docker1.png" alt=""><br>6.对于Ubuntu 16.04，推荐安装linux-image-extra-* 内核包。这些包能允许我们使用aufs存储驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure></p><h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y docker-engine</span><br></pre></td></tr></table></figure><p>开启守护进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></p><p>确认docker正确安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure></p><p>输出如下：</p><p><img src="/assets/images/2018/01/docker2.png" alt=""></p><p>查看 docker 守护进程的状态：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></table></figure></p><p>输出如下：</p><p><img src="/assets/images/2018/01/docker3.png" alt=""><br>如果不想每次运行Docker都使用sudo权限，可以把用户加到Docker组中，该组在Docker安装时自动创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $(whoami)</span><br></pre></td></tr></table></figure></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;本文主要介绍在Ubuntu下Docker的安装。&lt;/p&gt;
-&lt;h2 id=&quot;Ubuntu下安装Docker&quot;&gt;&lt;a href=&quot;#Ubuntu下安装Docker&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu下安装Docker&quot;&gt;&lt;/a&gt;Ubuntu下安装
-      
+      &lt;p&gt;本文主要介绍在Ubuntu下Docker的安装。&lt;/p&gt;
+&lt;h2 id=&quot;Ubuntu下安装Docker&quot;&gt;&lt;a href=&quot;#Ubuntu下安装Docker&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu下安装Docker&quot;&gt;&lt;/a&gt;Ubuntu下安装Docker&lt;/h2&gt;&lt;h4 id=&quot;检查当前内核版本：&quot;&gt;&lt;a href=&quot;#检查当前内核版本：&quot; class=&quot;headerlink&quot; title=&quot;检查当前内核版本：&quot;&gt;&lt;/a&gt;检查当前内核版本：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ uname -r&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4.14.0-041400-generic&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;内核版本要求最低为 3.10。&lt;/p&gt;
+&lt;h4 id=&quot;更新apt源&quot;&gt;&lt;a href=&quot;#更新apt源&quot; class=&quot;headerlink&quot; title=&quot;更新apt源&quot;&gt;&lt;/a&gt;更新apt源&lt;/h4&gt;&lt;p&gt;Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：&lt;br&gt;1.更新包信息，确保APT能使用https的方式，并安装CA证书：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get install apt-transport-https ca-certificates&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     
     
       <category term="docker" scheme="http://likernel.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker基础</title>
+    <link href="http://likernel.github.io/2018/01/31/Docker%E5%9F%BA%E7%A1%80/"/>
+    <id>http://likernel.github.io/2018/01/31/Docker基础/</id>
+    <published>2018-01-31T04:41:15.000Z</published>
+    <updated>2018-02-11T14:49:33.142Z</updated>
+    
+    <content type="html"><![CDATA[<p>Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：</p><blockquote><p>Build once，Run anywhere，Configure once，Run anything.</p></blockquote><a id="more"></a><h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>如果把Docker当做一个独立的软件来看，它就是用Golang写的开源程序，采用C/S架构，包含Docker Server和Docker Client。docker生态包括两个部分：Docker仓库和Docker自身程序。</p><h4 id="Docker仓库"><a href="#Docker仓库" class="headerlink" title="Docker仓库"></a>Docker仓库</h4><p>官方的Docker仓库地址为：<a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a>，上面的应用非常丰富，既有各大公司打包的应用，也有大量个人开发者提供的应用。</p><h4 id="Docker自身程序"><a href="#Docker自身程序" class="headerlink" title="Docker自身程序"></a>Docker自身程序</h4><p>Docker运行在Linux操作系统之上，属于用户态程序，通过一些接口和内核交互。Docker Daemon作为Server端，在宿主机上以后台守护进程的形式运行。Docker Client使用比较灵活，既可以在本机上以bin命令的形式发送指令，也可在远端通过RESTful API的形式发送指令；Docker的Server端接受指令并把指令分解为一系列任务去执行。</p><h4 id="Docker工作流程"><a href="#Docker工作流程" class="headerlink" title="Docker工作流程"></a>Docker工作流程</h4><p>一图胜千言：<br><img src="/assets/images/2018/01/docker-liucheng.png" alt=""></p><p>可以理解为github版的应用部署解决方案。</p><h4 id="Docker分层"><a href="#Docker分层" class="headerlink" title="Docker分层"></a>Docker分层</h4><p>首先，用户的需求是：把软件运行起来，至于如何安装软件、软件运行在什么操作系统上，用户不太关心。就把软件和它依赖的环境（操作系统、共享库）、配置文件打包在一起，以虚拟机的形式放到官方库。但是，这样存在一个问题：我们不需要每次安装软件都带上它依赖的操作系统，因此引入了分层。比如操作系统是第一层，依赖库和第三方软件是第二层，应用的软件包和配置文件是第三层。如果两个应用有相同的底层，就可以共享这些库。例如下图中应用A和B需要的操作系统一样，就可以共享这一层。</p><p><img src="/assets/images/2018/01/share-1.png" alt=""><br>但是这样共享层存在冲突问题，这时候就要规定他们的优先级，一般下层和上层有相同的文件和配置时，上层覆盖下层，数据以上层数据为主。我们给每个应用一个优先级最高的空白层，如果需要修改下层文件，就把这个文件拷贝到这个空白层即可。如下图：</p><p><img src="/assets/images/2018/01/conflict.png" alt=""></p><p>这样从应用A的角度来说，文件已经修改成功，而从应用B的角度来看，文件没发生任何变化。这就是Docker的分层和写时拷贝策略</p><h4 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h4><p>主流的虚拟机一般比较笨重（需要消耗大量的系统资源，如：CPU、内存），因此我们最好使用容器类虚拟机（例如OpenVZ、VServer、LXC），这是一种内核虚拟化技术，与宿主机运行在相同的Linux内核，不需要指令级模拟，性能消耗非常小，是非常轻量级的虚拟化容器。Docker使用的就是LXC（后来推出了libcontainer）。</p><p>接下来就讨论镜像和容器：在Docker的官方仓库里只有一些完整的文件系统和程序包，没有动态生成新文件的需求，此为镜像（image）。把镜像下载到宿主机对外提供服务时，有可能需要修改文件（比如输出新日志到日志文件中），此为容器。</p><p><img src="/assets/images/2018/01/image-container.png" alt=""><br>仓库中的应用都是以镜像的形式存在的，把镜像从Docker仓库拉到本机，以这个镜像为模板启动应用就叫容器。这是Docker最核心的两个概念，所有的指令和文档都是围绕镜像和容器展开的。</p><h4 id="Docker变更管理"><a href="#Docker变更管理" class="headerlink" title="Docker变更管理"></a>Docker变更管理</h4><p>举个栗子，现有一个应用的Docker镜像，V1.0版本有三层。<br>接下来需要做如下修改：</p><ul><li>修改位于第一层的文件A。</li><li>删除位于第二层的文件B。</li><li>新建一个文件C。</li></ul><p>Docker会新建一个第四层，针对上面的修改，它的处理方法如下：</p><ul><li>把第一层的文件A拷贝到第四层，修改文件A的内容。</li><li>在第四层把文件B设置为不存在。</li><li>在第四层创建以个文件C。</li></ul><p>这时候版本就变为了V1.1，我们发布到Docker仓库时，只需要把第四层上传到仓库即可。</p><p><img src="/assets/images/2018/01/version-change.png" alt=""></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[^1]: 《循序渐进学Docker》李金榜，尹烨等. 编著</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Docker是一个开源的应用程序引擎。Docker使用容器引擎解决平台依赖问题，它在每台宿主机上都启动一个Docker的守护进程，守护进程屏蔽了与具体平台相关的信息，对上层应用提供统一的接口。这样Docker化的应用，就可以在多个平台下运行，Docker会针对不同的平台，解析给不同平台下的执行驱动、存储驱动和网络驱动去执行。达到：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Build once，Run anywhere，Configure once，Run anything.&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="http://likernel.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyQt5之信号与槽</title>
+    <link href="http://likernel.github.io/2018/01/25/PyQt5%E4%B9%8B%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD/"/>
+    <id>http://likernel.github.io/2018/01/25/PyQt5之信号与槽/</id>
+    <published>2018-01-25T04:13:52.000Z</published>
+    <updated>2018-02-11T14:56:40.466Z</updated>
+    
+    <content type="html"><![CDATA[<p>PyQt5中最核心的内容就是信号与槽。本文主要结合一个简单的实例对这部分内容进行详细的介绍。<br><a id="more"></a></p><h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><p>本文是笔者在学习pyQt5中的学习笔记，需要建立在一定基础之上，如下。</p><ul><li>Python面向对象知识</li><li>了解PyQt5基本操作：布局、常用控件等。</li><li>Qt Designer的使用</li></ul><h2 id="何谓信号与槽"><a href="#何谓信号与槽" class="headerlink" title="何谓信号与槽"></a>何谓信号与槽</h2><p>信号和槽机制是PyQt5的核心机制，主要用来在对象之间传递数据。具体的过程是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">事件发生-&gt;发射signal-&gt;slot响应</span><br></pre></td></tr></table></figure></p><h4 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h4><p>当对象的状态发生变化的时候，信号就由对象发射（emit）出去，与其关联的槽函数立刻被执行。</p><p>对象只负责发送信号，不关心是哪个对象接收信号。这样保证了对象与对象之间的低耦合。</p><h4 id="槽"><a href="#槽" class="headerlink" title="槽"></a>槽</h4><p>负责接受信号，当和槽连接的信号被发射时，槽会被调用。一个槽并不知道是否有信号与自己相连。</p><h2 id="如何连接信号与槽"><a href="#如何连接信号与槽" class="headerlink" title="如何连接信号与槽"></a>如何连接信号与槽</h2><p>在Qt Designer中，有很便捷的方法。在Edit中通过Edit Signals/Slots（F4）连接信号与槽。但是这种方式，并不能完全满足我们的需求，很多时候我们需要手动（手写代码）连接信号与槽。</p><h4 id="手动连接信号与槽"><a href="#手动连接信号与槽" class="headerlink" title="手动连接信号与槽"></a>手动连接信号与槽</h4><p>手动连接主要下面三种方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.connect(widgets,SIGNAL(&quot;signal&quot;),func)</span><br><span class="line">self.connect(widgets,SIGNAL(&quot;signal&quot;),instance.methodname)</span><br><span class="line">self.connect(widgets,SIGNAL(&quot;signal&quot;),instance,SLOT(&quot;slotSignature&quot;))</span><br></pre></td></tr></table></figure></p><p>##自定义槽函数<br>Qt中的对象有很多预定义的信号和槽函数。但是预定义的槽函数毕竟有限，我们需要自定义槽函数，实现我们的需求。当然可以通过eric自动生成槽函数，但是这种方式主要的逻辑仍然需要自己实现，这里就不介绍。</p><p>举个栗子：这里用自己写的一个岩体分级的工具为例。逻辑非常简单：就是输入一堆参数，得到一个结果，通过结果对岩体进行分级，界面如下。</p><p><img src="/assets/images/2018/01/Qclassify-ui.png" alt=""></p><p>UI设计通过Qt Designer生成。</p><p>逻辑部分和UI部分分离，新建.py文件，创建一个类，继承QMainWindow和QtDesigner生成的UI类Ui_MainWindow。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MainWindow(QMainWindow, Ui_MainWindow):</span><br><span class="line">    global QRD, Jn, Jr, Ja, Jw, SRF, res,rl</span><br><span class="line">    def __init__(self, parent = None):</span><br><span class="line">        QMainWindow.__init__(self,parent)</span><br><span class="line">        self.setupUi(self)</span><br></pre></td></tr></table></figure></p><p>继承父类Ui_MainWindow的setupUi方法，setupUi方法中通过控件的名字来自动连接槽：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QtCore.QMetaObject.connectSlotsByName(MainWindow)</span><br></pre></td></tr></table></figure></p><p>通过自定义槽函数来实现特定的功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def on_pushButton_clicked(self):</span><br><span class="line">    self.test()</span><br></pre></td></tr></table></figure></p><p>其中test()主要实现具体的逻辑功能，注意这里自定义槽函数的名称要和控件名称（pushButton）对应：on_pushButton\ _clicked。</p><p>通过实例ui的show()方法来显示程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    import sys</span><br><span class="line">    app = QtWidgets.QApplication(sys.argv)</span><br><span class="line">    ui = MainWindow()</span><br><span class="line">    ui.show()</span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure></p><p>这里对信号和槽做了粗浅的认识和学习，关于其他内容不再赘述，更多详细内容，可参照官方文档。</p><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="http://pyqt.sourceforge.net/Docs/PyQt5/index.html" target="_blank" rel="noopener">PyQt5 Reference Guide</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;PyQt5中最核心的内容就是信号与槽。本文主要结合一个简单的实例对这部分内容进行详细的介绍。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://likernel.github.io/tags/python/"/>
+    
+      <category term="PyQt5" scheme="http://likernel.github.io/tags/PyQt5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyQt5+Pycharm环境搭建</title>
+    <link href="http://likernel.github.io/2018/01/23/PyQt5-Pycharm%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://likernel.github.io/2018/01/23/PyQt5-Pycharm环境搭建/</id>
+    <published>2018-01-23T00:35:50.000Z</published>
+    <updated>2018-02-11T14:55:56.204Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。<br><a id="more"></a></p><h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><ul><li>Pycharm</li><li>Python 3.6(这里建议使用python3，在虚拟环境中配置)</li><li>PyQt5</li><li>SIP</li><li>Qt Designer<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h4 id="安装SIP"><a href="#安装SIP" class="headerlink" title="安装SIP"></a>安装SIP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install SIP</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>sip是RiverBank（PyQt的开发商）开发的用于PyQt的Python/C++混合编程解决方案。由于Qt框架的复杂性，PyQt并没有使用Cython、SWIG的混合编程方案，而是自己单独做了一套框架。sip包括一个sip工具、SDK和Python Module。</p></blockquote><h4 id="安装PyQt5"><a href="#安装PyQt5" class="headerlink" title="安装PyQt5"></a>安装PyQt5</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install PyQt5</span><br></pre></td></tr></table></figure><h4 id="安装QtDesigner"><a href="#安装QtDesigner" class="headerlink" title="安装QtDesigner"></a>安装QtDesigner</h4><p>QtDesigner在pyqt5-tools这个包里面有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyqt5-tools</span><br></pre></td></tr></table></figure></p><h2 id="Pycharm配置"><a href="#Pycharm配置" class="headerlink" title="Pycharm配置"></a>Pycharm配置</h2><p>这里我们主要在Pycharm里面配置两个扩展工具。QtDesigner和PyUIC，前者是可视化UI编辑工具，后者是将.ui文件转成.py文件的工具。</p><h4 id="QtDesigner配置"><a href="#QtDesigner配置" class="headerlink" title="QtDesigner配置"></a>QtDesigner配置</h4><p>1.Ctrl+Alt+s调出设置-&gt;Tools-&gt;External Tools<br><img src="/assets/images/2018/01/Qt-designer-setting.png" alt=""></p><p>2.添加扩展工具Qt Designer<br><img src="/assets/images/2018/01/Qt-Designer-setting2.png" alt=""><br>Program填写designer.exe所在的路径，在pyqt5-tools包下面。<br>Working directory填写$ProjectFileDir$(项目目录，在Insert Macro…中可以选择)</p><h4 id="PyUIC配置"><a href="#PyUIC配置" class="headerlink" title="PyUIC配置"></a>PyUIC配置</h4><p>同Qt Designer的配置，具体的配置参数如下：<br><img src="/assets/images/2018/01/PyUIC-setting.png" alt=""><br>Program填写python.exe所在的路径（根据你的虚拟环境而定）。<br>Working directory填写$FileDir$(文件目录，在Insert Macro…中可以选择)<br>其中，Arguments的配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py</span><br></pre></td></tr></table></figure></p><p>这时候在External tools下可以看到这两个扩展工具。<br><img src="/assets/images/2018/01/external-tools.png" alt=""><br>点击QtDesigner就可以进入QtDesigner界面了，界面设计完成，可以通过PyUIC将设计的UI文件转化成python代码。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://likernel.github.io/tags/python/"/>
+    
+      <category term="PyQt5" scheme="http://likernel.github.io/tags/PyQt5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>scikit-neuralnetwork安装</title>
+    <link href="http://likernel.github.io/2017/12/28/scikit-neuralnetwork%E5%AE%89%E8%A3%85/"/>
+    <id>http://likernel.github.io/2017/12/28/scikit-neuralnetwork安装/</id>
+    <published>2017-12-27T23:32:48.000Z</published>
+    <updated>2018-02-11T14:54:13.499Z</updated>
+    
+    <content type="html"><![CDATA[<p>scikit-neuralnetwork是一个开源的深度学习的库，scikit-neuralnetwork的接口和设计规范都是参照scikit-learn，之前用过scikit-learn，对它比较熟悉，因此，准备用它作为深度学习的工具。本文主要介绍它的安装过程以及期间可能遇到的一些问题。<br><a id="more"></a></p><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul><li>Ubuntu 16.04</li><li>Python 3.5（virtualenv）</li></ul><p>注：选择Linux的原因，由于这些库的开发者在开发的时候用的都是Linux，出问题的话对应的好解决，Windows环境也可以部署，但是稍微麻烦一些。</p><p>Python的版本选择的是3.5，在沙箱环境virtualenv中，使用virtualenv的好处就是方便管理包，出现问题也可以直接删除这个环境，避免不必要的麻烦。</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装scikit-neuralnetwork之前需要安装一些依赖（需要依赖的库）。</p><p>1.进入Python的沙箱环境，安装以下依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip install scikit-learn==0.17</span><br><span class="line">pip install scipy==0.17.0</span><br><span class="line">pip install Theano==0.8.1</span><br><span class="line">pip install git+https://github.com/Lasagne/Lasagne.git@0440814#egg=Lasagne==0.2-dev</span><br><span class="line">sudo pip install -U numpy</span><br><span class="line">pip install -e git+https://github.com/lisa-lab/pylearn2.git=Package</span><br><span class="line">pip install pandas</span><br><span class="line">pip install matplotlib</span><br></pre></td></tr></table></figure></p><p>2.安装scikit-neuralnetwork<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 将scikit-neuralnetwork源码从github上拷贝下来。</span><br><span class="line">git clone https://github.com/aigamedev/scikit-neuralnetwork.git</span><br><span class="line"># 进入scikit-neuralnetwork文件夹</span><br><span class="line">cd scikit-neuralnetwork</span><br><span class="line"># 安装</span><br><span class="line">python setup.py develop</span><br></pre></td></tr></table></figure></p><p>3.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install nose</span><br><span class="line">nosetests -v sknn.tests</span><br></pre></td></tr></table></figure></p><p>正常情况下，到这一步不出现问题就安装好了。实际情况会遇到很多问题，下面总结一下常见的问题，和解决方案。</p><h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p>####各种依赖安装出错<br>最常见的是pylearn2。各种module不存在，cannot import等问题。</p><p>解决方案：在测试或者源码安装时，往往会出现上述情况，原因一般是版本的问题。由于网上的很多教程时间比较早，可能他们安装时不会出现这样的问题。因此，这里最好使用推荐的版本。下图是笔者安装时测试没问题的一些版本的包。</p><p><img src="/assets/images/2017/12/libs.png" alt=""></p><p>注：实在想用最新的版本，可以根据相应的问题修改源码（指的是pylearn2等第三方源码安装的），通常情况下是import出问题。</p><h4 id="测试时出现问题"><a href="#测试时出现问题" class="headerlink" title="测试时出现问题"></a>测试时出现问题</h4><p>1.ERROR：no modole named XXX<br>通常是上述包未安装完，可以根据提示安装完对应的包。记住安装完成后，可以通过 <code>pip list/freeze</code> check一下。</p><p>2.ImportError: libmkl_rt.so:cannot open shared object file: No such file or directory.</p><p>mkl是英特尔数学核心函数库，这个.so（shared object）文件就在进行上述测试时需要调用。但是找不到了。需要我们重新配置一番。<br>①进入<a href="https://software.intel.com/en-us/mkl" target="_blank" rel="noopener">官网</a>下载。</p><p>②找到libmkl_rt.so，一般在”/opt/intel/compilers_and_libraries_2018.1.163/linux/mkl/lib“下。“2018.1.163”一般是你下载的版本。可以看到，下面可以找到其所在位置。<br><img src="/content/images/2017/12/mkl.png" width="550px"></p><p>③让系统能找到，这里使用ldconfig方式。<br>在/etc/ld.so.conf.d下创建一个文件mylibs.conf（注意修改其权限为可写的）。编辑文件，将对应的路径添加进去。<br><img src="/assets/images/2017/12/mylib.conf.png" alt=""><br>注：上述路径可以不用添加那么多，这里是当时为了保险起见都加了。</p><p>④<code>sudo ldconfig</code> 重新加载对应的shared libraries。</p><p>⑤可以通过 <code>ldconfig -v</code>check一下安装成功没有。<br><img src="/assets/images/2017/12/ld.png" alt=""></p><p>这个时候再使用 <code>nosetests -v sknn.tests</code> 进行测试就没有问题了。</p><p>3.如遇到其他问题可随时留言。</p><h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>1.首先来个多层神经网络的demo，examples下的plot_mlp.py<br>（官网和github上也是用的这个demo）。<br><img src="/assets/images/2017/12/Figure-1_001.png" alt=""><br>注：需要安装python3-tk，不然会出现上述“ERROR：no modole named XXX”错误。</p><p>2.再来个mnist数据集上的测试，随便找一个bench_mnist.py<br>下面是训练神经网络的过程。<br><img src="/assets/images/2017/12/bench.png" alt=""></p><p>注：这里由于数据量大，没有完全完全跑完，这里只是验证一下。<br>接下来，我们就可以愉快的进行deep learning的学习了。</p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>官网地址：<br><a href="https://scikit-neuralnetwork.readthedocs.io" target="_blank" rel="noopener">https://scikit-neuralnetwork.readthedocs.io</a></p><p>github地址：<a href="https://github.com/aigamedev/scikit-neuralnetwork" target="_blank" rel="noopener">https://github.com/aigamedev/scikit-neuralnetwork</a></p><p>以上便是scikit-neuralnetwork安装的整个过程，供自己学习记录，欢迎留言和转载（注明出处）。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;scikit-neuralnetwork是一个开源的深度学习的库，scikit-neuralnetwork的接口和设计规范都是参照scikit-learn，之前用过scikit-learn，对它比较熟悉，因此，准备用它作为深度学习的工具。本文主要介绍它的安装过程以及期间可能遇到的一些问题。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://likernel.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NN-神经网络</title>
+    <link href="http://likernel.github.io/2017/12/23/NN-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    <id>http://likernel.github.io/2017/12/23/NN-神经网络/</id>
+    <published>2017-12-23T07:01:47.000Z</published>
+    <updated>2018-02-11T14:54:47.915Z</updated>
+    
+    <content type="html"><![CDATA[<p>神经网络（Neural Network）是以人脑中的神经网络为启发的，历史上出现过很多不同的版本，其中最著名也是最常用的算法就是在1980提出的backpropagation(反向传播)，也可以称为BP神经网络，它被应用于多层向前神经网络（Multilayer Feed-Forward Neural Network）。<br><a id="more"></a></p><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>多层向前神经网络由3部分组成，输入层(input layer)，隐藏层(hidden layers)，输出层(output layers)。</p><p><img src="/assets/images/2017/12/BP-NN-2.jpg" alt=""></p><ul><li>每一层由单元（units）组成，我们也可称其为神经节点。</li><li>输入层（input layer）由训练集的实例特征向量传入。</li><li>经过连接点的权重传入下一层，一层的输出是下一层的输入。</li><li>隐藏层（hidden layer）的个数可以是任意的，输入层有一层，输出层有一层。</li><li>上面这幅图称为两层神经网络（输入层不算）。</li><li>作为多层向前神经网络，理论上，如果有足够多的隐藏层，和足够大的训练集，可以模拟出任何方程。</li></ul><h3 id="设计神经网络结构"><a href="#设计神经网络结构" class="headerlink" title="设计神经网络结构"></a>设计神经网络结构</h3><ol><li><p>使用神经网络训练数据之前，必须先设计神经网络的结构，也就是确定神经网络的层数以及每层的单元个数。</p></li><li><p>特征向量在被传入输入层时，通常要先标准化到0，1之间，目的是加速学习的过程。</p></li><li><p>离散型变量的可以被编码成：每一个输入单元对应一个特征值可能被赋的值。</p></li><li><p>没有特定的规则来说明最好设计多少个隐藏层，往往需要根据实验测试和误差，以及准确度来实验并改进。</p></li></ol><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>神经网络既可以做分类，也可以解决回归问题，<br>本文主要讨论分类问题。</p><ul><li>二分类：用一个输出单元表示（分别用0和1表示）。</li><li>多于两类：每一个类别用一个输出单元表示。</li></ul><p>所以，一般情况下，输出单元数量，往往等于类别数量。</p><h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p>之前介绍的机器学习的一般框架主要是把一组数据分成训练集和测试集两部分。训练集来训练模型。测试集输入进去看结果是不是对的，根据正确率得到一个准确度。</p><p>机器学习中还有一种更常用和科学的方法，交叉验证方法(cross-validation)。下面来介绍一下这种方法。</p><p><img src="/assets/images/2017/12/cross-validation.jpg" alt=""></p><p>前面我们用机器学习的一般框架是把数据分成2份，一份测试集一份数据集。</p><p>交叉验证方法就是把数据分成更多份，比如像上图中分成3份，其中2份当做训练集，1份当做测试集。重复三次，就可以得到3个准确度，做一个均值就得到最终的准确度，这就是交叉验证。实际上可以分成任意的K份，所以这个方法也被称为K-fold cross validation。</p><h3 id="backpropagation算法"><a href="#backpropagation算法" class="headerlink" title="backpropagation算法"></a>backpropagation算法</h3><p>开篇的时候提到神经网络中最常用的算法就是backpropagation，下面是这种BP算法的主要思想:</p><ol><li>通过迭代性处理训练集中的实例。</li><li>对比经过神经网络后输入层预测值（predict value）和真实值（target value）。</li><li>反方向（output-&gt;hidden-&gt;input）来以最小化误差（error）来更新每个连接的权重（weight）。</li></ol><h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>数据集、学习率（learning rate）和一个多层向前神经网络。</p><h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>一个训练好的神经网络。</p><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>权重（weights）和偏向（bias，每个单元都有这样一个偏向）需要在开始时进行初始化，一般在-1到1或-0.5到0.5之间进行随机初始化。</p><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>对于一个训练实例X执行以下步骤：</p><ol><li>由输入层，向前传送，具体传递和计算过程见下图：</li></ol><p><img src="/assets/images/2017/12/bp.jpg" alt=""></p><p>$$I_j=\sum_{i}{} w_ij O_i+\theta_j$$</p><p>其中，\(O_j=\frac{1}{1+{e^{-I_j}}}\)</p><p>如上图所示n个单元，加权求和加上一个偏向后得到一个值，再代入上面的非线性转化方程，可以得到输出结果。</p><p>通过这样的方式就能够一步一步正向的计算出最后输出，接下来就是倒推回去修正优化神经网络。</p><p>2.根据误差（error）反向传送。</p><ul><li>输出层：\(E_{rr_j}=O_j(1-O_j)(T_j-O_j)\)</li><li>隐藏层：\(E_{rr_j}=O_j(1-O_j)\sum_{k}{} E_{rr_j} w_{jk}\)</li><li>权重更新：\(w_{ij}(new)=w_{ij}(old)+\Delta w_{ij}\)，其中，\(\Delta w_{ij}=(l)E_{rr_j}O_i\)，l为学习率（learning rate）。</li><li>偏向更新：\(\theta_j(new)=\theta_j(old)+\Delta \theta_j\)，其中，\(\Delta \theta_j=(l)E_{rr_j}O_i\)</li></ul><p>注：上述的更新实际上采用的是一种梯度爬行的方法。</p><p>3.终止条件。</p><ul><li>权重的更新低于某个阈值。</li><li>预测的错误率低于某个阈值。</li><li>达到预设的循环次数。</li></ul><p>实际上最核心的过程就是在不断的更新、优化权重和偏向。以上就是对神经网络的初步认识，为后面的深度学习打下基础，本文完。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;神经网络（Neural Network）是以人脑中的神经网络为启发的，历史上出现过很多不同的版本，其中最著名也是最常用的算法就是在1980提出的backpropagation(反向传播)，也可以称为BP神经网络，它被应用于多层向前神经网络（Multilayer Feed-Forward Neural Network）。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://likernel.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="深度学习" scheme="http://likernel.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KNN-最邻近规则分类</title>
+    <link href="http://likernel.github.io/2017/12/23/KNN-%E6%9C%80%E9%82%BB%E8%BF%91%E8%A7%84%E5%88%99%E5%88%86%E7%B1%BB/"/>
+    <id>http://likernel.github.io/2017/12/23/KNN-最邻近规则分类/</id>
+    <published>2017-12-23T06:59:48.000Z</published>
+    <updated>2018-02-11T14:55:07.827Z</updated>
+    
+    <content type="html"><![CDATA[<p>KNN（K-Nearest Neighbor）是Cover&amp;Hart于1968年提出的一种分类算法，算法思想就是：<br>&gt;<br>1.为判断未知实例的类别，以所有已知类别的实例作为参考点；<br>2.选择参数K；<br>3.计算未知实例与所有已知实例的距离；<br>4.选择最近的K个已知实例；<br>5.根据投票法则，将未知实例归为K个最邻近样本中最多数的类别。</p><a id="more"></a><p>KNN就是这种“近朱者赤，近墨者黑”的思想，它由你的邻居来推断出你的类别。这里仅对以下一些细节进行补充说明。</p><h2 id="距离"><a href="#距离" class="headerlink" title="距离"></a>距离</h2><p>距离的衡量包括：欧式距离、余弦相似度、曼哈顿距离等。</p><p>欧式距离：<br>$$dist(X,Y)=\sqrt{\sum_{i=1}^{n} {(x_i-y_i)}^2}$$</p><p>余弦相似度（Cosine Similarity）：<br>$$sim(X,Y)=\cos\theta=\frac{\vec{x}\cdot \vec{y}}{||x||\cdot||y||}$$</p><p>曼哈顿距离：<br>$$dist(X,Y)=\sqrt{\sum_{i=1}^{n} {|x_i-y_i|}}$$<br>注：对于文本分类来说，使用余弦相似度来计算就比欧式距离更合适。</p><h2 id="关于K"><a href="#关于K" class="headerlink" title="关于K"></a>关于K</h2><p>k值通常是采用交叉检验来确定（以k=1为基准），一般低于训练样本数的平方根。</p><h2 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h2><p>1.优点：简单，易于理解，易于实现，无需估计参数，无需训练。适合对稀有事件进行分类，特别适合于多分类问题。<br>2.缺点：懒惰算法，对测试样本分类时的计算量大，内存开销大。可解释性较差，无法给出决策树那样的规则。</p><h2 id="改进版本"><a href="#改进版本" class="headerlink" title="改进版本"></a>改进版本</h2><p>对距离加权，距离越近，权重越大。例如：1/d。</p><p>本文完。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;KNN（K-Nearest Neighbor）是Cover&amp;amp;Hart于1968年提出的一种分类算法，算法思想就是：&lt;br&gt;&amp;gt;&lt;br&gt;1.为判断未知实例的类别，以所有已知类别的实例作为参考点；&lt;br&gt;2.选择参数K；&lt;br&gt;3.计算未知实例与所有已知实例的距离；&lt;br&gt;4.选择最近的K个已知实例；&lt;br&gt;5.根据投票法则，将未知实例归为K个最邻近样本中最多数的类别。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://likernel.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>决策树</title>
+    <link href="http://likernel.github.io/2017/12/23/%E5%86%B3%E7%AD%96%E6%A0%91/"/>
+    <id>http://likernel.github.io/2017/12/23/决策树/</id>
+    <published>2017-12-23T06:55:35.000Z</published>
+    <updated>2018-02-11T14:50:30.001Z</updated>
+    
+    <content type="html"><![CDATA[<p>决策树（decision tree）又称为判定树，是运用于分类的一种树结构，其中：<br>&gt;<br>1.每个内部节点代表对某一属性的一次测试。<br>2.每条边代表一个测试结果。<br>3.叶节点代表某个类或类的分布。</p><a id="more"></a><p>决策过程需要从根节点开始，测试集中的数据与决策树中的特征节点进行比较，并按照比较结果选择下一比较分支，直到叶子节点作为最终的决策结果。</p><p>实现决策树的核心就是选择属性判断节点，有很多标准，对应的就是不同的算法，最著名的有三个：ID3，C4.5和CART。在介绍之前，先了解一些预备知识。</p><h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h3><p>信息是个抽象概念。人们常说信息很多，或者信息较少，但很难说清楚信息到底有多少。1948年，香农提出了“信息熵”的概念，才解决了对信息的量化度量问题。</p><blockquote><p>热力学中的热熵是表示分子状态混乱程度的物理量。香农用信息熵的概念来描述信源的不确定度。</p></blockquote><p>一条信息的信息量大小和不确定性有直接的关系。如果信息的不确定性越大，熵的值也就越大。设D为用类别对训练元组进行的划分，则D的熵（entropy）表示为：</p><p>$$Info(D)=-\sum_{i=1}^{m} p_i log_{2}p_i$$</p><p>其中，D为所有事件集合，p为发生概率，m为特征总数。</p><blockquote><p>一般用比特（bit）来衡量信息的多少。当然，如果log不是以2为底，则使用的是其他的单位。</p></blockquote><h3 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h3><p>即信息获取量（information gain），原有信息熵与属性划分后信息熵的差值，具体计算法如下：</p><p>$$gain(A)=Info(D)-Info_A(D)$$</p><p>其中，第二项为将训练元组D按属性A进行划分：</p><p>$$Info_A(D)=\sum_{j=1}^{v} \frac{|D_j|}{|D|} Info(D_j)$$</p><h2 id="决策树归纳算法"><a href="#决策树归纳算法" class="headerlink" title="决策树归纳算法"></a>决策树归纳算法</h2><h3 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h3><p>ID3算法实际上就是在每次需要分裂时，计算每个属性的增益率，然后选择增益率最大的属性进行分裂。</p><h3 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h3><p> ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。</p><p> C4.5算法首先定义了“分裂信息”，其定义可以表示成：</p><p>$$split\underline{} Info_A(D)=\sum_{j=1}^{v} \frac{|D_j|}{|D|} log_2(\frac{|D_j|}{|D|})$$</p><p>增益率被定义为：</p><p>$$gain\underline{} ratio(A)=\frac{gain}{split\underline{} Info(A)}$$</p><p> C4.5选择具有最大增益率的属性作为分裂属性。</p><h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>在实际构造决策树时，通常要进行剪枝，主要是为了避免overfitting。剪枝有两种：</p><p>1.先剪枝：在构造过程中，当某个节点满足剪枝条件，则直接停止此分支的构造。<br>2.后剪枝：先构造完成完整的决策树，再通过某些条件遍历树进行剪枝。</p><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>1.优点：直观、便于理解，小规模数据集有效。<br>2.缺点：处理连续变量时效果不好；类别较多时，错误增加较多；可规模性一般。</p><h3 id="一种特殊情况"><a href="#一种特殊情况" class="headerlink" title="一种特殊情况"></a>一种特殊情况</h3><p>在决策树构造过程中可能会出现这种情况：所有属性都作为分裂属性用完了，但有的子集还不是纯净集，即集合内的元素不属于同一类别。在这种情况下，一般采取“多数表决”，即使用此子集中出现次数最多的类别作为此节点类别，然后将此节点作为叶子节点。</p><p>关于决策树的概念先介绍这么多，具体实例和应用，会有后续文章讲解。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;决策树（decision tree）又称为判定树，是运用于分类的一种树结构，其中：&lt;br&gt;&amp;gt;&lt;br&gt;1.每个内部节点代表对某一属性的一次测试。&lt;br&gt;2.每条边代表一个测试结果。&lt;br&gt;3.叶节点代表某个类或类的分布。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://likernel.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习基本概念</title>
+    <link href="http://likernel.github.io/2017/12/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
+    <id>http://likernel.github.io/2017/12/23/机器学习基本概念/</id>
+    <published>2017-12-23T04:46:00.000Z</published>
+    <updated>2018-02-11T14:52:05.161Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于论文需要，需要学习一下机器学习相关的知识，本文主要作为抛砖引玉，介绍机器学习的一些基础概念。<br><a id="more"></a></p><h2 id="概念学习"><a href="#概念学习" class="headerlink" title="概念学习"></a>概念学习</h2><blockquote><p>概念学习是指从有关某个布尔函数的输入输出训练样例中推断出该布尔函数，可以表示为：X-&gt;Y/C(x)。</p></blockquote><p>X：实例集，概念就是基于这个实例集的。<br>x：具体的实例。<br>C(x)：待学习的目标概念/函数。</p><p>###训练集和测试集<br>训练集：用来进行训练，产生模型/算法的数据集。</p><p>测试集：用来测试已经学习好的模型或算法。</p><h3 id="特征向量和标记"><a href="#特征向量和标记" class="headerlink" title="特征向量和标记"></a>特征向量和标记</h3><p>特征向量：属性的集合，通常用一个向量表示，附属于一个实例(x)。</p><p>标记：C(x)，实例类别的标记。</p><h3 id="正例和反例"><a href="#正例和反例" class="headerlink" title="正例和反例"></a>正例和反例</h3><p>正例：目标概念的成员。</p><p>反例：非目标概念的成员。</p><h2 id="分类和回归"><a href="#分类和回归" class="headerlink" title="分类和回归"></a>分类和回归</h2><p>分类和回归在机器学习中是很重要的两个领域，暂且先做如下简单的解释，不做深入的探讨。</p><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>分类（classification）的目标标记（label）为类别性数据（离散型）。</p><h3 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h3><p>回归（regression）的目标标记（label）为连续性数值。</p><p>##有监督、无监督和半监督学习<br>机器学习主要分为三类：有监督学习、无监督学习和半监督学习。</p><h3 id="有监督学习"><a href="#有监督学习" class="headerlink" title="有监督学习"></a>有监督学习</h3><p>训练集<strong>有类别标记</strong>（即数据中包含分类的结果）。计算机进行学习之后，在丢给它新的数据，它能够算出结果。可以理解为“在类别标记的监督下进行学习”。</p><p>主要包括：分类和回归。</p><h3 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h3><p>训练集<strong>无类别标记</strong>。单纯凭借计算机强大的计算能力分析数据的特征，得出结果，通常是得到一些集合，集合内的数据在某些特征上相同或相似。可以理解为“没有在类别标记的监督下进行学习”。</p><p>主要包括：聚类。</p><h3 id="半监督学习"><a href="#半监督学习" class="headerlink" title="半监督学习"></a>半监督学习</h3><p>训练集<strong>一部分有类别标记，一部分没有类别标记</strong>。无类别标记的数据量往往远远大于有有标记的数据。<br>可以通过一些有类别标记的数据局部特征，和没类别标记数据的整体分布，得到可以接受甚至是非常好的分类结果。</p><p>主要包括：分类、回归、聚类和降维。</p><h2 id="机器学习一般步骤"><a href="#机器学习一般步骤" class="headerlink" title="机器学习一般步骤"></a>机器学习一般步骤</h2><p>这里不做详细的阐述，只列举一般的机器学习的步骤：</p><h3 id="1-问题定义"><a href="#1-问题定义" class="headerlink" title="1.问题定义"></a>1.问题定义</h3><p>通过观察类别确定究竟是分类还是回归问题。</p><h3 id="2-样本划分"><a href="#2-样本划分" class="headerlink" title="2.样本划分"></a>2.样本划分</h3><p>将数据划分为训练集和测试集。</p><h3 id="3-训练算法"><a href="#3-训练算法" class="headerlink" title="3.训练算法"></a>3.训练算法</h3><p>用训练集和训练集的特征向量训练算法。</p><h3 id="4-评估算法"><a href="#4-评估算法" class="headerlink" title="4.评估算法"></a>4.评估算法</h3><p>用学习来的算法用在测试集。其中，涉及调参和优化（调参还涉及到验证集）这里不做赘述。</p><p>本文主要起到一个抛砖引玉，为后面的学习，梳理一些基本的概念，本文完。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于论文需要，需要学习一下机器学习相关的知识，本文主要作为抛砖引玉，介绍机器学习的一些基础概念。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://likernel.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode--Reverse Linked List</title>
+    <link href="http://likernel.github.io/2017/08/23/Leetcode-Reverse-Linked-List/"/>
+    <id>http://likernel.github.io/2017/08/23/Leetcode-Reverse-Linked-List/</id>
+    <published>2017-08-23T00:06:53.000Z</published>
+    <updated>2018-02-11T14:44:31.256Z</updated>
+    
+    <content type="html"><![CDATA[<p>翻转单链表。<br><a id="more"></a><br>链表的操作，关键就在指针。当然使用栈很容易实现，但是我们有更好的方法，就是借助三个指针。</p><p>pre：当前元素的前一个元素的指针<br>cur：当前元素的指针<br>nextp：当前元素的下一个元素的指针</p><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode(object):</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val = x</span><br><span class="line">#         self.next = None</span><br><span class="line"></span><br><span class="line">class Solution(object):</span><br><span class="line">    def reverseList(self, head):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type head: ListNode</span><br><span class="line">        :rtype: ListNode</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        pre = None</span><br><span class="line">        cur = head</span><br><span class="line"></span><br><span class="line">        while cur != None:</span><br><span class="line">            nextp = cur.next</span><br><span class="line"></span><br><span class="line">            cur.next = pre   #翻转操作</span><br><span class="line"></span><br><span class="line">            pre = cur</span><br><span class="line">            cur = nextp      </span><br><span class="line">        return pre</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;翻转单链表。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="链表" scheme="http://likernel.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Divide Two Integers</title>
+    <link href="http://likernel.github.io/2017/08/04/leetcode-Divide-Two-Integers/"/>
+    <id>http://likernel.github.io/2017/08/04/leetcode-Divide-Two-Integers/</id>
+    <published>2017-08-04T08:32:06.000Z</published>
+    <updated>2018-02-11T14:45:43.826Z</updated>
+    
+    <content type="html"><![CDATA[<p>Divide two integers without using multiplication, division and mod operator.</p><p>If it is overflow, return MAX_INT.<br><a id="more"></a><br>不用乘法，除法，求模运算来实现两个整数相除。正是之前提到的位运算。</p><p><strong>思路：</strong></p><p>首先，我们知道任何一个整数都可以表示成以2的幂为底的一组基的线性组合，即num = flag0 <em> 2^0 + flag1 </em> 2^1 + flag2 <em> 2^2 + … + flagn </em> 2^n 其中，flag0, flag1, flag2, …, flagn 取值为0或1。</p><p>因此，如果令：dividend / divisor = num</p><p>dividend = divisor <em> num = divisor </em> (flag0 <em> 2^0 + flag1 </em> 2^1 + flag2 <em> 2^2 + … + flagn </em> 2^n)</p><p>对于除数，使用移位操作&lt;&lt;使其每次翻倍，从而减少减法求商的次数。以下是步骤：</p><p>1.当被除数大于除数时，对除数乘2（代码中使用变量temp用于记录每次除数乘2），直到temp大于被除数为止。记录移位操作的次数i。<br>2.如果被除数大于除数，那么被除数减去temp。直到被除数小于除数。保存结果。<br>3.判断正负，输出结果res。</p><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">def divide(dividend, divisor):</span><br><span class="line">        sign = (dividend &lt; 0 and divisor &gt; 0) or (dividend &gt; 0 and divisor &lt; 0)  </span><br><span class="line">        a, b = abs(dividend), abs(divisor)  </span><br><span class="line">        res, temp = 0, 0  </span><br><span class="line">        # 被除数大于除数</span><br><span class="line">        while a &gt;= b:  </span><br><span class="line">            temp = b  </span><br><span class="line">            i = 0  </span><br><span class="line">            while a &gt;= temp:  </span><br><span class="line">                a -= temp  </span><br><span class="line">                res += (1&lt;&lt;i)  </span><br><span class="line">                i += 1  </span><br><span class="line">                temp &lt;&lt;= 1  </span><br><span class="line"></span><br><span class="line">        if sign:  </span><br><span class="line">            res = -res  </span><br><span class="line">        return min(max(-2147483648, res), 2147483647)</span><br></pre></td></tr></table></figure></p><p>备注：int：-2147483648~2147483647 (4Bytes)</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Divide two integers without using multiplication, division and mod operator.&lt;/p&gt;
+&lt;p&gt;If it is overflow, return MAX_INT.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Power of Two</title>
+    <link href="http://likernel.github.io/2017/08/02/leetcode-Power-of-Two/"/>
+    <id>http://likernel.github.io/2017/08/02/leetcode-Power-of-Two/</id>
+    <published>2017-08-02T02:08:19.000Z</published>
+    <updated>2018-02-11T14:44:48.500Z</updated>
+    
+    <content type="html"><![CDATA[<p>Given an integer, write a function to determine if it is a power of two.<br><a id="more"></a></p><p><strong>思路：</strong></p><p>这道题有一个技巧，还是和位运算有关，首先看下面规律：</p><p>2的0次方0001<br>2的1次方0010<br>2的2次方0100<br>2的3次方1000</p><p>实际上，因为是二进制数（二进制数不是白叫的），因此所有的Power of Two的二进制数形式均为最高位（不考虑1左边的位）为1，其它都为0。</p><p>如果此时我们减1的话，则最高位会降一位，其余为0的位现在都为变为1，那么我们把两数相与，就会得到0。</p><p>如果这个数不是Power of Two就没有这个性质。</p><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def isPowerOfTwo(n):</span><br><span class="line">        return (n &gt; 0 and not(n &amp; n-1))</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Given an integer, write a function to determine if it is a power of two.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Single Number II</title>
+    <link href="http://likernel.github.io/2017/08/02/leetcode-Single-Number-II/"/>
+    <id>http://likernel.github.io/2017/08/02/leetcode-Single-Number-II/</id>
+    <published>2017-08-02T01:04:30.000Z</published>
+    <updated>2018-02-11T14:43:08.859Z</updated>
+    
+    <content type="html"><![CDATA[<p>Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.<br><a id="more"></a></p><p><strong>Note:</strong><br>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p><p><strong>思路1：</strong></p><p>使用hash实现，这种方法不做赘述，实现如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(self, nums):</span><br><span class="line">        dict = &#123;&#125;</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            if nums[i] not in dict:</span><br><span class="line">                dict[nums[i]] = 1</span><br><span class="line">            else:</span><br><span class="line">                dict[nums[i]] += 1</span><br><span class="line">        for single in dict:</span><br><span class="line">            if dict[single] == 1:</span><br><span class="line">                return single</span><br></pre></td></tr></table></figure><p><strong>思路2：</strong></p><p>和Single Number类似的解法：</p><p>1.当数字num第一出现时：ones,twos = num, 0;<br>2.当其第二次出现时：ones,twos = 0, num;<br>3.第三次出现时：ones,twos = 0, 0，就相当于这个数字没有出现过，这样最后的结果就是ones了。</p><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(self, nums):</span><br><span class="line">        ones, twos = 0, 0</span><br><span class="line">        for i in nums:</span><br><span class="line">            ones = ones^i &amp; ~twos</span><br><span class="line">            twos = twos^i &amp; ~ones</span><br><span class="line"></span><br><span class="line">        return(ones)</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Single Number</title>
+    <link href="http://likernel.github.io/2017/08/02/leetcode-Single-Number/"/>
+    <id>http://likernel.github.io/2017/08/02/leetcode-Single-Number/</id>
+    <published>2017-08-02T00:25:43.000Z</published>
+    <updated>2018-02-11T14:43:35.771Z</updated>
+    
+    <content type="html"><![CDATA[<p>Given an array of integers, every element appears twice except for one. Find that single one.<br><a id="more"></a></p><p><strong>Note:</strong><br>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p><h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h4><p>这里使用<strong>异或</strong>运算，异或运算有如下性质：</p><p>1.相同元素异或为0,0与任何数异或等于任何数，有a^b^a=b。</p><p>2.此外，异或还可以用于两个元素交换a=a^b^(b=a)。</p><p>实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(nums):</span><br><span class="line">        res = 0</span><br><span class="line">        for i in nums:</span><br><span class="line">            res = res^i</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Given an array of integers, every element appears twice except for one. Find that single one.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Reverse Words in a String</title>
+    <link href="http://likernel.github.io/2017/08/02/leetcode-Reverse-Words-in-a-String/"/>
+    <id>http://likernel.github.io/2017/08/02/leetcode-Reverse-Words-in-a-String/</id>
+    <published>2017-08-02T00:08:20.000Z</published>
+    <updated>2018-02-11T14:44:09.906Z</updated>
+    
+    <content type="html"><![CDATA[<p>Given an input string, reverse the string word by word.<br><a id="more"></a><br>For example,<br>Given s = <code>&quot;the sky is blue&quot;</code>,<br>return <code>&quot;blue is sky the&quot;</code>.</p><p><strong>思路：</strong></p><ol><li>拆分字符串，使用split函数，用<code>&#39; &#39;</code>拆分。</li><li>去掉空字符，字符串最后一位为空字符。</li><li>reverse整个数组并连接。</li></ol><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def reverseWords(s):</span><br><span class="line">        arr = s.split(&apos; &apos;)</span><br><span class="line">        while &apos;&apos; in arr:</span><br><span class="line">            arr.remove(&apos;&apos;)</span><br><span class="line">        arr.reverse()</span><br><span class="line">        str = &apos; &apos;.join(arr)</span><br><span class="line"></span><br><span class="line">        return str</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Given an input string, reverse the string word by word.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Longest Substring Without Repeating Characters</title>
+    <link href="http://likernel.github.io/2017/08/02/leetcode-Longest-Substring-Without-Repeating-Characters/"/>
+    <id>http://likernel.github.io/2017/08/02/leetcode-Longest-Substring-Without-Repeating-Characters/</id>
+    <published>2017-08-01T21:44:48.000Z</published>
+    <updated>2018-02-11T14:45:26.273Z</updated>
+    
+    <content type="html"><![CDATA[<p>Given a string, find the length of the longest substring without repeating characters.<br><a id="more"></a></p><p><strong>Examples:</strong></p><p>Given <code>&quot;abcabcbb&quot;</code>, the answer is <code>&quot;abc&quot;</code>, which the length is 3.</p><p>Given <code>&quot;bbbbb&quot;</code>, the answer is <code>&quot;b&quot;</code>, with the length of 1.</p><p>Given <code>&quot;pwwkew&quot;</code>, the answer is <code>&quot;wke&quot;</code>, with the length of 3. Note that the answer must be a substring, <code>&quot;pwke&quot;</code> is a subsequence and not a substring.</p><p><strong>思路一：</strong></p><p>使用hash表</p><ol><li>变量start记录了子串的起点。</li><li>used用来记录字符串的字符，key是字符c，value是索引i。</li><li>如果字符之前出现过，start右移，否则，更新最大长度。</li></ol><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def lengthOfLongestSubstring(self, s):</span><br><span class="line">        used = &#123;&#125;</span><br><span class="line">        max_len = start = 0</span><br><span class="line">        for i, c in enumerate(s):</span><br><span class="line">            if c in used and start &lt;= used[c]:</span><br><span class="line">                start = used[c] + 1</span><br><span class="line">            else:</span><br><span class="line">                max_len = max(max_len, i-start+1)</span><br><span class="line">            used[c] = i</span><br><span class="line">        return max_len</span><br></pre></td></tr></table></figure></p><p>备注：注意当前子串的长度为i-start+1。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Given a string, find the length of the longest substring without repeating characters.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode--Search a 2D Matrix</title>
+    <link href="http://likernel.github.io/2017/07/30/leetcode-Search-a-2D-Matrix/"/>
+    <id>http://likernel.github.io/2017/07/30/leetcode-Search-a-2D-Matrix/</id>
+    <published>2017-07-30T02:00:09.000Z</published>
+    <updated>2018-02-11T14:43:51.848Z</updated>
+    
+    <content type="html"><![CDATA[<p>Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:</p><p>Integers in each row are sorted from left to right. The first integer of each row is greater than the last integer of the previous row. For example,</p><p>Consider the following matrix:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [1,   3,  5,  7],</span><br><span class="line">  [10, 11, 16, 20],</span><br><span class="line">  [23, 30, 34, 50]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p><p>Given target = 3, return true.</p><p><strong>思路：</strong></p><p>思路比较简单，和剑指offer中的FindInPartiallySortedMatrix是一样的：</p><ol><li>从右上角或者左下角的元素开始遍历均可。（这里以右上角为例）</li><li>如果和target相等说明找到；如果右上角比target大，向下遍历；如果比target小，向左遍历。</li></ol><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def searchMatrix(matrix, target):</span><br><span class="line">        if not matrix or target is None:</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">        i = 0</span><br><span class="line">        j = len(matrix[0])-1</span><br><span class="line">        while i &lt; len(matrix) and j &gt;= 0:</span><br><span class="line">            if matrix[i][j] == target:</span><br><span class="line">                return True</span><br><span class="line">            elif matrix[i][j] &lt; target:</span><br><span class="line">                i += 1</span><br><span class="line">            else:</span><br><span class="line">                j -= 1</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure></p><p>备注：一定要加上matrix是否为空的判断，系统中给的测试用例中包含一个[ ]。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:&lt;/p&gt;
+&lt;p&gt;Integers in e
+      
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -57,9 +408,34 @@
     </summary>
     
     
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
       <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
+  </entry>
+  
+  <entry>
+    <title>leetcode--3 Sum Closest</title>
+    <link href="http://likernel.github.io/2017/07/23/leetcode-3-Sum-Closest/"/>
+    <id>http://likernel.github.io/2017/07/23/leetcode-3-Sum-Closest/</id>
+    <published>2017-07-23T08:16:29.000Z</published>
+    <updated>2018-02-11T14:59:13.099Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="3-Sum-Closest"><a href="#3-Sum-Closest" class="headerlink" title="3 Sum Closest"></a>3 Sum Closest</h3><p>Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.</p><p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">For example, given array S = &#123;-1 2 1 -4&#125;, and target = 1.</span><br><span class="line">The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</span><br></pre></td></tr></table></figure></p><p><strong>思路：</strong><br>思路和3sum类似，还是找一个基准值和两个指针lp和rp不过有些地方简化了，只需要获得一个值。因此，对应的组合不用存取，只需要不断的更新最接近的值即可。</p><p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def threeSumClosest(nums, target):</span><br><span class="line">        if not len(nums):  </span><br><span class="line">            return 0</span><br><span class="line"></span><br><span class="line">        nums.sort()</span><br><span class="line">        res = nums[0] + nums[1] + nums[2]   </span><br><span class="line">        for i in range(len(nums) - 2):  </span><br><span class="line">            lp = i + 1  </span><br><span class="line">            rp = len(nums) - 1  </span><br><span class="line">            while lp &lt; rp:  </span><br><span class="line">                closest = nums[i] + nums[lp] + nums[rp]  </span><br><span class="line">                if abs(closest - target) &lt; abs(res - target):  </span><br><span class="line">                    res = closest  </span><br><span class="line">                if closest &lt; target:  </span><br><span class="line">                    lp += 1  </span><br><span class="line">                elif closest &gt; target:  </span><br><span class="line">                    rp -= 1  </span><br><span class="line">                else:  </span><br><span class="line">                    lp += 1  </span><br><span class="line">                    rp -= 1  </span><br><span class="line">        return res</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;3-Sum-Closest&quot;&gt;&lt;a href=&quot;#3-Sum-Closest&quot; class=&quot;headerlink&quot; title=&quot;3 Sum Closest&quot;&gt;&lt;/a&gt;3 Sum Closest&lt;/h3&gt;&lt;p&gt;Given an array S of n inte
+      
+    
+    </summary>
+    
+    
       <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
+      <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -80,11 +456,11 @@
     </summary>
     
     
+      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
+    
       <category term="算法" scheme="http://likernel.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="数组" scheme="http://likernel.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="leetcode" scheme="http://likernel.github.io/tags/leetcode/"/>
     
   </entry>
   

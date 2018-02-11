@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>PyQt5+Pycharm环境搭建 | likernel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。">
+<meta name="keywords" content="python,PyQt5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyQt5+Pycharm环境搭建">
+<meta property="og:url" content="http://likernel.github.io/2018/01/23/PyQt5-Pycharm环境搭建/index.html">
+<meta property="og:site_name" content="likernel">
+<meta property="og:description" content="最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/Qt-designer-setting.png">
+<meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/Qt-Designer-setting2.png">
+<meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/PyUIC-setting.png">
+<meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/external-tools.png">
+<meta property="og:updated_time" content="2018-02-11T14:55:56.204Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PyQt5+Pycharm环境搭建">
+<meta name="twitter:description" content="最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。">
+<meta name="twitter:image" content="http://likernel.github.io/assets/images/2018/01/Qt-designer-setting.png">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;likernel">
+  
+    <link rel="alternate" href="/atom.xml" title="likernel" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">likernel</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">文章归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://likernel.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PyQt5-Pycharm环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/23/PyQt5-Pycharm环境搭建/" class="article-date">
+  <time datetime="2018-01-23T00:35:50.000Z" itemprop="datePublished">2018-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PyQt5+Pycharm环境搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。<br><a id="more"></a></p>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><ul>
+<li>Pycharm</li>
+<li>Python 3.6(这里建议使用python3，在虚拟环境中配置)</li>
+<li>PyQt5</li>
+<li>SIP</li>
+<li>Qt Designer<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h4 id="安装SIP"><a href="#安装SIP" class="headerlink" title="安装SIP"></a>安装SIP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install SIP</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>sip是RiverBank（PyQt的开发商）开发的用于PyQt的Python/C++混合编程解决方案。由于Qt框架的复杂性，PyQt并没有使用Cython、SWIG的混合编程方案，而是自己单独做了一套框架。sip包括一个sip工具、SDK和Python Module。</p>
+</blockquote>
+<h4 id="安装PyQt5"><a href="#安装PyQt5" class="headerlink" title="安装PyQt5"></a>安装PyQt5</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install PyQt5</span><br></pre></td></tr></table></figure>
+<h4 id="安装QtDesigner"><a href="#安装QtDesigner" class="headerlink" title="安装QtDesigner"></a>安装QtDesigner</h4><p>QtDesigner在pyqt5-tools这个包里面有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyqt5-tools</span><br></pre></td></tr></table></figure></p>
+<h2 id="Pycharm配置"><a href="#Pycharm配置" class="headerlink" title="Pycharm配置"></a>Pycharm配置</h2><p>这里我们主要在Pycharm里面配置两个扩展工具。QtDesigner和PyUIC，前者是可视化UI编辑工具，后者是将.ui文件转成.py文件的工具。</p>
+<h4 id="QtDesigner配置"><a href="#QtDesigner配置" class="headerlink" title="QtDesigner配置"></a>QtDesigner配置</h4><p>1.Ctrl+Alt+s调出设置-&gt;Tools-&gt;External Tools<br><img src="/assets/images/2018/01/Qt-designer-setting.png" alt=""></p>
+<p>2.添加扩展工具Qt Designer<br><img src="/assets/images/2018/01/Qt-Designer-setting2.png" alt=""><br>Program填写designer.exe所在的路径，在pyqt5-tools包下面。<br>Working directory填写$ProjectFileDir$(项目目录，在Insert Macro…中可以选择)</p>
+<h4 id="PyUIC配置"><a href="#PyUIC配置" class="headerlink" title="PyUIC配置"></a>PyUIC配置</h4><p>同Qt Designer的配置，具体的配置参数如下：<br><img src="/assets/images/2018/01/PyUIC-setting.png" alt=""><br>Program填写python.exe所在的路径（根据你的虚拟环境而定）。<br>Working directory填写$FileDir$(文件目录，在Insert Macro…中可以选择)<br>其中，Arguments的配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py</span><br></pre></td></tr></table></figure></p>
+<p>这时候在External tools下可以看到这两个扩展工具。<br><img src="/assets/images/2018/01/external-tools.png" alt=""><br>点击QtDesigner就可以进入QtDesigner界面了，界面设计完成，可以通过PyUIC将设计的UI文件转化成python代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://likernel.github.io/2018/01/23/PyQt5-Pycharm环境搭建/" data-id="cjdix198m0008msulgoxf44cq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyQt5/">PyQt5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/25/PyQt5之信号与槽/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          PyQt5之信号与槽
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/28/scikit-neuralnetwork安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">scikit-neuralnetwork安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyQt5/">PyQt5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PyQt5/" style="font-size: 13.33px;">PyQt5</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/机器学习/" style="font-size: 16.67px;">机器学习</a> <a href="/tags/深度学习/" style="font-size: 13.33px;">深度学习</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/31/Ubuntu下安装Docker/">Ubuntu下安装Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/Docker基础/">Docker基础</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/25/PyQt5之信号与槽/">PyQt5之信号与槽</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/PyQt5-Pycharm环境搭建/">PyQt5+Pycharm环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/28/scikit-neuralnetwork安装/">scikit-neuralnetwork安装</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 likernel<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章归档</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
