@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -202,115 +200,19 @@
 <li>PersistentDB ：提供线程专用的数据库连接，并自动管理连接。</li>
 <li>PooledDB ：提供线程间可共享的数据库连接，并自动管理连接。</li>
 </ol>
-<p>将下载下来的源码解压，放在应用程序根目录”database”中，修改SteadyDB.py文件，在类 SteadyDBConnection 中添加3个成员方法:</p>
-<pre><code>def autocommit(self, *args, **kwargs):
-     self._con.autocommit(*args, **kwargs)
-
-def get_server_info(self):
-    return self._con.get_server_info()
-
-@property
-def encoders(self):
-    return self._con.encoders
-</code></pre><p>修改 PooledDB.py 和 PersistentDB.py 两个文件，将</p>
-<pre><code>from DBUtils.SteadyDB import connect
-</code></pre><p>改为：</p>
-<pre><code>from .SteadyDB import connect
-</code></pre><p>将Django中的mysql模块加入应用程序目录中,将backends目录下的 __init__.py文件和mysql目录复制到database目录下的db目录中，目录结构如下:</p>
-<pre><code>应用程序根目录
-|
-| -- database
-     |
-     | -- DBUtils
-     | -- db
-          |
-          | -- __init__.py
-          | -- mysql
-</code></pre><p>在mysql目录下添加pool.py文件，如下:</p>
-<pre><code># coding:utf-8
-&#39;&#39;&#39;A connection pool of MySQL in Django 1.5 based on DBUtils.&#39;&#39;&#39;
-import MySQLdb
-from database.DBUtils.PooledDB import PooledDB
-
-class ConnectionWrapper(object):
-    def __init__(self, connection):
-        self._conn = connection
-
-    def __getattr__(self, method):
-        &#39;&#39;&#39; 代理数据库连接的属性方法 &#39;&#39;&#39;
-        return getattr(self._conn, method)
-
-    def close(self):
-        &#39;&#39;&#39; 代理Django的关闭数据库连接 &#39;&#39;&#39;
-        self._conn.close()
-
-class DBWrapper(object):
-    def __init__(self, module):
-        self._connection = None
-        self._db = module
-        self._pool = {}
-
-    def __getattr__(self, item):
-        return getattr(self._db, item)
-
-    def _clear_connections(self, **kwargs):
-        &#39;&#39;&#39; 关闭已有连接 &#39;&#39;&#39;
-        conn = MySQLdb.connect(**kwargs)
-        cursor = conn.cursor()
-        sql = &#39;&#39;
-        cursor.execute(&#39;show full processlist;&#39;)
-        processlist = cursor.fetchall()
-        for th in processlist:
-            if th[3] == kwargs.get(&#39;db&#39;) and th[0] != conn.thread_id():
-                sql += &#39;kill %s;&#39; % th[0]
-        if len(sql.split(&#39;;&#39;)) &gt; 1:
-            cursor.execute(sql)
-        cursor.close()
-        conn.close()
-
-    def connect(self, *args, **kwargs):
-        &#39;&#39;&#39; 创建连接 &#39;&#39;&#39;
-        db = kwargs.get(&#39;db&#39;)
-        if db not in self._pool:
-            size = kwargs.get(&#39;size&#39;)
-            if &#39;size&#39; in kwargs:
-                kwargs.pop(&#39;size&#39;)
-            self._clear_connections(**kwargs)
-            self._pool[db] = PooledDB(self._db, mincached=size, maxcached=size, *args, **kwargs)
-        self._connection = self._pool[db].connection()
-        return ConnectionWrapper(self._connection)
-</code></pre><p>修改mysql目录下的 base.py 文件，在</p>
-<pre><code>import MySQLdb as Database
-</code></pre><p>下添加两行</p>
-<pre><code>from .pool import DBWrapper
-Database = DBWrapper(Database)
-</code></pre><p>修改类 DatabaseWrapper 中的方法 get_connection_params，在</p>
-<pre><code>if settings_dict[&#39;PORT&#39;]:
-    kwargs[&#39;port&#39;] = int(settings_dict[&#39;PORT&#39;])
-</code></pre><p>下添加如下代码，使连接池支持”SIZE”参数</p>
-<pre><code>if settings_dict.get(&#39;SIZE&#39;):
-    kwargs[&#39;size&#39;] = int(settings_dict[&#39;SIZE&#39;])
-</code></pre><p>在settings.py配置文件的数据库项中，可以通过配置”SIZE”参数来指定连接池中某数据库的连接数量，如：</p>
-<pre><code>DATABASES = {
-    &#39;default&#39;: {
-        # &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,
-        &#39;ENGINE&#39;: &#39;database.db.mysql&#39;,
-        &#39;NAME&#39;: &#39;cartoon&#39;,
-        &#39;USER&#39;: &#39;root&#39;,
-        &#39;PASSWORD&#39;: &#39;root&#39;,
-        &#39;HOST&#39;: &#39;&#39;,
-        &#39;PORT&#39;: &#39;&#39;,
-        # 指定10个连接到cartoon库
-        &#39;SIZE&#39;: &#39;10&#39;,     # Default &#39;0&#39; means unlimit connection pool size
-        &#39;OPTIONS&#39;: {
-            &#39;init_command&#39;: &#39;SET default_storage_engine=INNODB&#39;,
-        },
-    }
-}
-</code></pre><p>至此，连接池改造完成。</p>
-<p>运行程序，进入mysql命令行，执行</p>
-<pre><code>show full processlist;
-</code></pre><p>可以看到连接池里面所有的连接。<br>[^1]: 参考链接： <a href="http://www.jianshu.com/p/e210e6380ade" target="_blank" rel="noopener">Django实现MySQL连接池</a>.</p>
+<p>将下载下来的源码解压，放在应用程序根目录”database”中，修改SteadyDB.py文件，在类 SteadyDBConnection 中添加3个成员方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def autocommit(self, *args, **kwargs):</span><br><span class="line">     self._con.autocommit(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">def get_server_info(self):</span><br><span class="line">    return self._con.get_server_info()</span><br><span class="line"></span><br><span class="line">@property</span><br><span class="line">def encoders(self):</span><br><span class="line">    return self._con.encoders</span><br></pre></td></tr></table></figure></p>
+<p>修改 PooledDB.py 和 PersistentDB.py 两个文件，将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from DBUtils.SteadyDB import connect</span><br></pre></td></tr></table></figure></p>
+<p>改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from .SteadyDB import connect</span><br></pre></td></tr></table></figure></p>
+<p>将Django中的mysql模块加入应用程序目录中,将backends目录下的 __init__.py文件和mysql目录复制到database目录下的db目录中，目录结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">应用程序根目录</span><br><span class="line">|</span><br><span class="line">| -- database</span><br><span class="line">     |</span><br><span class="line">     | -- DBUtils</span><br><span class="line">     | -- db</span><br><span class="line">          |</span><br><span class="line">          | -- __init__.py</span><br><span class="line">          | -- mysql</span><br></pre></td></tr></table></figure></p>
+<p>在mysql目录下添加pool.py文件，如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># coding:utf-8</span><br><span class="line">&apos;&apos;&apos;A connection pool of MySQL in Django 1.5 based on DBUtils.&apos;&apos;&apos;</span><br><span class="line">import MySQLdb</span><br><span class="line">from database.DBUtils.PooledDB import PooledDB</span><br><span class="line"></span><br><span class="line">class ConnectionWrapper(object):</span><br><span class="line">    def __init__(self, connection):</span><br><span class="line">        self._conn = connection</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, method):</span><br><span class="line">        &apos;&apos;&apos; 代理数据库连接的属性方法 &apos;&apos;&apos;</span><br><span class="line">        return getattr(self._conn, method)</span><br><span class="line"></span><br><span class="line">    def close(self):</span><br><span class="line">        &apos;&apos;&apos; 代理Django的关闭数据库连接 &apos;&apos;&apos;</span><br><span class="line">        self._conn.close()</span><br><span class="line"></span><br><span class="line">class DBWrapper(object):</span><br><span class="line">    def __init__(self, module):</span><br><span class="line">        self._connection = None</span><br><span class="line">        self._db = module</span><br><span class="line">        self._pool = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, item):</span><br><span class="line">        return getattr(self._db, item)</span><br><span class="line"></span><br><span class="line">    def _clear_connections(self, **kwargs):</span><br><span class="line">        &apos;&apos;&apos; 关闭已有连接 &apos;&apos;&apos;</span><br><span class="line">        conn = MySQLdb.connect(**kwargs)</span><br><span class="line">        cursor = conn.cursor()</span><br><span class="line">        sql = &apos;&apos;</span><br><span class="line">        cursor.execute(&apos;show full processlist;&apos;)</span><br><span class="line">        processlist = cursor.fetchall()</span><br><span class="line">        for th in processlist:</span><br><span class="line">            if th[3] == kwargs.get(&apos;db&apos;) and th[0] != conn.thread_id():</span><br><span class="line">                sql += &apos;kill %s;&apos; % th[0]</span><br><span class="line">        if len(sql.split(&apos;;&apos;)) &gt; 1:</span><br><span class="line">            cursor.execute(sql)</span><br><span class="line">        cursor.close()</span><br><span class="line">        conn.close()</span><br><span class="line"></span><br><span class="line">    def connect(self, *args, **kwargs):</span><br><span class="line">        &apos;&apos;&apos; 创建连接 &apos;&apos;&apos;</span><br><span class="line">        db = kwargs.get(&apos;db&apos;)</span><br><span class="line">        if db not in self._pool:</span><br><span class="line">            size = kwargs.get(&apos;size&apos;)</span><br><span class="line">            if &apos;size&apos; in kwargs:</span><br><span class="line">                kwargs.pop(&apos;size&apos;)</span><br><span class="line">            self._clear_connections(**kwargs)</span><br><span class="line">            self._pool[db] = PooledDB(self._db, mincached=size, maxcached=size, *args, **kwargs)</span><br><span class="line">        self._connection = self._pool[db].connection()</span><br><span class="line">        return ConnectionWrapper(self._connection)</span><br></pre></td></tr></table></figure></p>
+<p>修改mysql目录下的 base.py 文件，在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import MySQLdb as Database</span><br></pre></td></tr></table></figure></p>
+<p>下添加两行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from .pool import DBWrapper</span><br><span class="line">Database = DBWrapper(Database)</span><br></pre></td></tr></table></figure></p>
+<p>修改类 DatabaseWrapper 中的方法 get_connection_params，在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if settings_dict[&apos;PORT&apos;]:</span><br><span class="line">    kwargs[&apos;port&apos;] = int(settings_dict[&apos;PORT&apos;])</span><br></pre></td></tr></table></figure></p>
+<p>下添加如下代码，使连接池支持”SIZE”参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if settings_dict.get(&apos;SIZE&apos;):</span><br><span class="line">    kwargs[&apos;size&apos;] = int(settings_dict[&apos;SIZE&apos;])</span><br></pre></td></tr></table></figure></p>
+<p>在settings.py配置文件的数据库项中，可以通过配置”SIZE”参数来指定连接池中某数据库的连接数量，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        # &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,</span><br><span class="line">        &apos;ENGINE&apos;: &apos;database.db.mysql&apos;,</span><br><span class="line">        &apos;NAME&apos;: &apos;cartoon&apos;,</span><br><span class="line">        &apos;USER&apos;: &apos;root&apos;,</span><br><span class="line">        &apos;PASSWORD&apos;: &apos;root&apos;,</span><br><span class="line">        &apos;HOST&apos;: &apos;&apos;,</span><br><span class="line">        &apos;PORT&apos;: &apos;&apos;,</span><br><span class="line">        # 指定10个连接到cartoon库</span><br><span class="line">        &apos;SIZE&apos;: &apos;10&apos;,     # Default &apos;0&apos; means unlimit connection pool size</span><br><span class="line">        &apos;OPTIONS&apos;: &#123;</span><br><span class="line">            &apos;init_command&apos;: &apos;SET default_storage_engine=INNODB&apos;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>至此，连接池改造完成。</p>
+<p>运行程序，进入mysql命令行，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show full processlist;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到连接池里面所有的连接。<br>[^1]: 参考链接： <a href="http://www.jianshu.com/p/e210e6380ade" target="_blank" rel="noopener">Django实现MySQL连接池</a>.</p>
 
         </div>
 

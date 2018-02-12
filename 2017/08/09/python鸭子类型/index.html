@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -201,48 +199,11 @@
 <p>在Python当中我们会尽量避免使用诸如type, isinstance等函数，因为当使用这个函数时，会毁掉你代码的多态性，在Python当中真正重要的事情是关心如何让对象按照你所希望的方式工作，不管它是否是正确的类型。这就是上面提到的鸭子类型。</p>
 <h1 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h1><p>在鸭子类型的编程形式当中，类型不是我们关心的第一要素，真正重要的在于这个对象的行为。</p>
 <p>我们以静态类型语言当中的加法为例子，在静态语言当中我们通常只能对于相同类型的对象进行加法运算。假如使用了不同类型的对象进行加法运算编辑器将会直接提示错误。</p>
-<p>而在Python当中只要对象实现了add方法，那么就意味着这个对象是可以进行加法运算的:</p>
-<pre><code>class A:
-     def __init__(self, val):
-         self.val = val
-     def __add__(self, other):
-         return self.__class__(self.val+other.val)
-     def __str__(self):
-         return str(self.val)
-a = A(2)
-b = A(3)
-print a + b
-</code></pre><p>类似于add,还包括诸如getitem setitem 等方法都是同样的道理:</p>
-<pre><code>a = [1,2,3]
-print a[0]
-# 等价于
-print list.__getitem__(a, 0)
-</code></pre><p>这里鸭子类型的产生是由于在Python当中我们对a使用“索引”操作时，我们并不用关心a的类型，我们只需要关心a所引用的对象是否包含getitem这样的方法。</p>
-<h1 id="继承与鸭子类型"><a href="#继承与鸭子类型" class="headerlink" title="继承与鸭子类型"></a>继承与鸭子类型</h1><p>在Java当中我们使用接口来定义行为，通过继承超类实现代码共享。而在Python当中由于鸭子类型的存在，除了代码共享以外(如mixin)我们很少有对继承的需要：</p>
-<pre><code>class Duck:
-  def quck(self):
-    print &quot;duck qucking&quot;
-  def walk(self):
-    print &quot;duck is walking&quot;
-class GreenDuck(Duck):
-  def quck(self):
-    print &quot;green duck is qucking.&quot;
-class PersonWithDuckSkil:
-  def quck(self):
-    print &quot;em~ i&#39;m not a real duck&quot;
-  def walk(self):
-    print &quot;All peope can waking.&quot;
-def duck_game(duck):
-  duck.quck()
-  duck.walk()
-if __name__ == &quot;__main__&quot;:
-  duck = Duck()
-  greenDuck = GreenDuck()
-  people = PersonWithDuckSkil()
-  duck_game(duck)
-  duck_game(greenDuck)
-  duck_game(people)
-</code></pre><p>基于鸭子类型实现完全由程序员自身进行控制，在增加了灵活性的同时还需要程序员自身的更高要求，虽然没有语言层面的约束，但是还是要保持心中有“接口”的状态。</p>
+<p>而在Python当中只要对象实现了add方法，那么就意味着这个对象是可以进行加法运算的:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class A:</span><br><span class="line">     def __init__(self, val):</span><br><span class="line">         self.val = val</span><br><span class="line">     def __add__(self, other):</span><br><span class="line">         return self.__class__(self.val+other.val)</span><br><span class="line">     def __str__(self):</span><br><span class="line">         return str(self.val)</span><br><span class="line">a = A(2)</span><br><span class="line">b = A(3)</span><br><span class="line">print a + b</span><br></pre></td></tr></table></figure></p>
+<p>类似于add,还包括诸如getitem setitem 等方法都是同样的道理:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = [1,2,3]</span><br><span class="line">print a[0]</span><br><span class="line"># 等价于</span><br><span class="line">print list.__getitem__(a, 0)</span><br></pre></td></tr></table></figure></p>
+<p>这里鸭子类型的产生是由于在Python当中我们对a使用“索引”操作时，我们并不用关心a的类型，我们只需要关心a所引用的对象是否包含getitem这样的方法。</p>
+<h1 id="继承与鸭子类型"><a href="#继承与鸭子类型" class="headerlink" title="继承与鸭子类型"></a>继承与鸭子类型</h1><p>在Java当中我们使用接口来定义行为，通过继承超类实现代码共享。而在Python当中由于鸭子类型的存在，除了代码共享以外(如mixin)我们很少有对继承的需要：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Duck:</span><br><span class="line">  def quck(self):</span><br><span class="line">    print &quot;duck qucking&quot;</span><br><span class="line">  def walk(self):</span><br><span class="line">    print &quot;duck is walking&quot;</span><br><span class="line">class GreenDuck(Duck):</span><br><span class="line">  def quck(self):</span><br><span class="line">    print &quot;green duck is qucking.&quot;</span><br><span class="line">class PersonWithDuckSkil:</span><br><span class="line">  def quck(self):</span><br><span class="line">    print &quot;em~ i&apos;m not a real duck&quot;</span><br><span class="line">  def walk(self):</span><br><span class="line">    print &quot;All peope can waking.&quot;</span><br><span class="line">def duck_game(duck):</span><br><span class="line">  duck.quck()</span><br><span class="line">  duck.walk()</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">  duck = Duck()</span><br><span class="line">  greenDuck = GreenDuck()</span><br><span class="line">  people = PersonWithDuckSkil()</span><br><span class="line">  duck_game(duck)</span><br><span class="line">  duck_game(greenDuck)</span><br><span class="line">  duck_game(people)</span><br></pre></td></tr></table></figure></p>
+<p>基于鸭子类型实现完全由程序员自身进行控制，在增加了灵活性的同时还需要程序员自身的更高要求，虽然没有语言层面的约束，但是还是要保持心中有“接口”的状态。</p>
 
         </div>
 

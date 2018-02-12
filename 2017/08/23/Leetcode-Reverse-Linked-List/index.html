@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -189,31 +187,8 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>翻转单链表。<br><a id="more"></a><br>链表的操作，关键就在指针。当然使用栈很容易实现，但是我们有更好的方法，就是借助三个指针。</p>
 <p>pre：当前元素的前一个元素的指针<br>cur：当前元素的指针<br>nextp：当前元素的下一个元素的指针</p>
-<p><strong>实现：</strong></p>
-<pre><code># Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode(object):</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val = x</span><br><span class="line">#         self.next = None</span><br><span class="line"></span><br><span class="line">class Solution(object):</span><br><span class="line">    def reverseList(self, head):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type head: ListNode</span><br><span class="line">        :rtype: ListNode</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        pre = None</span><br><span class="line">        cur = head</span><br><span class="line"></span><br><span class="line">        while cur != None:</span><br><span class="line">            nextp = cur.next</span><br><span class="line"></span><br><span class="line">            cur.next = pre   #翻转操作</span><br><span class="line"></span><br><span class="line">            pre = cur</span><br><span class="line">            cur = nextp      </span><br><span class="line">        return pre</span><br></pre></td></tr></table></figure></p>
 
-class Solution(object):
-    def reverseList(self, head):
-        &quot;&quot;&quot;
-        :type head: ListNode
-        :rtype: ListNode
-        &quot;&quot;&quot;
-        pre = None
-        cur = head
-
-        while cur != None:
-            nextp = cur.next
-
-            cur.next = pre   #翻转操作
-
-            pre = cur
-            cur = nextp      
-        return pre
-</code></pre>
         </div>
 
         <blockquote class="post-copyright">

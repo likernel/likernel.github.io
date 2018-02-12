@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -200,50 +198,21 @@
 <p>#不同运行级别的实现原理<br>如上所述，Linux系统的每一个运行级别，都对应一个目录。</p>
 <p>在/etc/init.d目录下有许多脚本程序，我们将这些程序称之为服务(Service)。</p>
 <p>而/etc目录下，还有rc0.d~rc6.d共7个目录。在这些目录下都是一些软链接文件，这些链接文件都指向了init.d目录下的service脚本文件。而这些软连接的命名规则为：K+nn+服务名或S+nn+服务名，其中nn为两位数字。</p>
-<p>系统启动时，会根据当前运行级别进入对应的rc*.d目录，然后按照文件名顺序检索目录下的链接文件，并会做以下处理：</p>
-<pre><code>对于以K开头的文件，系统将终止对应的服务
-对于以S开头的文件，系统将启动对应的服务
-</code></pre><p>注意：/etc/init.d存在于Ubuntu等发行版中，而CentOS等发行版中位于/etc/rc.d/init.d目录下，但通过/etc/init.d软连接进行关联。同样的，rc*.d等目录，在Ubuntu等系统中位于/etc/目录下，而在CentOS等系统中位于/etc/rc.d目录下，但在/etc下都有对应的软连接。</p>
+<p>系统启动时，会根据当前运行级别进入对应的rc*.d目录，然后按照文件名顺序检索目录下的链接文件，并会做以下处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对于以K开头的文件，系统将终止对应的服务</span><br><span class="line">对于以S开头的文件，系统将启动对应的服务</span><br></pre></td></tr></table></figure></p>
+<p>注意：/etc/init.d存在于Ubuntu等发行版中，而CentOS等发行版中位于/etc/rc.d/init.d目录下，但通过/etc/init.d软连接进行关联。同样的，rc*.d等目录，在Ubuntu等系统中位于/etc/目录下，而在CentOS等系统中位于/etc/rc.d目录下，但在/etc下都有对应的软连接。</p>
 <p>#Linux运行级别的修改</p>
-<p>##运行级别相关命令<br>查看系统当前运行级别：runlevel</p>
-<pre><code>$ runlevel
-N 3
-</code></pre><p>切换系统运行级别：init N。如，切换到3多用户命令模式：</p>
-<pre><code>init 3
-</code></pre><p>常用的init命令还有：init 0结束所有进程后关闭计算机、init 6重启系统</p>
+<p>##运行级别相关命令<br>查看系统当前运行级别：runlevel<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ runlevel</span><br><span class="line">N 3</span><br></pre></td></tr></table></figure></p>
+<p>切换系统运行级别：init N。如，切换到3多用户命令模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init 3</span><br></pre></td></tr></table></figure></p>
+<p>常用的init命令还有：init 0结束所有进程后关闭计算机、init 6重启系统</p>
 <p>##修改系统默认运行级别<br>Linux 会根据运行级别的不同执行不同程序，虽然Ubuntu和CenosOS等不同发行版中都有运行级别的概念，但运行机制不同，因此修改默认启动级别的方式也有所有不同。</p>
 <p>这里以CentOS为例：</p>
-<p>CentOS等Linux系统中使用一种叫System V的机制来启动运行级别，在该机制下，通过/etc/inittab配置系统启动进程。因此，也可以通过该文件来配置默认的启动级别：</p>
-<pre><code>$ sudo vi /etc/inittab
-</code></pre><p>找到如下行：</p>
-<pre><code>id:5:initdefault:
-</code></pre><p>并修改为：</p>
-<pre><code>id:3:initdefault:
-</code></pre><p>注意：以上方法适用于CentOS 7之前的系统，在CentOS 7中/etc/inittab文件已不再使用：</p>
-<pre><code>$ cat /etc/inittab
-# inittab is no longer used when using systemd.
-#
-# ADDING CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.
-#
-# Ctrl-Alt-Delete is handled by /usr/lib/systemd/system/ctrl-alt-del.target
-#
-# systemd uses &#39;targets&#39; instead of runlevels. By default, there are two main targets:
-#
-# multi-user.target: analogous to runlevel 3
-# graphical.target: analogous to runlevel 5
-#
-# To view current default target, run:
-# systemctl get-default
-#
-# To set a default target, run:
-# systemctl set-default TARGET.target
-#
-</code></pre><p>根据该文件提示，查看当前启动模式：</p>
-<pre><code>$ systemctl get-default
-graphical.target
-</code></pre><p>修改默认启动级别：</p>
-<pre><code>systemctl set-default multi-user.target
-</code></pre><p>输入密码完成修改。重启后，系统默认将以级别3启动。</p>
+<p>CentOS等Linux系统中使用一种叫System V的机制来启动运行级别，在该机制下，通过/etc/inittab配置系统启动进程。因此，也可以通过该文件来配置默认的启动级别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/inittab</span><br></pre></td></tr></table></figure></p>
+<p>找到如下行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:5:initdefault:</span><br></pre></td></tr></table></figure></p>
+<p>并修改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:3:initdefault:</span><br></pre></td></tr></table></figure></p>
+<p>注意：以上方法适用于CentOS 7之前的系统，在CentOS 7中/etc/inittab文件已不再使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/inittab</span><br><span class="line"># inittab is no longer used when using systemd.</span><br><span class="line">#</span><br><span class="line"># ADDING CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.</span><br><span class="line">#</span><br><span class="line"># Ctrl-Alt-Delete is handled by /usr/lib/systemd/system/ctrl-alt-del.target</span><br><span class="line">#</span><br><span class="line"># systemd uses &apos;targets&apos; instead of runlevels. By default, there are two main targets:</span><br><span class="line">#</span><br><span class="line"># multi-user.target: analogous to runlevel 3</span><br><span class="line"># graphical.target: analogous to runlevel 5</span><br><span class="line">#</span><br><span class="line"># To view current default target, run:</span><br><span class="line"># systemctl get-default</span><br><span class="line">#</span><br><span class="line"># To set a default target, run:</span><br><span class="line"># systemctl set-default TARGET.target</span><br><span class="line">#</span><br></pre></td></tr></table></figure></p>
+<p>根据该文件提示，查看当前启动模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl get-default</span><br><span class="line">graphical.target</span><br></pre></td></tr></table></figure></p>
+<p>修改默认启动级别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>输入密码完成修改。重启后，系统默认将以级别3启动。</p>
 
         </div>
 

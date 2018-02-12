@@ -24,9 +24,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="PyQt5,python">
+    <meta name="keywords" content="python,PyQt5">
     <meta name="description" content="最近要写一个岩石分级的工具，选择了PyQt5作为GUI开发的框架。本文介绍一下基本的环境的配置。">
-<meta name="keywords" content="PyQt5,python">
+<meta name="keywords" content="python,PyQt5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyQt5+Pycharm环境搭建">
 <meta property="og:url" content="http://likernel.github.io/2018/01/23/PyQt5-Pycharm环境搭建/index.html">
@@ -51,8 +51,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -205,16 +203,15 @@
 <li>Python 3.6(这里建议使用python3，在虚拟环境中配置)</li>
 <li>PyQt5</li>
 <li>SIP</li>
-<li>Qt Designer<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h4 id="安装SIP"><a href="#安装SIP" class="headerlink" title="安装SIP"></a>安装SIP</h4><pre><code>pip3 install SIP
-</code></pre><blockquote>
-<p>sip是RiverBank（PyQt的开发商）开发的用于PyQt的Python/C++混合编程解决方案。由于Qt框架的复杂性，PyQt并没有使用Cython、SWIG的混合编程方案，而是自己单独做了一套框架。sip包括一个sip工具、SDK和Python Module。</p>
-</blockquote>
+<li>Qt Designer<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h4 id="安装SIP"><a href="#安装SIP" class="headerlink" title="安装SIP"></a>安装SIP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install SIP</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="安装PyQt5"><a href="#安装PyQt5" class="headerlink" title="安装PyQt5"></a>安装PyQt5</h4><pre><code>pip3 install PyQt5
-</code></pre><h4 id="安装QtDesigner"><a href="#安装QtDesigner" class="headerlink" title="安装QtDesigner"></a>安装QtDesigner</h4><p>QtDesigner在pyqt5-tools这个包里面有</p>
-<pre><code>pip install pyqt5-tools
-</code></pre><h2 id="Pycharm配置"><a href="#Pycharm配置" class="headerlink" title="Pycharm配置"></a>Pycharm配置</h2><p>这里我们主要在Pycharm里面配置两个扩展工具。QtDesigner和PyUIC，前者是可视化UI编辑工具，后者是将.ui文件转成.py文件的工具。</p>
+<blockquote>
+<p>sip是RiverBank（PyQt的开发商）开发的用于PyQt的Python/C++混合编程解决方案。由于Qt框架的复杂性，PyQt并没有使用Cython、SWIG的混合编程方案，而是自己单独做了一套框架。sip包括一个sip工具、SDK和Python Module。</p>
+</blockquote>
+<h4 id="安装PyQt5"><a href="#安装PyQt5" class="headerlink" title="安装PyQt5"></a>安装PyQt5</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install PyQt5</span><br></pre></td></tr></table></figure>
+<h4 id="安装QtDesigner"><a href="#安装QtDesigner" class="headerlink" title="安装QtDesigner"></a>安装QtDesigner</h4><p>QtDesigner在pyqt5-tools这个包里面有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyqt5-tools</span><br></pre></td></tr></table></figure></p>
+<h2 id="Pycharm配置"><a href="#Pycharm配置" class="headerlink" title="Pycharm配置"></a>Pycharm配置</h2><p>这里我们主要在Pycharm里面配置两个扩展工具。QtDesigner和PyUIC，前者是可视化UI编辑工具，后者是将.ui文件转成.py文件的工具。</p>
 <h4 id="QtDesigner配置"><a href="#QtDesigner配置" class="headerlink" title="QtDesigner配置"></a>QtDesigner配置</h4><p>1.Ctrl+Alt+s调出设置-&gt;Tools-&gt;External Tools<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -235,9 +232,8 @@
                     <img src="/assets/images/2018/01/PyUIC-setting.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
-            </figure><br>Program填写python.exe所在的路径（根据你的虚拟环境而定）。<br>Working directory填写$FileDir$(文件目录，在Insert Macro…中可以选择)<br>其中，Arguments的配置如下：</p>
-<pre><code>-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py
-</code></pre><p>这时候在External tools下可以看到这两个扩展工具。<br><figure class="image-bubble">
+            </figure><br>Program填写python.exe所在的路径（根据你的虚拟环境而定）。<br>Working directory填写$FileDir$(文件目录，在Insert Macro…中可以选择)<br>其中，Arguments的配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py</span><br></pre></td></tr></table></figure></p>
+<p>这时候在External tools下可以看到这两个扩展工具。<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/assets/images/2018/01/external-tools.png" alt="" title="">

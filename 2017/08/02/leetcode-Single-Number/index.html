@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -199,13 +197,8 @@
 <h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h4><p>这里使用<strong>异或</strong>运算，异或运算有如下性质：</p>
 <p>1.相同元素异或为0,0与任何数异或等于任何数，有a^b^a=b。</p>
 <p>2.此外，异或还可以用于两个元素交换a=a^b^(b=a)。</p>
-<p>实现：</p>
-<pre><code>def singleNumber(nums):
-        res = 0
-        for i in nums:
-            res = res^i
-        return res
-</code></pre>
+<p>实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(nums):</span><br><span class="line">        res = 0</span><br><span class="line">        for i in nums:</span><br><span class="line">            res = res^i</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure></p>
+
         </div>
 
         <blockquote class="post-copyright">

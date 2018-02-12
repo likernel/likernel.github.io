@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -188,19 +186,9 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>Python内建的filter()函数用于过滤序列。<br><a id="more"></a><br>和map()类似，filter()也接收一个函数和一个序列。和map()不同的时，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素。</p>
-<p>例如，在一个list中，删掉偶数，只保留奇数，可以这么写：</p>
-<pre><code>def is_odd(n):
-    return n % 2 == 1
-
-filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15])
-# 结果: [1, 5, 9, 15]
-</code></pre><p>把一个序列中的空字符串删掉，可以这么写：</p>
-<pre><code>def not_empty(s):
-    return s and s.strip()
-
-filter(not_empty, [&#39;A&#39;, &#39;&#39;, &#39;B&#39;, None, &#39;C&#39;, &#39;  &#39;])
-# 结果: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]
-</code></pre><p>可见用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
+<p>例如，在一个list中，删掉偶数，只保留奇数，可以这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def is_odd(n):</span><br><span class="line">    return n % 2 == 1</span><br><span class="line"></span><br><span class="line">filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15])</span><br><span class="line"># 结果: [1, 5, 9, 15]</span><br></pre></td></tr></table></figure></p>
+<p>把一个序列中的空字符串删掉，可以这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def not_empty(s):</span><br><span class="line">    return s and s.strip()</span><br><span class="line"></span><br><span class="line">filter(not_empty, [&apos;A&apos;, &apos;&apos;, &apos;B&apos;, None, &apos;C&apos;, &apos;  &apos;])</span><br><span class="line"># 结果: [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>可见用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
 
         </div>
 

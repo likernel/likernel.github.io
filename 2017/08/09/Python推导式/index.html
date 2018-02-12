@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,29 +193,14 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>推导式（又称解析式）是Python的一种独有特性，推导式是可以从一个数据序列构建另一个新的数据序列的结构体。共有三种推导，在Python2和3中都有支持：列表(list)推导式、字典(dict)推导式、集合(set)推导式。<br><a id="more"></a></p>
-<h1 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h1><p>列表推导式提供了一种简明扼要的方法来创建列表。<br>其语法如下：</p>
-<pre><code>variable = [out_exp for out_exp in input_list if out_exp == 2]
-</code></pre><p>实际上，在之前写快速排序时，已经见过列表推导式。列表推导式在有些情况下超赞，特别是当你需要使用for循环来生成一个新列表。举个例子，你通常会这样做：</p>
-<pre><code>squared = []
-for x in range(10):
-    squared.append(x**2)
-</code></pre><p>你可以使用列表推导式来简化它，就像这样：</p>
-<pre><code>squared = [x**2 for x in range(10)]
-</code></pre><p>#字典推导式<br>字典推导和列表推导的使用方法是类似的，它的语法如下：</p>
-<pre><code>d = {key: value for (key, value) in iterable}
-</code></pre><p>看下面的例子：</p>
-<pre><code>&gt;&gt;&gt; dict={&quot;a&quot;:1, &quot;b&quot;:2, &quot;c&quot;:3, &quot;d&quot;:4}
-&gt;&gt;&gt; d={v:k for k,v in dict.items()}
-&gt;&gt;&gt; print d
-{1: &#39;a&#39;, 2: &#39;b&#39;, 3: &#39;c&#39;, 4: &#39;d&#39;}
-&gt;&gt;&gt;
-</code></pre><p>在上面的例子中，我们可以快速交换字典键—值。</p>
-<h1 id="集合推导式"><a href="#集合推导式" class="headerlink" title="集合推导式"></a>集合推导式</h1><p>集合推导式跟列表推导式差不多，主要区别在于：1.不使用[]，使用{}；2.结果中无重复；3.结果是一个set()集合，集合里面是一个序列:</p>
-<pre><code>&gt;&gt;&gt; squared={i*2 for i in [1,1,2]}
-&gt;&gt;&gt; print squared
-set([2, 4])
-&gt;&gt;&gt;
-</code></pre>
+<h1 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h1><p>列表推导式提供了一种简明扼要的方法来创建列表。<br>其语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable = [out_exp for out_exp in input_list if out_exp == 2]</span><br></pre></td></tr></table></figure></p>
+<p>实际上，在之前写快速排序时，已经见过列表推导式。列表推导式在有些情况下超赞，特别是当你需要使用for循环来生成一个新列表。举个例子，你通常会这样做：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">squared = []</span><br><span class="line">for x in range(10):</span><br><span class="line">    squared.append(x**2)</span><br></pre></td></tr></table></figure></p>
+<p>你可以使用列表推导式来简化它，就像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">squared = [x**2 for x in range(10)]</span><br></pre></td></tr></table></figure></p>
+<p>#字典推导式<br>字典推导和列表推导的使用方法是类似的，它的语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;key: value for (key, value) in iterable&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看下面的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dict=&#123;&quot;a&quot;:1, &quot;b&quot;:2, &quot;c&quot;:3, &quot;d&quot;:4&#125;</span><br><span class="line">&gt;&gt;&gt; d=&#123;v:k for k,v in dict.items()&#125;</span><br><span class="line">&gt;&gt;&gt; print d</span><br><span class="line">&#123;1: &apos;a&apos;, 2: &apos;b&apos;, 3: &apos;c&apos;, 4: &apos;d&apos;&#125;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们可以快速交换字典键—值。</p>
+<h1 id="集合推导式"><a href="#集合推导式" class="headerlink" title="集合推导式"></a>集合推导式</h1><p>集合推导式跟列表推导式差不多，主要区别在于：1.不使用[]，使用{}；2.结果中无重复；3.结果是一个set()集合，集合里面是一个序列:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; squared=&#123;i*2 for i in [1,1,2]&#125;</span><br><span class="line">&gt;&gt;&gt; print squared</span><br><span class="line">set([2, 4])</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+
         </div>
 
         <blockquote class="post-copyright">

@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -194,16 +192,8 @@
 <li>去掉空字符，字符串最后一位为空字符。</li>
 <li>reverse整个数组并连接。</li>
 </ol>
-<p><strong>实现：</strong></p>
-<pre><code>def reverseWords(s):
-        arr = s.split(&#39; &#39;)
-        while &#39;&#39; in arr:
-            arr.remove(&#39;&#39;)
-        arr.reverse()
-        str = &#39; &#39;.join(arr)
+<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def reverseWords(s):</span><br><span class="line">        arr = s.split(&apos; &apos;)</span><br><span class="line">        while &apos;&apos; in arr:</span><br><span class="line">            arr.remove(&apos;&apos;)</span><br><span class="line">        arr.reverse()</span><br><span class="line">        str = &apos; &apos;.join(arr)</span><br><span class="line"></span><br><span class="line">        return str</span><br></pre></td></tr></table></figure></p>
 
-        return str
-</code></pre>
         </div>
 
         <blockquote class="post-copyright">

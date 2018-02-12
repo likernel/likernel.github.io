@@ -48,8 +48,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -205,14 +203,8 @@
 <p>每个对象维护一个ob_ref字段，用来记录该对象当前被引用的次数，每当新的引用指向该对象时，它的引用计数ob_ref加1，每当该对象的引用失效时计数ob_ref减1，一旦对象的引用计数为0，该对象立即被回收，对象占用的内存空间将被释放。</p>
 </blockquote>
 <p>它的缺点是需要额外的空间维护引用计数，这个问题是其次的，不过最主要的问题是它不能解决对象的“循环引用”。</p>
-<h2 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h2><p>A和B相互引用而再没有外部引用A与B中的任何一个，它们的引用计数虽然都为1，但显然应该被回收，例子：</p>
-<pre><code>a = { }            #对象A的引用计数为 1
-b = { }            #对象B的引用计数为 1
-a[&#39;b&#39;] = b         #B的引用计数增1
-b[&#39;a&#39;] = a         #A的引用计数增1
-del a              #A的引用减 1，最后A对象的引用为 1
-del b              #B的引用减 1, 最后B对象的引用为 1
-</code></pre><p>在这个例子中程序执行完del语句后，A、B对象已经没有任何引用指向这两个对象，但是这两个对象各包含一个对方对象的引用，虽然最后两个对象都无法通过其它变量来引用这两个对象了，这对GC来说就是两个非活动对象或者说是垃圾对象，但是他们的引用计数并没有减少到零。因此如果是使用引用计数法来管理这两对象的话，他们并不会被回收，它会一直驻留在内存中，就会造成了内存泄漏（内存空间在使用完毕后未释放）。</p>
+<h2 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h2><p>A和B相互引用而再没有外部引用A与B中的任何一个，它们的引用计数虽然都为1，但显然应该被回收，例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = &#123; &#125;            #对象A的引用计数为 1</span><br><span class="line">b = &#123; &#125;            #对象B的引用计数为 1</span><br><span class="line">a[&apos;b&apos;] = b         #B的引用计数增1</span><br><span class="line">b[&apos;a&apos;] = a         #A的引用计数增1</span><br><span class="line">del a              #A的引用减 1，最后A对象的引用为 1</span><br><span class="line">del b              #B的引用减 1, 最后B对象的引用为 1</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中程序执行完del语句后，A、B对象已经没有任何引用指向这两个对象，但是这两个对象各包含一个对方对象的引用，虽然最后两个对象都无法通过其它变量来引用这两个对象了，这对GC来说就是两个非活动对象或者说是垃圾对象，但是他们的引用计数并没有减少到零。因此如果是使用引用计数法来管理这两对象的话，他们并不会被回收，它会一直驻留在内存中，就会造成了内存泄漏（内存空间在使用完毕后未释放）。</p>
 <p>为了解决对象的循环引用问题，Python引入了<strong>标记-清除</strong>和<strong>分代回收</strong>两种GC机制。</p>
 <h1 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h1><p><strong>标记清除（Mark—Sweep）</strong>算法是一种基于追踪回收（tracing GC）技术实现的垃圾回收算法。它分为两个阶段：</p>
 <p>1.标记阶段，GC会把所有的活动对象打上标记。<br>2.把那些没有标记的非活动对象进行回收。</p>

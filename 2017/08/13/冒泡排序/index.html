@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,13 +193,8 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端，有点类似于冒泡的过程。<br><a id="more"></a></p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><pre><code>def BubbleSort(arr):
-    for i in xrange(len(arr)):
-        for j in xrange(i+1,len(arr)):
-            if arr[i] &gt; arr[j]:
-                arr[i],arr[j] = arr[j],arr[i]
-    return arr
-</code></pre><p>备注：算法比较容易实现，唯一值得注意的是在Python中交换两个数是不需要中间变量的。因此有<code>arr[i],arr[j] = arr[j],arr[i]</code>这种写法。至于python底层的具体实现不清楚，个人感觉是之前提到的位异或运算实现的。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def BubbleSort(arr):</span><br><span class="line">    for i in xrange(len(arr)):</span><br><span class="line">        for j in xrange(i+1,len(arr)):</span><br><span class="line">            if arr[i] &gt; arr[j]:</span><br><span class="line">                arr[i],arr[j] = arr[j],arr[i]</span><br><span class="line">    return arr</span><br></pre></td></tr></table></figure>
+<p>备注：算法比较容易实现，唯一值得注意的是在Python中交换两个数是不需要中间变量的。因此有<code>arr[i],arr[j] = arr[j],arr[i]</code>这种写法。至于python底层的具体实现不清楚，个人感觉是之前提到的位异或运算实现的。</p>
 <p>补充：关于变量交换问题，知乎上有大神帮忙做了解答，想了解的可以点击<a href="https://www.zhihu.com/question/63859022" target="_blank" rel="noopener">这里</a>。</p>
 
         </div>

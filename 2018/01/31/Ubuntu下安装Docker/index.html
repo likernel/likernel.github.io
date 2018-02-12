@@ -25,21 +25,21 @@
     
     
     <meta name="keywords" content="docker">
-    <meta name="description" content="本文主要介绍在Ubuntu下Docker的安装。 Ubuntu下安装Docker检查当前内核版本：$ uname -r 4.14.0-041400-generic 内核版本要求最低为 3.10。 更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书： sudo apt-get update s">
+    <meta name="description" content="本文主要介绍在Ubuntu下Docker的安装。 Ubuntu下安装Docker检查当前内核版本：12$ uname -r4.14.0-041400-generic 内核版本要求最低为 3.10。 更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书：12sudo apt-get update">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu下安装Docker">
 <meta property="og:url" content="http://likernel.github.io/2018/01/31/Ubuntu下安装Docker/index.html">
 <meta property="og:site_name" content="likernel">
-<meta property="og:description" content="本文主要介绍在Ubuntu下Docker的安装。 Ubuntu下安装Docker检查当前内核版本：$ uname -r 4.14.0-041400-generic 内核版本要求最低为 3.10。 更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书： sudo apt-get update s">
+<meta property="og:description" content="本文主要介绍在Ubuntu下Docker的安装。 Ubuntu下安装Docker检查当前内核版本：12$ uname -r4.14.0-041400-generic 内核版本要求最低为 3.10。 更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书：12sudo apt-get update">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/docker1.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/docker2.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2018/01/docker3.png">
-<meta property="og:updated_time" content="2018-02-11T14:46:28.577Z">
+<meta property="og:updated_time" content="2018-02-12T01:56:22.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu下安装Docker">
-<meta name="twitter:description" content="本文主要介绍在Ubuntu下Docker的安装。 Ubuntu下安装Docker检查当前内核版本：$ uname -r 4.14.0-041400-generic 内核版本要求最低为 3.10。 更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书： sudo apt-get update s">
+<meta name="twitter:description" content="本文主要介绍在Ubuntu下Docker的安装。 Ubuntu下安装Docker检查当前内核版本：12$ uname -r4.14.0-041400-generic 内核版本要求最低为 3.10。 更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书：12sudo apt-get update">
 <meta name="twitter:image" content="http://likernel.github.io/assets/images/2018/01/docker1.png">
     
         <link rel="alternate" type="application/atom+xml" title="likernel" href="/atom.xml">
@@ -50,8 +50,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -199,35 +197,25 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>本文主要介绍在Ubuntu下Docker的安装。</p>
-<h2 id="Ubuntu下安装Docker"><a href="#Ubuntu下安装Docker" class="headerlink" title="Ubuntu下安装Docker"></a>Ubuntu下安装Docker</h2><h4 id="检查当前内核版本："><a href="#检查当前内核版本：" class="headerlink" title="检查当前内核版本："></a>检查当前内核版本：</h4><pre><code>$ uname -r
-4.14.0-041400-generic
-</code></pre><p>内核版本要求最低为 3.10。</p>
-<h4 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h4><p>Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：<br>1.更新包信息，确保APT能使用https的方式，并安装CA证书：</p>
-<pre><code>sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates
-</code></pre><a id="more"></a>
-<p>2.添加GPG密钥：</p>
-<pre><code>sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-</code></pre><p>3.在文件 /etc/apt/sources.list.d/docker.list中添加相应的源。对于16.04版本的系统：</p>
-<pre><code>echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list
-</code></pre><p>4.更新APT包索引</p>
-<pre><code>sudo apt-get update
-</code></pre><p>5.确保 APT 现在是从设置的仓库中下载Docker</p>
-<pre><code>apt-cache policy docker-engine
-</code></pre><p>执行后输出：<br><figure class="image-bubble">
+<h2 id="Ubuntu下安装Docker"><a href="#Ubuntu下安装Docker" class="headerlink" title="Ubuntu下安装Docker"></a>Ubuntu下安装Docker</h2><h4 id="检查当前内核版本："><a href="#检查当前内核版本：" class="headerlink" title="检查当前内核版本："></a>检查当前内核版本：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> uname -r</span><br><span class="line">4.14.0-041400-generic</span><br></pre></td></tr></table></figure>
+<p>内核版本要求最低为 3.10。</p>
+<h4 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h4><p>Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：<br>1.更新包信息，确保APT能使用https的方式，并安装CA证书：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>2.添加GPG密钥：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure></p>
+<p>3.在文件 /etc/apt/sources.list.d/docker.list中添加相应的源。对于16.04版本的系统：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure></p>
+<p>4.更新APT包索引<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></p>
+<p>5.确保 APT 现在是从设置的仓库中下载Docker<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy docker-engine</span><br></pre></td></tr></table></figure></p>
+<p>执行后输出：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/assets/images/2018/01/docker1.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
-            </figure><br>6.对于Ubuntu 16.04，推荐安装linux-image-extra-* 内核包。这些包能允许我们使用aufs存储驱动。</p>
-<pre><code> sudo apt-get update &amp;&amp; sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
-</code></pre><h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><pre><code>sudo apt-get install -y docker-engine
-</code></pre><p>开启守护进程：</p>
-<pre><code>sudo service docker start
-</code></pre><p>确认docker正确安装：</p>
-<pre><code>sudo docker run hello-world
-</code></pre><p>输出如下：</p>
+            </figure><br>6.对于Ubuntu 16.04，推荐安装linux-image-extra-* 内核包。这些包能允许我们使用aufs存储驱动。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y docker-engine</span><br></pre></td></tr></table></figure>
+<p>开启守护进程：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></p>
+<p>确认docker正确安装：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure></p>
+<p>输出如下：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -235,9 +223,8 @@ sudo apt-get install apt-transport-https ca-certificates
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>查看 docker 守护进程的状态：</p>
-<pre><code>sudo systemctl status docker
-</code></pre><p>输出如下：</p>
+<p>查看 docker 守护进程的状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></table></figure></p>
+<p>输出如下：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -245,9 +232,8 @@ sudo apt-get install apt-transport-https ca-certificates
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>如果不想每次运行Docker都使用sudo权限，可以把用户加到Docker组中，该组在Docker安装时自动创建：</p>
-<pre><code>sudo usermod -aG docker $(whoami)
-</code></pre>
+<p>如果不想每次运行Docker都使用sudo权限，可以把用户加到Docker组中，该组在Docker安装时自动创建：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $(whoami)</span><br></pre></td></tr></table></figure></p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -255,7 +241,7 @@ sudo apt-get install apt-transport-https ca-certificates
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:46:28.577Z" itemprop="dateUpdated">2018-02-11 22:46:28</time>
+    最后更新时间：<time datetime="2018-02-12T01:56:22.683Z" itemprop="dateUpdated">2018-02-12 09:56:22</time>
 </span><br>
 
 
@@ -302,8 +288,7 @@ sudo apt-get install apt-transport-https ca-certificates
       </li>
       <li>
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2018/01/31/Ubuntu下安装Docker/&title=《Ubuntu下安装Docker》 — likernel&source=本文主要介绍在Ubuntu下Docker的安装。
-Ubuntu下安装Docker检查当前内核版本：$ uname -r
-4.14.0-041400-gen..." data-title=" QQ">
+Ubuntu下安装Docker检查当前内核版本：12$ uname -r4.14.0-041400-ge..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -474,8 +459,7 @@ Ubuntu下安装Docker检查当前内核版本：$ uname -r
       </li>
       <li>
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://likernel.github.io/2018/01/31/Ubuntu下安装Docker/&title=《Ubuntu下安装Docker》 — likernel&source=本文主要介绍在Ubuntu下Docker的安装。
-Ubuntu下安装Docker检查当前内核版本：$ uname -r
-4.14.0-041400-gen..." data-title=" QQ">
+Ubuntu下安装Docker检查当前内核版本：12$ uname -r4.14.0-041400-ge..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

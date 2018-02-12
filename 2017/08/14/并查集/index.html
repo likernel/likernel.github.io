@@ -52,8 +52,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -217,28 +215,8 @@
                 <div class="image-caption"></div>
             </figure>
 <p>我们可以通过union操作，实现上图的连接，形成了两个连通分量，或称为一个组。</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Quick-Find实现"><a href="#Quick-Find实现" class="headerlink" title="Quick-Find实现"></a>Quick-Find实现</h2><pre><code>id = []
-count = 0
-
-def unionFind(n):
-    count = n
-    for i in xrange(count):
-        id[i] = i
-
-def isConnected(p,q):
-    return find(p) == find(q)
-
-def find(p):
-    return id[p]
-
-def union(p, q):
-    pid = find(p)
-    qid = find(q)
-
-    for i in xrange(count):
-         if id[i] == pid:
-             id[i] = qid
-</code></pre><p>备注：上面的实现，只给出了每个函数的实现，其中，有一点需要说明，就是id这个数组。初始化时，每个元素都是指向自己，union操作时，循环遍历id数组，将qid指向pid这条链上的最后一个元素。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Quick-Find实现"><a href="#Quick-Find实现" class="headerlink" title="Quick-Find实现"></a>Quick-Find实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">id = []</span><br><span class="line">count = 0</span><br><span class="line"></span><br><span class="line">def unionFind(n):</span><br><span class="line">    count = n</span><br><span class="line">    for i in xrange(count):</span><br><span class="line">        id[i] = i</span><br><span class="line"></span><br><span class="line">def isConnected(p,q):</span><br><span class="line">    return find(p) == find(q)</span><br><span class="line"></span><br><span class="line">def find(p):</span><br><span class="line">    return id[p]</span><br><span class="line"></span><br><span class="line">def union(p, q):</span><br><span class="line">    pid = find(p)</span><br><span class="line">    qid = find(q)</span><br><span class="line"></span><br><span class="line">    for i in xrange(count):</span><br><span class="line">         if id[i] == pid:</span><br><span class="line">             id[i] = qid</span><br></pre></td></tr></table></figure>
+<p>备注：上面的实现，只给出了每个函数的实现，其中，有一点需要说明，就是id这个数组。初始化时，每个元素都是指向自己，union操作时，循环遍历id数组，将qid指向pid这条链上的最后一个元素。</p>
 <p>具体过程如下所示：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -248,29 +226,8 @@ def union(p, q):
                 <div class="image-caption"></div>
             </figure>
 <h2 id="Quick-Union实现"><a href="#Quick-Union实现" class="headerlink" title="Quick-Union实现"></a>Quick-Union实现</h2><p>上面的Quick-find实现在规模增大时，会面临性能问题，其主要来源是union操作需要遍历数组，为了改善性能，需要避免执行union操作时遍历数组，Quick-Union实现达到了这一目的。</p>
-<pre><code>parent = []
-count = 0
-
-def unionFind(n):
-    count = n
-    for i in xrange(count):
-        parent[i] = i
-
-def isConnected(p,q):
-    return find(p) == find(q)
-
-def find(p):
-    while p!=parent[p]:
-        p = parent[p]
-    return p
-
-def union(p, q):
-    proot = find(p)
-    qroot = find(q)
-
-    if proot != qroot:
-        parent[proot] = qroot
-</code></pre><p>具体过程如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">parent = []</span><br><span class="line">count = 0</span><br><span class="line"></span><br><span class="line">def unionFind(n):</span><br><span class="line">    count = n</span><br><span class="line">    for i in xrange(count):</span><br><span class="line">        parent[i] = i</span><br><span class="line"></span><br><span class="line">def isConnected(p,q):</span><br><span class="line">    return find(p) == find(q)</span><br><span class="line"></span><br><span class="line">def find(p):</span><br><span class="line">    while p!=parent[p]:</span><br><span class="line">        p = parent[p]</span><br><span class="line">    return p</span><br><span class="line"></span><br><span class="line">def union(p, q):</span><br><span class="line">    proot = find(p)</span><br><span class="line">    qroot = find(q)</span><br><span class="line"></span><br><span class="line">    if proot != qroot:</span><br><span class="line">        parent[proot] = qroot</span><br></pre></td></tr></table></figure>
+<p>具体过程如下所示：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -278,53 +235,12 @@ def union(p, q):
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="Quick-Union优化"><a href="#Quick-Union优化" class="headerlink" title="Quick-Union优化"></a>Quick-Union优化</h2><h2 id="基于元素个数优化"><a href="#基于元素个数优化" class="headerlink" title="基于元素个数优化"></a>基于元素个数优化</h2><p>引入一个num[i]，用来记录以i为根的集合中元素个数。</p>
-<pre><code>num = []
-
-def unionFind(n):
-    count = n
-    for i in xrange(count):
-        parent[i] = i
-        num[i] = 1
-</code></pre><p>始终保持元素少的根节点指向元素多的根节点，这样有很大的概率可以维护树的高度增长的不是那么快。</p>
-<pre><code>def union(p, q):
-    proot = find(p)
-    qroot = find(q)
-
-    if num[proot] &lt; num[qroot]:
-        parent[proot] = qroot
-        num[qroot] += num[proot]
-
-    else:
-        parent[qroot] = proot
-        num[proot] += num[qroot]
-</code></pre><h2 id="基于rank的优化"><a href="#基于rank的优化" class="headerlink" title="基于rank的优化"></a>基于rank的优化</h2><p>在上述的优化过程中，只是有很大的概率可以维护树的高度增长的不是那么快。实际上并不准确，更多的时候我们采用的是基于rank的优化。</p>
-<pre><code>rank = []
-
-def unionFind(n):
-    count = n
-    for i in xrange(count):
-        parent[i] = i
-        rank[i] = 1
-</code></pre><p>和上面一种优化相比，区别在于，这里维护的是真正的树的深度，树深小的指向树深大的，只有当相等的时候树深才会加1。</p>
-<pre><code>def union(p, q):
-    proot = find(p)
-    qroot = find(q)
-
-    if rank[proot] &lt; rank[qroot]:
-        parent[proot] = qroot
-    elif rank[qroot] &lt; rank[proot]:
-        parent[qroot] = proot
-    else:
-        parent[proot] = qroot
-        rank[qroot] += 1
-</code></pre><h2 id="路径压缩（Path-Compression）"><a href="#路径压缩（Path-Compression）" class="headerlink" title="路径压缩（Path Compression）"></a>路径压缩（Path Compression）</h2><p>先实现第一种路径压缩优化，实际上只需要对find(p)进行一个修改：</p>
-<pre><code>def find(p):
-    while p!=parent[p]:
-        parent[p] = parent[parent[p]]
-        p = parent[p]
-    return p
-</code></pre><p>具体过程如下：</p>
+<h2 id="Quick-Union优化"><a href="#Quick-Union优化" class="headerlink" title="Quick-Union优化"></a>Quick-Union优化</h2><h2 id="基于元素个数优化"><a href="#基于元素个数优化" class="headerlink" title="基于元素个数优化"></a>基于元素个数优化</h2><p>引入一个num[i]，用来记录以i为根的集合中元素个数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num = []</span><br><span class="line"></span><br><span class="line">def unionFind(n):</span><br><span class="line">    count = n</span><br><span class="line">    for i in xrange(count):</span><br><span class="line">        parent[i] = i</span><br><span class="line">        num[i] = 1</span><br></pre></td></tr></table></figure></p>
+<p>始终保持元素少的根节点指向元素多的根节点，这样有很大的概率可以维护树的高度增长的不是那么快。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def union(p, q):</span><br><span class="line">    proot = find(p)</span><br><span class="line">    qroot = find(q)</span><br><span class="line"></span><br><span class="line">    if num[proot] &lt; num[qroot]:</span><br><span class="line">        parent[proot] = qroot</span><br><span class="line">        num[qroot] += num[proot]</span><br><span class="line"></span><br><span class="line">    else:</span><br><span class="line">        parent[qroot] = proot</span><br><span class="line">        num[proot] += num[qroot]</span><br></pre></td></tr></table></figure></p>
+<h2 id="基于rank的优化"><a href="#基于rank的优化" class="headerlink" title="基于rank的优化"></a>基于rank的优化</h2><p>在上述的优化过程中，只是有很大的概率可以维护树的高度增长的不是那么快。实际上并不准确，更多的时候我们采用的是基于rank的优化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rank = []</span><br><span class="line"></span><br><span class="line">def unionFind(n):</span><br><span class="line">    count = n</span><br><span class="line">    for i in xrange(count):</span><br><span class="line">        parent[i] = i</span><br><span class="line">        rank[i] = 1</span><br></pre></td></tr></table></figure></p>
+<p>和上面一种优化相比，区别在于，这里维护的是真正的树的深度，树深小的指向树深大的，只有当相等的时候树深才会加1。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def union(p, q):</span><br><span class="line">    proot = find(p)</span><br><span class="line">    qroot = find(q)</span><br><span class="line"></span><br><span class="line">    if rank[proot] &lt; rank[qroot]:</span><br><span class="line">        parent[proot] = qroot</span><br><span class="line">    elif rank[qroot] &lt; rank[proot]:</span><br><span class="line">        parent[qroot] = proot</span><br><span class="line">    else:</span><br><span class="line">        parent[proot] = qroot</span><br><span class="line">        rank[qroot] += 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="路径压缩（Path-Compression）"><a href="#路径压缩（Path-Compression）" class="headerlink" title="路径压缩（Path Compression）"></a>路径压缩（Path Compression）</h2><p>先实现第一种路径压缩优化，实际上只需要对find(p)进行一个修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def find(p):</span><br><span class="line">    while p!=parent[p]:</span><br><span class="line">        parent[p] = parent[parent[p]]</span><br><span class="line">        p = parent[p]</span><br><span class="line">    return p</span><br></pre></td></tr></table></figure></p>
+<p>具体过程如下：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -340,12 +256,8 @@ def unionFind(n):
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>使用递归实现：</p>
-<pre><code>def find(p):
-    if p!=parent[p]:
-        parent[p] = find(parent[p])
-    return p
-</code></pre><p>以上内容，便是并查集的内容，后续会更新一些笔面试题目，加深应用和理解。</p>
+<p>使用递归实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def find(p):</span><br><span class="line">    if p!=parent[p]:</span><br><span class="line">        parent[p] = find(parent[p])</span><br><span class="line">    return p</span><br></pre></td></tr></table></figure></p>
+<p>以上内容，便是并查集的内容，后续会更新一些笔面试题目，加深应用和理解。</p>
 
         </div>
 

@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,161 +193,39 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>生成器和迭代器有着一定的渊源关系。生成器必须是可迭代的，但它不仅仅是迭代器，我们可以把它理解为非常方便的自定义迭代器。<br><a id="more"></a></p>
-<h1 id="简单的生成器"><a href="#简单的生成器" class="headerlink" title="简单的生成器"></a>简单的生成器</h1><pre><code>&gt;&gt;&gt; my_generator = (x*x for x in range(4))
-</code></pre><p>这是不是跟列表推导式很类似呢？仔细观察，它不是列表，如果这样的得到的才是列表：</p>
-<pre><code>&gt;&gt;&gt; my_list = [x*x for x in range(4)]
-</code></pre><p>以上两的区别在于是[]还是()，虽然是细小的差别，但是结果完全不一样。</p>
-<pre><code>&gt;&gt;&gt; dir(my_generator)
-[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__doc__&#39;, &#39;__format__&#39;, &#39;__getattribute__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;,
-&#39;__iter__&#39;,
-&#39;__name__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;close&#39;, &#39;gi_code&#39;, &#39;gi_frame&#39;, &#39;gi_running&#39;,
-&#39;next&#39;,
-&#39;send&#39;, &#39;throw&#39;]
-</code></pre><p>我们发现了在迭代器中必有的方法__inter__()和next()，这说明它是迭代器。如果是迭代器，就可以用for循环来依次读出其值。</p>
-<pre><code>&gt;&gt;&gt; for i in my_generator:
-...     print i
-...
-0
-1
-4
-9
-&gt;&gt;&gt; for i in my_generator:
-...     print i
-...
-</code></pre><p>当第一遍循环的时候，将my_generator里面的值依次读出并打印，但是，当再读一次的时候，就发现没有任何结果。这种特性也正是迭代器所具有的。</p>
-<p>如果对那个列表，就不一样了：</p>
-<pre><code>&gt;&gt;&gt; for i in my_list:
-...     print i
-...
-0
-1
-4
-9
-&gt;&gt;&gt; for i in my_list:
-...     print i
-...
-0
-1
-4
-9
-</code></pre><p>难道生成器就是把列表推导式中的[]换成()就行了吗？这仅仅是生成器的一种表现形式和使用方法罢了，我们称之为“生成器推导式”</p>
-<p>生成器解析式是有很多用途的，在不少地方替代列表，是一个不错的选择。特别是针对大量值的时候，如上节所说的，列表占内存较多，迭代器（生成器是迭代器）的优势就在于少占内存，因此无需将生成器（或者说是迭代器）实例化为一个列表，直接对其进行操作，方显示出其迭代的优势。比如：</p>
-<pre><code>&gt;&gt;&gt; sum(i*i for i in range(10))
-285
-</code></pre><p>备注：上面的sum()运算，并未少写括号，可以直接这么写。</p>
-<p>如果列表，你不得不：</p>
-<pre><code>&gt;&gt;&gt; sum([i*i for i in range(10)])
-285
-</code></pre><p>通过生成器推导式得到的生成器，掩盖了生成器的一些细节，并且适用领域也有限，下面就要剖析生成器的内部。</p>
-<h1 id="定义和执行过程"><a href="#定义和执行过程" class="headerlink" title="定义和执行过程"></a>定义和执行过程</h1><p>yield这个词在汉语中有“生产、出产”之意，在python中，它作为一个关键词（你在变量、函数、类的名称中就不能用这个了），是生成器的标志。</p>
-<pre><code>&gt;&gt;&gt; def g():
-...     yield 0
-...     yield 1
-...     yield 2
-...
-&gt;&gt;&gt; g
-&lt;function g at 0xb71f3b8c&gt;
-</code></pre><p>建立了一个非常简单的函数，跟以往看到的函数唯一不同的地方是用了三个yield语句。然后进行下面的操作：</p>
-<pre><code>&gt;&gt;&gt; ge = g()
-&gt;&gt;&gt; ge
-&lt;generator object g at 0xb7200edc&gt;
-&gt;&gt;&gt; type(ge)
-&lt;type &#39;generator&#39;&gt;
-</code></pre><p>上面建立的函数返回值是一个生成器(generator)类型的对象。</p>
-<pre><code>&gt;&gt;&gt; dir(ge)
-[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__doc__&#39;, &#39;__format__&#39;, &#39;__getattribute__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__iter__&#39;, &#39;__name__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;close&#39;, &#39;gi_code&#39;, &#39;gi_frame&#39;, &#39;gi_running&#39;, &#39;next&#39;, &#39;send&#39;, &#39;throw&#39;]
-</code></pre><p>在这里看到了__iter__()和next()，说明它是迭代器。既然如此，当然可以：</p>
-<pre><code>&gt;&gt;&gt; ge.next()
-0
-&gt;&gt;&gt; ge.next()
-1
-&gt;&gt;&gt; ge.next()
-2
-&gt;&gt;&gt; ge.next()
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-StopIteration
-</code></pre><p>从这个简单例子中可以看出，那个含有yield关键词的函数返回值是一个生成器类型的对象，这个生成器对象就是迭代器。</p>
+<h1 id="简单的生成器"><a href="#简单的生成器" class="headerlink" title="简单的生成器"></a>简单的生成器</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; my_generator = (x*x for x in range(4))</span><br></pre></td></tr></table></figure>
+<p>这是不是跟列表推导式很类似呢？仔细观察，它不是列表，如果这样的得到的才是列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; my_list = [x*x for x in range(4)]</span><br></pre></td></tr></table></figure></p>
+<p>以上两的区别在于是[]还是()，虽然是细小的差别，但是结果完全不一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dir(my_generator)</span><br><span class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;,</span><br><span class="line">&apos;__iter__&apos;,</span><br><span class="line">&apos;__name__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;close&apos;, &apos;gi_code&apos;, &apos;gi_frame&apos;, &apos;gi_running&apos;,</span><br><span class="line">&apos;next&apos;,</span><br><span class="line">&apos;send&apos;, &apos;throw&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>我们发现了在迭代器中必有的方法__inter__()和next()，这说明它是迭代器。如果是迭代器，就可以用for循环来依次读出其值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; for i in my_generator:</span><br><span class="line">...     print i</span><br><span class="line">...</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">4</span><br><span class="line">9</span><br><span class="line">&gt;&gt;&gt; for i in my_generator:</span><br><span class="line">...     print i</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>当第一遍循环的时候，将my_generator里面的值依次读出并打印，但是，当再读一次的时候，就发现没有任何结果。这种特性也正是迭代器所具有的。</p>
+<p>如果对那个列表，就不一样了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; for i in my_list:</span><br><span class="line">...     print i</span><br><span class="line">...</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">4</span><br><span class="line">9</span><br><span class="line">&gt;&gt;&gt; for i in my_list:</span><br><span class="line">...     print i</span><br><span class="line">...</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">4</span><br><span class="line">9</span><br></pre></td></tr></table></figure></p>
+<p>难道生成器就是把列表推导式中的[]换成()就行了吗？这仅仅是生成器的一种表现形式和使用方法罢了，我们称之为“生成器推导式”</p>
+<p>生成器解析式是有很多用途的，在不少地方替代列表，是一个不错的选择。特别是针对大量值的时候，如上节所说的，列表占内存较多，迭代器（生成器是迭代器）的优势就在于少占内存，因此无需将生成器（或者说是迭代器）实例化为一个列表，直接对其进行操作，方显示出其迭代的优势。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sum(i*i for i in range(10))</span><br><span class="line">285</span><br></pre></td></tr></table></figure></p>
+<p>备注：上面的sum()运算，并未少写括号，可以直接这么写。</p>
+<p>如果列表，你不得不：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sum([i*i for i in range(10)])</span><br><span class="line">285</span><br></pre></td></tr></table></figure></p>
+<p>通过生成器推导式得到的生成器，掩盖了生成器的一些细节，并且适用领域也有限，下面就要剖析生成器的内部。</p>
+<h1 id="定义和执行过程"><a href="#定义和执行过程" class="headerlink" title="定义和执行过程"></a>定义和执行过程</h1><p>yield这个词在汉语中有“生产、出产”之意，在python中，它作为一个关键词（你在变量、函数、类的名称中就不能用这个了），是生成器的标志。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def g():</span><br><span class="line">...     yield 0</span><br><span class="line">...     yield 1</span><br><span class="line">...     yield 2</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; g</span><br><span class="line">&lt;function g at 0xb71f3b8c&gt;</span><br></pre></td></tr></table></figure></p>
+<p>建立了一个非常简单的函数，跟以往看到的函数唯一不同的地方是用了三个yield语句。然后进行下面的操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ge = g()</span><br><span class="line">&gt;&gt;&gt; ge</span><br><span class="line">&lt;generator object g at 0xb7200edc&gt;</span><br><span class="line">&gt;&gt;&gt; type(ge)</span><br><span class="line">&lt;type &apos;generator&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面建立的函数返回值是一个生成器(generator)类型的对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dir(ge)</span><br><span class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__iter__&apos;, &apos;__name__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;close&apos;, &apos;gi_code&apos;, &apos;gi_frame&apos;, &apos;gi_running&apos;, &apos;next&apos;, &apos;send&apos;, &apos;throw&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>在这里看到了__iter__()和next()，说明它是迭代器。既然如此，当然可以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ge.next()</span><br><span class="line">0</span><br><span class="line">&gt;&gt;&gt; ge.next()</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; ge.next()</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; ge.next()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<p>从这个简单例子中可以看出，那个含有yield关键词的函数返回值是一个生成器类型的对象，这个生成器对象就是迭代器。</p>
 <p>我们把含有yield语句的函数称作生成器。生成器是一种用普通函数语法定义的迭代器。通过上面的例子可以看出，这个生成器（也是迭代器），在定义过程中并没有像上节迭代器那样写__inter__()和next()，而是只要用了yield语句，那个普通函数就神奇般地成为了生成器，也就具备了迭代器的功能特性。</p>
-<p>yield语句的作用，就是在调用的时候返回相应的值。详细剖析一下上面的运行过程：</p>
-<pre><code>1.ge = g()：除了返回生成器之外，什么也没有操作，任何值也没有被返回。
-2.ge.next()：直到这时候，生成器才开始执行，遇到了第一个yield语句，将值返回，并暂停执行（有的称之为挂起）。
-3.ge.next()：从上次暂停的位置开始，继续向下执行，遇到yield语句，将值返回，又暂停。
-4.gen.next()：重复上面的操作。
-5.gene.next()：从上面的挂起位置开始，但是后面没有可执行的了，于是next()发出异常。
-</code></pre><p>从上面的执行过程中，发现yield除了作为生成器的标志之外，还有一个功能就是返回值。那么它跟return这个返回值有什么区别呢？</p>
-<h1 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h1><p>为了弄清楚yield和return的区别，我们写两个没有什么用途的函数：</p>
-<pre><code>&gt;&gt;&gt; def r_return(n):
-...     print &quot;You taked me.&quot;
-...     while n &gt; 0:
-...         print &quot;before return&quot;
-...         return n
-...         n -= 1
-...         print &quot;after return&quot;
-...
-&gt;&gt;&gt; rr = r_return(3)
-You taked me.
-before return
-&gt;&gt;&gt; rr
-3
-</code></pre><p>从函数被调用的过程可以清晰看出，rr = r_return(3)，函数体内的语句就开始执行了，遇到return，将值返回，然后就结束函数体内的执行。所以return后面的语句根本没有执行。</p>
-<p>下面将return改为yield：</p>
-<pre><code>&gt;&gt;&gt; def y_yield(n):
-...     print &quot;You taked me.&quot;
-...     while n &gt; 0:
-...         print &quot;before yield&quot;
-...         yield n
-...         n -= 1
-...         print &quot;after yield&quot;
-...
-&gt;&gt;&gt; yy = y_yield(3)    #没有执行函数体内语句
-&gt;&gt;&gt; yy.next()          #开始执行
-You taked me.
-before yield
-3                      #遇到yield，返回值，并暂停
-&gt;&gt;&gt; yy.next()          #从上次暂停位置开始继续执行
-after yield
-before yield
-2                      #又遇到yield，返回值，并暂停
-&gt;&gt;&gt; yy.next()          #重复上述过程
-after yield
-before yield
-1
-&gt;&gt;&gt; yy.next()
-after yield            #没有满足条件的值，抛出异常
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-StopIteration
-</code></pre><p>一般的函数，都是止于return。作为生成器的函数，由于有了yield，则会遇到它挂起，如果还有return，遇到它就直接抛出SoptIteration异常而中止迭代。</p>
-<h1 id="生成器方法"><a href="#生成器方法" class="headerlink" title="生成器方法"></a>生成器方法</h1><p>在python2.5以后，生成器有了一个新特征，就是在开始运行后能够为生成器提供新的值。这就好似生成器和“外界”之间进行数据交流。</p>
-<pre><code>&gt;&gt;&gt; def repeater(n):
-...     while True:
-...         n = (yield n)
-...
-&gt;&gt;&gt; r = repeater(4)
-&gt;&gt;&gt; r.next()
-4
-&gt;&gt;&gt; r.send(&quot;hello&quot;)
-&#39;hello&#39;
-</code></pre><p>当执行到r.next()的时候，生成器开始执行，在内部遇到了yield n挂起。注意在生成器函数中，n = (yield n)中的yield n是一个表达式，并将结果赋值给n，虽然不严格要求它必须用圆括号包裹，但是一般情况都这么做。</p>
+<p>yield语句的作用，就是在调用的时候返回相应的值。详细剖析一下上面的运行过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.ge = g()：除了返回生成器之外，什么也没有操作，任何值也没有被返回。</span><br><span class="line">2.ge.next()：直到这时候，生成器才开始执行，遇到了第一个yield语句，将值返回，并暂停执行（有的称之为挂起）。</span><br><span class="line">3.ge.next()：从上次暂停的位置开始，继续向下执行，遇到yield语句，将值返回，又暂停。</span><br><span class="line">4.gen.next()：重复上面的操作。</span><br><span class="line">5.gene.next()：从上面的挂起位置开始，但是后面没有可执行的了，于是next()发出异常。</span><br></pre></td></tr></table></figure></p>
+<p>从上面的执行过程中，发现yield除了作为生成器的标志之外，还有一个功能就是返回值。那么它跟return这个返回值有什么区别呢？</p>
+<h1 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h1><p>为了弄清楚yield和return的区别，我们写两个没有什么用途的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def r_return(n):</span><br><span class="line">...     print &quot;You taked me.&quot;</span><br><span class="line">...     while n &gt; 0:</span><br><span class="line">...         print &quot;before return&quot;</span><br><span class="line">...         return n</span><br><span class="line">...         n -= 1</span><br><span class="line">...         print &quot;after return&quot;</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; rr = r_return(3)</span><br><span class="line">You taked me.</span><br><span class="line">before return</span><br><span class="line">&gt;&gt;&gt; rr</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p>从函数被调用的过程可以清晰看出，rr = r_return(3)，函数体内的语句就开始执行了，遇到return，将值返回，然后就结束函数体内的执行。所以return后面的语句根本没有执行。</p>
+<p>下面将return改为yield：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def y_yield(n):</span><br><span class="line">...     print &quot;You taked me.&quot;</span><br><span class="line">...     while n &gt; 0:</span><br><span class="line">...         print &quot;before yield&quot;</span><br><span class="line">...         yield n</span><br><span class="line">...         n -= 1</span><br><span class="line">...         print &quot;after yield&quot;</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; yy = y_yield(3)    #没有执行函数体内语句</span><br><span class="line">&gt;&gt;&gt; yy.next()          #开始执行</span><br><span class="line">You taked me.</span><br><span class="line">before yield</span><br><span class="line">3                      #遇到yield，返回值，并暂停</span><br><span class="line">&gt;&gt;&gt; yy.next()          #从上次暂停位置开始继续执行</span><br><span class="line">after yield</span><br><span class="line">before yield</span><br><span class="line">2                      #又遇到yield，返回值，并暂停</span><br><span class="line">&gt;&gt;&gt; yy.next()          #重复上述过程</span><br><span class="line">after yield</span><br><span class="line">before yield</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; yy.next()</span><br><span class="line">after yield            #没有满足条件的值，抛出异常</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<p>一般的函数，都是止于return。作为生成器的函数，由于有了yield，则会遇到它挂起，如果还有return，遇到它就直接抛出SoptIteration异常而中止迭代。</p>
+<h1 id="生成器方法"><a href="#生成器方法" class="headerlink" title="生成器方法"></a>生成器方法</h1><p>在python2.5以后，生成器有了一个新特征，就是在开始运行后能够为生成器提供新的值。这就好似生成器和“外界”之间进行数据交流。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def repeater(n):</span><br><span class="line">...     while True:</span><br><span class="line">...         n = (yield n)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; r = repeater(4)</span><br><span class="line">&gt;&gt;&gt; r.next()</span><br><span class="line">4</span><br><span class="line">&gt;&gt;&gt; r.send(&quot;hello&quot;)</span><br><span class="line">&apos;hello&apos;</span><br></pre></td></tr></table></figure></p>
+<p>当执行到r.next()的时候，生成器开始执行，在内部遇到了yield n挂起。注意在生成器函数中，n = (yield n)中的yield n是一个表达式，并将结果赋值给n，虽然不严格要求它必须用圆括号包裹，但是一般情况都这么做。</p>
 <p>当执行r.send(“hello”)的时候，原来已经被挂起的生成器（函数）又被唤醒，开始执行n = (yield n)，也就是讲send()方法发送的值返回。这就是在运行后能够为生成器提供值的含义。</p>
-<p>如果接下来再执行r.next()会怎样？</p>
-<pre><code>&gt;&gt;&gt; r.next()
-</code></pre><p>什么也没有，其实就是返回了None。按照前面的叙述，读者可以看到，这次执行r.next()，由于没有传入任何值，yield返回的就只能是None。</p>
-<p>还要注意，send()方法必须在生成器运行后并挂起才能使用，也就是yield至少被执行一次。如果不是这样：</p>
-<pre><code>&gt;&gt;&gt; s = repeater(5)
-&gt;&gt;&gt; s.send(&quot;how&quot;)
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-TypeError: can&#39;t send non-None value to a just-started generator
-</code></pre><p>就报错了。但是，可将参数设为None：</p>
-<pre><code>&gt;&gt;&gt; s.send(None)
-5
-</code></pre><p>这是返回的是调用函数的时传入的值。</p>
-<p>此外，还有两个方法：close()和throw()</p>
-<pre><code>1. throw(type, value=None, traceback=None):用于在生成器内部（生成器的当前挂起处，或未启动时在定义处）抛出一个异常（在yield表达式中）。
-2. close()：调用时不用参数，用于关闭生成器。
-</code></pre><p>最后一句，你在编程中，不用生成器也可以。</p>
+<p>如果接下来再执行r.next()会怎样？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; r.next()</span><br></pre></td></tr></table></figure></p>
+<p>什么也没有，其实就是返回了None。按照前面的叙述，读者可以看到，这次执行r.next()，由于没有传入任何值，yield返回的就只能是None。</p>
+<p>还要注意，send()方法必须在生成器运行后并挂起才能使用，也就是yield至少被执行一次。如果不是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = repeater(5)</span><br><span class="line">&gt;&gt;&gt; s.send(&quot;how&quot;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">TypeError: can&apos;t send non-None value to a just-started generator</span><br></pre></td></tr></table></figure></p>
+<p>就报错了。但是，可将参数设为None：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s.send(None)</span><br><span class="line">5</span><br></pre></td></tr></table></figure></p>
+<p>这是返回的是调用函数的时传入的值。</p>
+<p>此外，还有两个方法：close()和throw()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. throw(type, value=None, traceback=None):用于在生成器内部（生成器的当前挂起处，或未启动时在定义处）抛出一个异常（在yield表达式中）。</span><br><span class="line">2. close()：调用时不用参数，用于关闭生成器。</span><br></pre></td></tr></table></figure></p>
+<p>最后一句，你在编程中，不用生成器也可以。</p>
 
         </div>
 

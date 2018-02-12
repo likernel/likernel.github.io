@@ -50,8 +50,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -230,11 +228,8 @@
             </figure>
 <p>可以看到，除了第一个文件README以外，其他文件名都是”字母S+两位数字+程序名”的形式。字母S表示Start，也就是启动的意思（启动脚本的运行参数为start），如果这个位置是字母K，就代表Kill（关闭），即如果从其他运行级别切换过来，需要关闭的程序（启动脚本的运行参数为stop）。后面的两位数字表示处理顺序，数字越小越早处理，所以第一个启动的程序是motd，然后是rpcbing、nfs……数字相同时，则按照程序名的字母顺序启动，所以rsyslog会先于sudo启动。</p>
 <p>这个目录里的所有文件（除了README），就是启动时要加载的程序。如果想增加或删除某些程序，不建议手动修改 /etc/rcN.d 目录，最好是用一些专门命令进行管理。</p>
-<p>#9.执行/etc/rc.d/rc.local<br>你如果打开了此文件，里面有一句话，读过之后，你就会对此命令的作用一目了然：</p>
-<pre><code># This script will be executed *after* all the other init scripts.
-# You can put your own initialization stuff in here if you don’t
-# want to do the full Sys V style init stuff.
-</code></pre><p>rc.local就是在一切初始化工作后，Linux留给用户进行个性化的地方。你可以把你想设置和启动的东西放到这里。</p>
+<p>#9.执行/etc/rc.d/rc.local<br>你如果打开了此文件，里面有一句话，读过之后，你就会对此命令的作用一目了然：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># This script will be executed *after* all the other init scripts.</span><br><span class="line"># You can put your own initialization stuff in here if you don’t</span><br><span class="line"># want to do the full Sys V style init stuff.</span><br></pre></td></tr></table></figure></p>
+<p>rc.local就是在一切初始化工作后，Linux留给用户进行个性化的地方。你可以把你想设置和启动的东西放到这里。</p>
 <p>#10.执行/bin/login程序，进入登录状态<br>输入用户名密码登录成功后，系统会为用户分配一个用户 ID（UID），和一个组 ID（GID）。这两个 ID 就好像身份证一样会一直伴随用户，用于检测用户执行程序时的身份验证。</p>
 <p>当用户登录成功后，一个完整的操作系统就展现在用户的面前了。</p>
 

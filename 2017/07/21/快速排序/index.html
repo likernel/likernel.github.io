@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,24 +193,14 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>Divide and conquer (D&amp;C) is an algorithm design paradigm based on multi-branched recursion. A divide and conquer algorithm works by recursively breaking down a problem into two or more sub-problems of the same or related type, until these become simple enough to be solved directly. The solutions to the sub-problems are then combined to give a solution to the original problem.</p>
-<h3 id="D-amp-C"><a href="#D-amp-C" class="headerlink" title="D&amp;C"></a>D&amp;C</h3><p>分而治之，提供的是解决问题的一种思路。使用D&amp;C解决问题的过程包括两个步骤：</p>
-<pre><code>1.找出基线条件，这种条件必须尽可能简单。
-2.不断将问题分解（或者缩小规模），直到符合基线条件
-</code></pre><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>下面以快排为例进行讲解，对排序算法来说，最简单的数组就是“不用排序”的数组。</p>
+<h3 id="D-amp-C"><a href="#D-amp-C" class="headerlink" title="D&amp;C"></a>D&amp;C</h3><p>分而治之，提供的是解决问题的一种思路。使用D&amp;C解决问题的过程包括两个步骤：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.找出基线条件，这种条件必须尽可能简单。</span><br><span class="line">2.不断将问题分解（或者缩小规模），直到符合基线条件</span><br></pre></td></tr></table></figure></p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>下面以快排为例进行讲解，对排序算法来说，最简单的数组就是“不用排序”的数组。</p>
 <p>1.空数组<br>2.数组中只有一个数字</p>
 <p>因此基线条件为数组为空或者只包含一个元素。这时候只需原样返回数组即可。</p>
 <p>要使用D&amp;C，需要将数组分解，直到满足基线条件。首先，从数组中选择一个元素作为基准值（pivot）。找出比基准值大的元素和比基准值小的元素。这个过程被称为分区（patitioning）。<br>现在你将数组分成了三个部分：</p>
 <p>1.小于基准值的数组成的子数组<br>2.基准值<br>3.大于基准值的数组成的子数组</p>
-<p><strong>快排代码：</strong></p>
-<pre><code>def quicksort(arr):
-  if  len(arr)&lt;2:
-    return arr
-  else:
-    pivot = arr[0]
-    less = [i for i in arrray[1:] if i &lt;= pivot]
-    greater = [i for i in arrray[1:] if i &gt; pivot]
-    return quicksort(less) + [pivot] + quicksort(greater)
-</code></pre><p><strong>参考书目：</strong><br>[^1]: 《算法图解》【美】Aditya Bhargava. 编著</p>
+<p><strong>快排代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def quicksort(arr):</span><br><span class="line">  if  len(arr)&lt;2:</span><br><span class="line">    return arr</span><br><span class="line">  else:</span><br><span class="line">    pivot = arr[0]</span><br><span class="line">    less = [i for i in arrray[1:] if i &lt;= pivot]</span><br><span class="line">    greater = [i for i in arrray[1:] if i &gt; pivot]</span><br><span class="line">    return quicksort(less) + [pivot] + quicksort(greater)</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考书目：</strong><br>[^1]: 《算法图解》【美】Aditya Bhargava. 编著</p>
 
         </div>
 

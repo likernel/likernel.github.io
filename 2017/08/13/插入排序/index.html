@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,18 +193,8 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>直接插入排序是一种简单的插入排序法，其基本思想是：把待排序的纪录（这里我们记为key）的大小逐个插入到一个已经排好序的有序序列中，直到所有的纪录插入完为止，得到一个新的有序序列。<br><a id="more"></a></p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><pre><code>def InsertionSort(arr):
-    for i in xrange(1,len(arr)):
-        key = arr[i]
-
-        j = i-1
-        while j &gt;= 0 and arr[j] &gt; key:
-            arr[j+1] = arr[j]
-            j -= 1
-        arr[j+1] = key
-
-    return arr
-</code></pre><p>备注：算法实现参照《算法导论》中的内容，注意书中伪码的边界值处理和具体实现的区别。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def InsertionSort(arr):</span><br><span class="line">    for i in xrange(1,len(arr)):</span><br><span class="line">        key = arr[i]</span><br><span class="line"></span><br><span class="line">        j = i-1</span><br><span class="line">        while j &gt;= 0 and arr[j] &gt; key:</span><br><span class="line">            arr[j+1] = arr[j]</span><br><span class="line">            j -= 1</span><br><span class="line">        arr[j+1] = key</span><br><span class="line"></span><br><span class="line">    return arr</span><br></pre></td></tr></table></figure>
+<p>备注：算法实现参照《算法导论》中的内容，注意书中伪码的边界值处理和具体实现的区别。</p>
 <p>arr：待排序数组。<br>key：待比较元素，arr[i]。<br>arr[0…i-1]：已经排好序的数组。<br>j：已经排好序的数组的索引。<br>时间复杂度：O(n^2)</p>
 
         </div>

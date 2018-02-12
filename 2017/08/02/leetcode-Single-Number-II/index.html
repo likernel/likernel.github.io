@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -191,28 +189,12 @@
 <p><strong>Note:</strong><br>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
 <p><strong>思路1：</strong></p>
 <p>使用hash实现，这种方法不做赘述，实现如下：</p>
-<pre><code>def singleNumber(self, nums):
-        dict = {}
-        for i in range(len(nums)):
-            if nums[i] not in dict:
-                dict[nums[i]] = 1
-            else:
-                dict[nums[i]] += 1
-        for single in dict:
-            if dict[single] == 1:
-                return single
-</code></pre><p><strong>思路2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(self, nums):</span><br><span class="line">        dict = &#123;&#125;</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            if nums[i] not in dict:</span><br><span class="line">                dict[nums[i]] = 1</span><br><span class="line">            else:</span><br><span class="line">                dict[nums[i]] += 1</span><br><span class="line">        for single in dict:</span><br><span class="line">            if dict[single] == 1:</span><br><span class="line">                return single</span><br></pre></td></tr></table></figure>
+<p><strong>思路2：</strong></p>
 <p>和Single Number类似的解法：</p>
 <p>1.当数字num第一出现时：ones,twos = num, 0;<br>2.当其第二次出现时：ones,twos = 0, num;<br>3.第三次出现时：ones,twos = 0, 0，就相当于这个数字没有出现过，这样最后的结果就是ones了。</p>
-<p><strong>实现：</strong></p>
-<pre><code>def singleNumber(self, nums):
-        ones, twos = 0, 0
-        for i in nums:
-            ones = ones^i &amp; ~twos
-            twos = twos^i &amp; ~ones
+<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(self, nums):</span><br><span class="line">        ones, twos = 0, 0</span><br><span class="line">        for i in nums:</span><br><span class="line">            ones = ones^i &amp; ~twos</span><br><span class="line">            twos = twos^i &amp; ~ones</span><br><span class="line"></span><br><span class="line">        return(ones)</span><br></pre></td></tr></table></figure></p>
 
-        return(ones)
-</code></pre>
         </div>
 
         <blockquote class="post-copyright">

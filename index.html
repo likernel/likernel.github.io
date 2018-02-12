@@ -44,8 +44,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -190,13 +188,9 @@
 
     
         本文主要介绍在Ubuntu下Docker的安装。
-Ubuntu下安装Docker检查当前内核版本：$ uname -r
-4.14.0-041400-generic
+Ubuntu下安装Docker检查当前内核版本：12$ uname -r4.14.0-041400-generic
 内核版本要求最低为 3.10。
-更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书：
-sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates
-
+更新apt源Docker默认APT仓库中的版本较低，因此要设置APT使用Docker的官方源：1.更新包信息，确保APT能使用https的方式，并安装CA证书：12sudo apt-get updatesudo apt-get install apt-transport-https ca-certificates
     
 
         <a href="/2018/01/31/Ubuntu下安装Docker/" class="post-more waves-effect waves-button">

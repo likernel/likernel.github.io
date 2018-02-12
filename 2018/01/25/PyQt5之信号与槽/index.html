@@ -24,9 +24,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="PyQt5,python">
+    <meta name="keywords" content="python,PyQt5">
     <meta name="description" content="PyQt5中最核心的内容就是信号与槽。本文主要结合一个简单的实例对这部分内容进行详细的介绍。">
-<meta name="keywords" content="PyQt5,python">
+<meta name="keywords" content="python,PyQt5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyQt5之信号与槽">
 <meta property="og:url" content="http://likernel.github.io/2018/01/25/PyQt5之信号与槽/index.html">
@@ -48,8 +48,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -203,17 +201,13 @@
 <li>了解PyQt5基本操作：布局、常用控件等。</li>
 <li>Qt Designer的使用</li>
 </ul>
-<h2 id="何谓信号与槽"><a href="#何谓信号与槽" class="headerlink" title="何谓信号与槽"></a>何谓信号与槽</h2><p>信号和槽机制是PyQt5的核心机制，主要用来在对象之间传递数据。具体的过程是：</p>
-<pre><code>事件发生-&gt;发射signal-&gt;slot响应
-</code></pre><h4 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h4><p>当对象的状态发生变化的时候，信号就由对象发射（emit）出去，与其关联的槽函数立刻被执行。</p>
+<h2 id="何谓信号与槽"><a href="#何谓信号与槽" class="headerlink" title="何谓信号与槽"></a>何谓信号与槽</h2><p>信号和槽机制是PyQt5的核心机制，主要用来在对象之间传递数据。具体的过程是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">事件发生-&gt;发射signal-&gt;slot响应</span><br></pre></td></tr></table></figure></p>
+<h4 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h4><p>当对象的状态发生变化的时候，信号就由对象发射（emit）出去，与其关联的槽函数立刻被执行。</p>
 <p>对象只负责发送信号，不关心是哪个对象接收信号。这样保证了对象与对象之间的低耦合。</p>
 <h4 id="槽"><a href="#槽" class="headerlink" title="槽"></a>槽</h4><p>负责接受信号，当和槽连接的信号被发射时，槽会被调用。一个槽并不知道是否有信号与自己相连。</p>
 <h2 id="如何连接信号与槽"><a href="#如何连接信号与槽" class="headerlink" title="如何连接信号与槽"></a>如何连接信号与槽</h2><p>在Qt Designer中，有很便捷的方法。在Edit中通过Edit Signals/Slots（F4）连接信号与槽。但是这种方式，并不能完全满足我们的需求，很多时候我们需要手动（手写代码）连接信号与槽。</p>
-<h4 id="手动连接信号与槽"><a href="#手动连接信号与槽" class="headerlink" title="手动连接信号与槽"></a>手动连接信号与槽</h4><p>手动连接主要下面三种方式：</p>
-<pre><code>self.connect(widgets,SIGNAL(&quot;signal&quot;),func)
-self.connect(widgets,SIGNAL(&quot;signal&quot;),instance.methodname)
-self.connect(widgets,SIGNAL(&quot;signal&quot;),instance,SLOT(&quot;slotSignature&quot;))
-</code></pre><p>##自定义槽函数<br>Qt中的对象有很多预定义的信号和槽函数。但是预定义的槽函数毕竟有限，我们需要自定义槽函数，实现我们的需求。当然可以通过eric自动生成槽函数，但是这种方式主要的逻辑仍然需要自己实现，这里就不介绍。</p>
+<h4 id="手动连接信号与槽"><a href="#手动连接信号与槽" class="headerlink" title="手动连接信号与槽"></a>手动连接信号与槽</h4><p>手动连接主要下面三种方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.connect(widgets,SIGNAL(&quot;signal&quot;),func)</span><br><span class="line">self.connect(widgets,SIGNAL(&quot;signal&quot;),instance.methodname)</span><br><span class="line">self.connect(widgets,SIGNAL(&quot;signal&quot;),instance,SLOT(&quot;slotSignature&quot;))</span><br></pre></td></tr></table></figure></p>
+<p>##自定义槽函数<br>Qt中的对象有很多预定义的信号和槽函数。但是预定义的槽函数毕竟有限，我们需要自定义槽函数，实现我们的需求。当然可以通过eric自动生成槽函数，但是这种方式主要的逻辑仍然需要自己实现，这里就不介绍。</p>
 <p>举个栗子：这里用自己写的一个岩体分级的工具为例。逻辑非常简单：就是输入一堆参数，得到一个结果，通过结果对岩体进行分级，界面如下。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -223,26 +217,12 @@ self.connect(widgets,SIGNAL(&quot;signal&quot;),instance,SLOT(&quot;slotSignatur
                 <div class="image-caption"></div>
             </figure>
 <p>UI设计通过Qt Designer生成。</p>
-<p>逻辑部分和UI部分分离，新建.py文件，创建一个类，继承QMainWindow和QtDesigner生成的UI类Ui_MainWindow。</p>
-<pre><code>class MainWindow(QMainWindow, Ui_MainWindow):
-    global QRD, Jn, Jr, Ja, Jw, SRF, res,rl
-    def __init__(self, parent = None):
-        QMainWindow.__init__(self,parent)
-        self.setupUi(self)
-</code></pre><p>继承父类Ui_MainWindow的setupUi方法，setupUi方法中通过控件的名字来自动连接槽：</p>
-<pre><code>QtCore.QMetaObject.connectSlotsByName(MainWindow)
-</code></pre><p>通过自定义槽函数来实现特定的功能：</p>
-<pre><code>def on_pushButton_clicked(self):
-    self.test()
-</code></pre><p>其中test()主要实现具体的逻辑功能，注意这里自定义槽函数的名称要和控件名称（pushButton）对应：on_pushButton\ _clicked。</p>
-<p>通过实例ui的show()方法来显示程序：</p>
-<pre><code>if __name__ == &#39;__main__&#39;:
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ui = MainWindow()
-    ui.show()
-    sys.exit(app.exec_())
-</code></pre><p>这里对信号和槽做了粗浅的认识和学习，关于其他内容不再赘述，更多详细内容，可参照官方文档。</p>
+<p>逻辑部分和UI部分分离，新建.py文件，创建一个类，继承QMainWindow和QtDesigner生成的UI类Ui_MainWindow。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MainWindow(QMainWindow, Ui_MainWindow):</span><br><span class="line">    global QRD, Jn, Jr, Ja, Jw, SRF, res,rl</span><br><span class="line">    def __init__(self, parent = None):</span><br><span class="line">        QMainWindow.__init__(self,parent)</span><br><span class="line">        self.setupUi(self)</span><br></pre></td></tr></table></figure></p>
+<p>继承父类Ui_MainWindow的setupUi方法，setupUi方法中通过控件的名字来自动连接槽：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QtCore.QMetaObject.connectSlotsByName(MainWindow)</span><br></pre></td></tr></table></figure></p>
+<p>通过自定义槽函数来实现特定的功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def on_pushButton_clicked(self):</span><br><span class="line">    self.test()</span><br></pre></td></tr></table></figure></p>
+<p>其中test()主要实现具体的逻辑功能，注意这里自定义槽函数的名称要和控件名称（pushButton）对应：on_pushButton\ _clicked。</p>
+<p>通过实例ui的show()方法来显示程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    import sys</span><br><span class="line">    app = QtWidgets.QApplication(sys.argv)</span><br><span class="line">    ui = MainWindow()</span><br><span class="line">    ui.show()</span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure></p>
+<p>这里对信号和槽做了粗浅的认识和学习，关于其他内容不再赘述，更多详细内容，可参照官方文档。</p>
 <h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="http://pyqt.sourceforge.net/Docs/PyQt5/index.html" target="_blank" rel="noopener">PyQt5 Reference Guide</a></p>
 
         </div>

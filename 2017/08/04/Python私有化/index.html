@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -200,48 +198,11 @@
 <h3 id="xx-1"><a href="#xx-1" class="headerlink" title="__xx"></a>__xx</h3><p>双前置下划线,避免与子类中的属性命名冲突，无法在外部直接访问。实际上通过name<em>mangling方式可以调用，访问不了是因为名字重整，如\</em>_x会被重整为_className__x, className为类名。</p>
 <h3 id="xx-2"><a href="#xx-2" class="headerlink" title="__xx__"></a>__xx__</h3><p>双前后下划线,用户名字空间的魔法对象或属性。例如:_init_ , __ 。一般是系统提供的。</p>
 <h3 id="xx-3"><a href="#xx-3" class="headerlink" title="xx_"></a>xx_</h3><p>单后置下划线,用于避免与Python关键词的冲突。</p>
-<h2 id="私有属性添加getter和setter方法"><a href="#私有属性添加getter和setter方法" class="headerlink" title="私有属性添加getter和setter方法"></a>私有属性添加getter和setter方法</h2><pre><code>class Money(object):
-    def __init__(self):
-        self.__money = 0
+<h2 id="私有属性添加getter和setter方法"><a href="#私有属性添加getter和setter方法" class="headerlink" title="私有属性添加getter和setter方法"></a>私有属性添加getter和setter方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Money(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.__money = 0</span><br><span class="line"></span><br><span class="line">    def getMoney(self):</span><br><span class="line">        return self.__money</span><br><span class="line"></span><br><span class="line">    def setMoney(self, value):</span><br><span class="line">        if isinstance(value, int):</span><br><span class="line">            self.__money = value</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;error:不是整型数字&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="使用property升级getter和setter方法"><a href="#使用property升级getter和setter方法" class="headerlink" title="使用property升级getter和setter方法"></a>使用property升级getter和setter方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Money(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.__money = 0</span><br><span class="line"></span><br><span class="line">    def getMoney(self):</span><br><span class="line">        return self.__money</span><br><span class="line"></span><br><span class="line">    def setMoney(self, value):</span><br><span class="line">        if isinstance(value, int):</span><br><span class="line">            self.__money = value</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;error:不是整型数字&quot;)</span><br><span class="line">    money = property(getMoney, setMoney)</span><br></pre></td></tr></table></figure>
+<h2 id="使用property取代getter和setter方法"><a href="#使用property取代getter和setter方法" class="headerlink" title="使用property取代getter和setter方法"></a>使用property取代getter和setter方法</h2><p>@property成为属性函数，可以对属性赋值时做必要的检查，并保证代码的清晰短小，主要有2个作用：</p>
+<p>1.将方法转换为只读<br>2.重新实现一个属性的设置和读取方法,可做边界判定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Money(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.__money = 0</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def money(self):</span><br><span class="line">        return self.__money</span><br><span class="line"></span><br><span class="line">    @money.setter</span><br><span class="line">    def money(self, value):</span><br><span class="line">        if isinstance(value, int):</span><br><span class="line">            self.__money = value</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;error:不是整型数字&quot;)</span><br></pre></td></tr></table></figure></p>
 
-    def getMoney(self):
-        return self.__money
-
-    def setMoney(self, value):
-        if isinstance(value, int):
-            self.__money = value
-        else:
-            print(&quot;error:不是整型数字&quot;)
-</code></pre><h2 id="使用property升级getter和setter方法"><a href="#使用property升级getter和setter方法" class="headerlink" title="使用property升级getter和setter方法"></a>使用property升级getter和setter方法</h2><pre><code>class Money(object):
-    def __init__(self):
-        self.__money = 0
-
-    def getMoney(self):
-        return self.__money
-
-    def setMoney(self, value):
-        if isinstance(value, int):
-            self.__money = value
-        else:
-            print(&quot;error:不是整型数字&quot;)
-    money = property(getMoney, setMoney)
-</code></pre><h2 id="使用property取代getter和setter方法"><a href="#使用property取代getter和setter方法" class="headerlink" title="使用property取代getter和setter方法"></a>使用property取代getter和setter方法</h2><p>@property成为属性函数，可以对属性赋值时做必要的检查，并保证代码的清晰短小，主要有2个作用：</p>
-<p>1.将方法转换为只读<br>2.重新实现一个属性的设置和读取方法,可做边界判定</p>
-<pre><code>class Money(object):
-    def __init__(self):
-        self.__money = 0
-
-    @property
-    def money(self):
-        return self.__money
-
-    @money.setter
-    def money(self, value):
-        if isinstance(value, int):
-            self.__money = value
-        else:
-            print(&quot;error:不是整型数字&quot;)
-</code></pre>
         </div>
 
         <blockquote class="post-copyright">

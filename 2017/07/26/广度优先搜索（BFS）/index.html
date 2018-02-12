@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -204,32 +202,9 @@
 <h4 id="找出最短路径"><a href="#找出最短路径" class="headerlink" title="找出最短路径"></a>找出最短路径</h4><p>在搜索过程中是由近及远的。在寻找最近路径时，需要按添加顺序进行检查，因此需要使用队列。</p>
 <h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p>和现实生活中的队列类似，是一种FIFO的数据结构。</p>
 <h4 id="实现图"><a href="#实现图" class="headerlink" title="实现图"></a>实现图</h4><p>图可用散列表实现。将键映射到值，可以描述我们需要描述的关系。</p>
-<h4 id="实现算法"><a href="#实现算法" class="headerlink" title="实现算法"></a>实现算法</h4><p>建立关系图：</p>
-<pre><code>graph = {}
-graph[&quot;you&quot;] = [&quot;alice&quot;, &quot;bob&quot;, &quot;charlie&quot;]
-graph[&quot;bob&quot;] = [&quot;peggy&quot;]
-graph[&quot;peggy&quot;] = []
-...
-</code></pre><p>BFS搜索：</p>
-<pre><code>def search(name):
-  search_queue = deque()
-  search_queue += graph[name]
-  searched = []
-  while search_queue:
-    person = search_queue.popleft()
-    if person not in searched:
-      if person_is_find(person):
-        print person + &quot;is find!&quot;
-        return true
-      else:
-        search_queue += graph[person]
-        searched.append(person)
-  return false
-
-# 查找peggy
-def person_is_find(name):
-  return name == peggy
-</code></pre><p>备注：以上使用BFS查找你的关系网中叫peggy的人。</p>
+<h4 id="实现算法"><a href="#实现算法" class="headerlink" title="实现算法"></a>实现算法</h4><p>建立关系图：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph = &#123;&#125;</span><br><span class="line">graph[&quot;you&quot;] = [&quot;alice&quot;, &quot;bob&quot;, &quot;charlie&quot;]</span><br><span class="line">graph[&quot;bob&quot;] = [&quot;peggy&quot;]</span><br><span class="line">graph[&quot;peggy&quot;] = []</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>BFS搜索：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def search(name):</span><br><span class="line">  search_queue = deque()</span><br><span class="line">  search_queue += graph[name]</span><br><span class="line">  searched = []</span><br><span class="line">  while search_queue:</span><br><span class="line">    person = search_queue.popleft()</span><br><span class="line">    if person not in searched:</span><br><span class="line">      if person_is_find(person):</span><br><span class="line">        print person + &quot;is find!&quot;</span><br><span class="line">        return true</span><br><span class="line">      else:</span><br><span class="line">        search_queue += graph[person]</span><br><span class="line">        searched.append(person)</span><br><span class="line">  return false</span><br><span class="line"></span><br><span class="line"># 查找peggy</span><br><span class="line">def person_is_find(name):</span><br><span class="line">  return name == peggy</span><br></pre></td></tr></table></figure></p>
+<p>备注：以上使用BFS查找你的关系网中叫peggy的人。</p>
 <h4 id="运行时间"><a href="#运行时间" class="headerlink" title="运行时间"></a>运行时间</h4><p>O(V+E)</p>
 <p><strong>参考书目：</strong><br>[^1]: 《算法图解》【美】Aditya Bhargava. 编著</p>
 

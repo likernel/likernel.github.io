@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -196,277 +194,42 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>装饰器是程序开发中经常会用到的一个功能，用好了装饰器，开发效率如虎添翼，同时，这也是Python面试中必问的问题。<br><a id="more"></a></p>
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>先看下下面的例子：</p>
-<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>假设某公司已经实现了一系列基础功能，如：数据库操作、redis调用、监控API等功能。业务部门使用基础功能时，只需调用基础平台提供的功能即可。如下：</p>
-<pre><code>def f1():
-    print(&#39;f1&#39;)
-
-def f2():
-    print(&#39;f2&#39;)
-</code></pre><p>业务部门需要使用基础平台提供的功能，直接调用就好了:</p>
-<pre><code>f1()
-f2()
-</code></pre><p>现在问题来了：以前基础平台的开发人员在写代码时候没有关注验证相关的问题，现在需要对基础平台的所有功能进行重构，为平台提供的所有功能添加验证机制，即：执行功能前，先进行验证。</p>
-<h3 id="重构方案一"><a href="#重构方案一" class="headerlink" title="重构方案一"></a>重构方案一</h3><p>将需要进行的验证操作，写入到每个函数中。</p>
-<pre><code>def f1():
-    # 验证1
-    # 验证2
-    # 验证3
-    print(&#39;f1&#39;)
-
-def f2():
-    # 验证1
-    # 验证2
-    # 验证3
-    print(&#39;f2&#39;)
-</code></pre><p>如果我们需要的验证操作很多，这种方式显然不合理。</p>
-<h3 id="重构方案二"><a href="#重构方案二" class="headerlink" title="重构方案二"></a>重构方案二</h3><p>我们把验证操作封装到一个函数中。</p>
-<pre><code>def check_login():
-    # 验证1
-    # 验证2
-    # 验证3
-    pass
-</code></pre><p>在函数中，对check_login()进行调用即可:</p>
-<pre><code>def f1():
-
-    check_login()
-
-    print(&#39;f1&#39;)
-
-def f2():
-
-    check_login()
-
-    print(&#39;f2&#39;)
-</code></pre><p>上面的做法可行，但不遵循开放封闭原则，虽然在这个原则是用的面向对象开发，但是也适用于函数式编程，简单来说，它规定已经实现的功能代码不允许被修改，但可以被扩展，即：</p>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>假设某公司已经实现了一系列基础功能，如：数据库操作、redis调用、监控API等功能。业务部门使用基础功能时，只需调用基础平台提供的功能即可。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def f1():</span><br><span class="line">    print(&apos;f1&apos;)</span><br><span class="line"></span><br><span class="line">def f2():</span><br><span class="line">    print(&apos;f2&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>业务部门需要使用基础平台提供的功能，直接调用就好了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f1()</span><br><span class="line">f2()</span><br></pre></td></tr></table></figure></p>
+<p>现在问题来了：以前基础平台的开发人员在写代码时候没有关注验证相关的问题，现在需要对基础平台的所有功能进行重构，为平台提供的所有功能添加验证机制，即：执行功能前，先进行验证。</p>
+<h3 id="重构方案一"><a href="#重构方案一" class="headerlink" title="重构方案一"></a>重构方案一</h3><p>将需要进行的验证操作，写入到每个函数中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def f1():</span><br><span class="line">    # 验证1</span><br><span class="line">    # 验证2</span><br><span class="line">    # 验证3</span><br><span class="line">    print(&apos;f1&apos;)</span><br><span class="line"></span><br><span class="line">def f2():</span><br><span class="line">    # 验证1</span><br><span class="line">    # 验证2</span><br><span class="line">    # 验证3</span><br><span class="line">    print(&apos;f2&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>如果我们需要的验证操作很多，这种方式显然不合理。</p>
+<h3 id="重构方案二"><a href="#重构方案二" class="headerlink" title="重构方案二"></a>重构方案二</h3><p>我们把验证操作封装到一个函数中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def check_login():</span><br><span class="line">    # 验证1</span><br><span class="line">    # 验证2</span><br><span class="line">    # 验证3</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>在函数中，对check_login()进行调用即可:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def f1():</span><br><span class="line"></span><br><span class="line">    check_login()</span><br><span class="line"></span><br><span class="line">    print(&apos;f1&apos;)</span><br><span class="line"></span><br><span class="line">def f2():</span><br><span class="line"></span><br><span class="line">    check_login()</span><br><span class="line"></span><br><span class="line">    print(&apos;f2&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>上面的做法可行，但不遵循开放封闭原则，虽然在这个原则是用的面向对象开发，但是也适用于函数式编程，简单来说，它规定已经实现的功能代码不允许被修改，但可以被扩展，即：</p>
 <p>1.封闭：已实现的功能代码块<br>2.开放：对扩展开发</p>
 <p>如果将开放封闭原则应用在上述需求中，那么就不允许在函数 f1 、f2的内部进行修改代码。</p>
-<h3 id="重构方案三"><a href="#重构方案三" class="headerlink" title="重构方案三"></a>重构方案三</h3><p>使用装饰器：</p>
-<pre><code>def w1(func):
-    def inner():
-        # 验证1
-        # 验证2
-        # 验证3
-        func()
-    return inner
-
-@w1
-def f1():
-    print(&#39;f1&#39;)
-@w1
-def f2():
-    print(&#39;f2&#39;)
-</code></pre><p>对于上述代码，仅仅对基础平台的代码进行修改，就可以实现在其他人调用函数f1 f2之前都进行验证操作，并且业务部门无需做任何操作。</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>单独以f1为例：</p>
-<pre><code>def w1(func):
-    def inner():
-        # 验证1
-        # 验证2
-        # 验证3
-        func()
-    return inner
-
-@w1
-def f1():
-    print(&#39;f1&#39;)
-</code></pre><p>python解释器就会从上到下解释代码，步骤如下：</p>
-<pre><code>1.def w1(func): ==&gt;将w1函数加载到内存
-2.@w1
-</code></pre><p>从表面上看解释器仅仅会解释这两句代码，因为函数在没有被调用之前其内部代码不会被执行。</p>
+<h3 id="重构方案三"><a href="#重构方案三" class="headerlink" title="重构方案三"></a>重构方案三</h3><p>使用装饰器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def w1(func):</span><br><span class="line">    def inner():</span><br><span class="line">        # 验证1</span><br><span class="line">        # 验证2</span><br><span class="line">        # 验证3</span><br><span class="line">        func()</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line">@w1</span><br><span class="line">def f1():</span><br><span class="line">    print(&apos;f1&apos;)</span><br><span class="line">@w1</span><br><span class="line">def f2():</span><br><span class="line">    print(&apos;f2&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>对于上述代码，仅仅对基础平台的代码进行修改，就可以实现在其他人调用函数f1 f2之前都进行验证操作，并且业务部门无需做任何操作。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>单独以f1为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def w1(func):</span><br><span class="line">    def inner():</span><br><span class="line">        # 验证1</span><br><span class="line">        # 验证2</span><br><span class="line">        # 验证3</span><br><span class="line">        func()</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line">@w1</span><br><span class="line">def f1():</span><br><span class="line">    print(&apos;f1&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>python解释器就会从上到下解释代码，步骤如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.def w1(func): ==&gt;将w1函数加载到内存</span><br><span class="line">2.@w1</span><br></pre></td></tr></table></figure></p>
+<p>从表面上看解释器仅仅会解释这两句代码，因为函数在没有被调用之前其内部代码不会被执行。</p>
 <p>但是@w1这一句代码里却有大文章，<code>@函数名</code>是python的一种语法糖。<br>@w1内部会执行以下操作：</p>
-<h5 id="执行w1函数"><a href="#执行w1函数" class="headerlink" title="执行w1函数"></a>执行w1函数</h5><p>执行w1函数，并将@w1下面的函数作为w1函数的参数，即：@w1等价于 w1(f1)所以，内部就会去执行：</p>
-<pre><code>def w1(func):
-    def inner():
-        #验证 1
-        #验证 2
-        #验证 3
-        f1()     # func是参数，此时 func 等于 f1
-    return inner
-</code></pre><p>返回的inner，inner代表的是函数，非执行函数，其实就是将原来的f1函数塞进另外一个函数中。</p>
-<h5 id="w1的返回值"><a href="#w1的返回值" class="headerlink" title="w1的返回值"></a>w1的返回值</h5><p>将执行完的w1函数返回值赋值给@w1下面的函数的函数名f1即将w1的返回值再重新赋值给f1，即：</p>
-<pre><code>新f1 = def inner():
-            #验证 1
-            #验证 2
-            #验证 3
-            原来f1()
-        return inner
-</code></pre><p>所以，以后业务部门想要执行f1 函数时，就会执行新f1函数，在新f1函数内部先执行验证，再执行原来的f1函数，然后将原来f1函数的返回值返回给了业务调用者。</p>
-<h2 id="再议装饰器"><a href="#再议装饰器" class="headerlink" title="再议装饰器"></a>再议装饰器</h2><pre><code>#定义函数：完成包裹数据
-def makeBold(fn):
-    def wrapped():
-        return &quot;&lt;b&gt;&quot; + fn() + &quot;&lt;/b&gt;&quot;
-    return wrapped
-
-#定义函数：完成包裹数据
-def makeItalic(fn):
-    def wrapped():
-        return &quot;&lt;i&gt;&quot; + fn() + &quot;&lt;/i&gt;&quot;
-    return wrapped
-
-@makeBold
-def test1():
-    return &quot;hello world-1&quot;
-
-@makeItalic
-def test2():
-    return &quot;hello world-2&quot;
-
-@makeBold
-@makeItalic
-def test3():
-    return &quot;hello world-3&quot;
-
-print(test1()))
-print(test2()))
-print(test3()))
-</code></pre><p>运行结果:</p>
-<pre><code>&lt;b&gt;hello world-1&lt;/b&gt;
-&lt;i&gt;hello world-2&lt;/i&gt;
-&lt;b&gt;&lt;i&gt;hello world-3&lt;/i&gt;&lt;/b&gt;
-</code></pre><p>备注：多个装饰器的调用顺序是自下往上，但是运行时的执行顺序是自上往下。</p>
+<h5 id="执行w1函数"><a href="#执行w1函数" class="headerlink" title="执行w1函数"></a>执行w1函数</h5><p>执行w1函数，并将@w1下面的函数作为w1函数的参数，即：@w1等价于 w1(f1)所以，内部就会去执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def w1(func):</span><br><span class="line">    def inner():</span><br><span class="line">        #验证 1</span><br><span class="line">        #验证 2</span><br><span class="line">        #验证 3</span><br><span class="line">        f1()     # func是参数，此时 func 等于 f1</span><br><span class="line">    return inner</span><br></pre></td></tr></table></figure></p>
+<p>返回的inner，inner代表的是函数，非执行函数，其实就是将原来的f1函数塞进另外一个函数中。</p>
+<h5 id="w1的返回值"><a href="#w1的返回值" class="headerlink" title="w1的返回值"></a>w1的返回值</h5><p>将执行完的w1函数返回值赋值给@w1下面的函数的函数名f1即将w1的返回值再重新赋值给f1，即：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">新f1 = def inner():</span><br><span class="line">            #验证 1</span><br><span class="line">            #验证 2</span><br><span class="line">            #验证 3</span><br><span class="line">            原来f1()</span><br><span class="line">        return inner</span><br></pre></td></tr></table></figure></p>
+<p>所以，以后业务部门想要执行f1 函数时，就会执行新f1函数，在新f1函数内部先执行验证，再执行原来的f1函数，然后将原来f1函数的返回值返回给了业务调用者。</p>
+<h2 id="再议装饰器"><a href="#再议装饰器" class="headerlink" title="再议装饰器"></a>再议装饰器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#定义函数：完成包裹数据</span><br><span class="line">def makeBold(fn):</span><br><span class="line">    def wrapped():</span><br><span class="line">        return &quot;&lt;b&gt;&quot; + fn() + &quot;&lt;/b&gt;&quot;</span><br><span class="line">    return wrapped</span><br><span class="line"></span><br><span class="line">#定义函数：完成包裹数据</span><br><span class="line">def makeItalic(fn):</span><br><span class="line">    def wrapped():</span><br><span class="line">        return &quot;&lt;i&gt;&quot; + fn() + &quot;&lt;/i&gt;&quot;</span><br><span class="line">    return wrapped</span><br><span class="line"></span><br><span class="line">@makeBold</span><br><span class="line">def test1():</span><br><span class="line">    return &quot;hello world-1&quot;</span><br><span class="line"></span><br><span class="line">@makeItalic</span><br><span class="line">def test2():</span><br><span class="line">    return &quot;hello world-2&quot;</span><br><span class="line"></span><br><span class="line">@makeBold</span><br><span class="line">@makeItalic</span><br><span class="line">def test3():</span><br><span class="line">    return &quot;hello world-3&quot;</span><br><span class="line"></span><br><span class="line">print(test1()))</span><br><span class="line">print(test2()))</span><br><span class="line">print(test3()))</span><br></pre></td></tr></table></figure>
+<p>运行结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;b&gt;hello world-1&lt;/b&gt;</span><br><span class="line">&lt;i&gt;hello world-2&lt;/i&gt;</span><br><span class="line">&lt;b&gt;&lt;i&gt;hello world-3&lt;/i&gt;&lt;/b&gt;</span><br></pre></td></tr></table></figure></p>
+<p>备注：多个装饰器的调用顺序是自下往上，但是运行时的执行顺序是自上往下。</p>
 <h2 id="装饰器的应用"><a href="#装饰器的应用" class="headerlink" title="装饰器的应用"></a>装饰器的应用</h2><p>1.引入日志<br>2.函数执行时间统计<br>3.执行函数前预备处理<br>4.执行函数后清理功能<br>5.权限校验等场景<br>6.缓存</p>
-<h2 id="被装饰的函数无参数"><a href="#被装饰的函数无参数" class="headerlink" title="被装饰的函数无参数"></a>被装饰的函数无参数</h2><pre><code>from time import ctime, sleep
+<h2 id="被装饰的函数无参数"><a href="#被装饰的函数无参数" class="headerlink" title="被装饰的函数无参数"></a>被装饰的函数无参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from time import ctime, sleep</span><br><span class="line"></span><br><span class="line">def timefun(func):</span><br><span class="line">    def wrappedfunc():</span><br><span class="line">        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))</span><br><span class="line">        func()</span><br><span class="line">    return wrappedfunc</span><br><span class="line"></span><br><span class="line">@timefun</span><br><span class="line">def foo():</span><br><span class="line">    print(&quot;I am foo&quot;)</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line">sleep(2)</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+<p>上面代码理解装饰器执行行为可理解成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">foo = timefun(foo)</span><br><span class="line">#foo先作为参数赋值给func后,foo接收指向timefun返回的wrappedfunc</span><br><span class="line">foo()</span><br><span class="line">#调用foo(),即等价调用wrappedfunc()</span><br><span class="line">#内部函数wrappedfunc被引用，所以外部函数的func变量(自由变量)并没有释放</span><br><span class="line">#func里保存的是原foo函数对象</span><br></pre></td></tr></table></figure></p>
+<h2 id="被装饰的函数有参数"><a href="#被装饰的函数有参数" class="headerlink" title="被装饰的函数有参数"></a>被装饰的函数有参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from time import ctime, sleep</span><br><span class="line"></span><br><span class="line">def timefun(func):</span><br><span class="line">    def wrappedfunc(a, b):</span><br><span class="line">        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))</span><br><span class="line">        print(a, b)</span><br><span class="line">        func(a, b)</span><br><span class="line">    return wrappedfunc</span><br><span class="line"></span><br><span class="line">@timefun</span><br><span class="line">def foo(a, b):</span><br><span class="line">    print(a+b)</span><br><span class="line"></span><br><span class="line">foo(3,5)</span><br><span class="line">sleep(2)</span><br><span class="line">foo(2,4)</span><br></pre></td></tr></table></figure>
+<h2 id="被装饰的函数有不定长参数"><a href="#被装饰的函数有不定长参数" class="headerlink" title="被装饰的函数有不定长参数"></a>被装饰的函数有不定长参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from time import ctime, sleep</span><br><span class="line"></span><br><span class="line">def timefun(func):</span><br><span class="line">    def wrappedfunc(*args, **kwargs):</span><br><span class="line">        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">    return wrappedfunc</span><br><span class="line"></span><br><span class="line">@timefun</span><br><span class="line">def foo(a, b, c):</span><br><span class="line">    print(a+b+c)</span><br><span class="line"></span><br><span class="line">foo(3,5,7)</span><br><span class="line">sleep(2)</span><br><span class="line">foo(2,4,9)</span><br></pre></td></tr></table></figure>
+<h2 id="装饰器中的return"><a href="#装饰器中的return" class="headerlink" title="装饰器中的return"></a>装饰器中的return</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from time import ctime, sleep</span><br><span class="line"></span><br><span class="line">def timefun(func):</span><br><span class="line">    def wrappedfunc():</span><br><span class="line">        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))</span><br><span class="line">        func()</span><br><span class="line">    return wrappedfunc</span><br><span class="line"></span><br><span class="line">@timefun</span><br><span class="line">def foo():</span><br><span class="line">    print(&quot;I am foo&quot;)</span><br><span class="line"></span><br><span class="line">@timefun</span><br><span class="line">def getInfo():</span><br><span class="line">    return &apos;----hahah---&apos;</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line">sleep(2)</span><br><span class="line">foo()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(getInfo())</span><br></pre></td></tr></table></figure>
+<p>一般情况下为了让装饰器更通用，可以有return</p>
+<h2 id="装饰器带参数-在原有装饰器的基础上，设置外部变量"><a href="#装饰器带参数-在原有装饰器的基础上，设置外部变量" class="headerlink" title="装饰器带参数,在原有装饰器的基础上，设置外部变量"></a>装饰器带参数,在原有装饰器的基础上，设置外部变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#decorator2.py</span><br><span class="line"></span><br><span class="line">from time import ctime, sleep</span><br><span class="line"></span><br><span class="line">def timefun_arg(pre=&quot;hello&quot;):</span><br><span class="line">    def timefun(func):</span><br><span class="line">        def wrappedfunc():</span><br><span class="line">            print(&quot;%s called at %s %s&quot;%(func.__name__, ctime(), pre))</span><br><span class="line">            return func()</span><br><span class="line">        return wrappedfunc</span><br><span class="line">    return timefun</span><br><span class="line"></span><br><span class="line">@timefun_arg(&quot;test&quot;)</span><br><span class="line">def foo():</span><br><span class="line">    print(&quot;I am foo&quot;)</span><br><span class="line"></span><br><span class="line">@timefun_arg(&quot;python&quot;)</span><br><span class="line">def too():</span><br><span class="line">    print(&quot;I am too&quot;)</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line">sleep(2)</span><br><span class="line">foo()</span><br><span class="line"></span><br><span class="line">too()</span><br><span class="line">sleep(2)</span><br><span class="line">too()</span><br></pre></td></tr></table></figure>
+<p>可以理解为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo()==timefun_arg(&quot;test&quot;)(foo)()</span><br></pre></td></tr></table></figure></p>
+<h2 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h2><p>装饰器函数其实是这样一个接口约束，它必须接受一个callable对象作为参数，然后返回一个callable对象。在Python中一般callable对象都是函数，但也有例外。只要某个对象重写了 __call__() 方法，那么这个对象就是callable的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Test():</span><br><span class="line">    def __call__(self):</span><br><span class="line">        print(&apos;call me!&apos;)</span><br><span class="line"></span><br><span class="line">t = Test()</span><br><span class="line">t()  # call me</span><br></pre></td></tr></table></figure></p>
+<p>类装饰器demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Test(object):</span><br><span class="line">    def __init__(self, func):</span><br><span class="line">        print(&quot;---初始化---&quot;)</span><br><span class="line">        print(&quot;func name is %s&quot;%func.__name__)</span><br><span class="line">        self.__func = func</span><br><span class="line">    def __call__(self):</span><br><span class="line">        print(&quot;---装饰器中的功能---&quot;)</span><br><span class="line">        self.__func()</span><br><span class="line">#说明：</span><br><span class="line">#1. 当用Test来装作装饰器对test函数进行装饰的时候，首先会创建Test的实例对象</span><br><span class="line">#    并且会把test这个函数名当做参数传递到__init__方法中</span><br><span class="line">#    即在__init__方法中的func变量指向了test函数体</span><br><span class="line">#</span><br><span class="line">#2. test函数相当于指向了用Test创建出来的实例对象</span><br><span class="line">#</span><br><span class="line">#3. 当在使用test()进行调用时，就相当于让这个对象()，因此会调用这个对象的__call__方法</span><br><span class="line">#</span><br><span class="line">#4. 为了能够在__call__方法中调用原来test指向的函数体，所以在__init__方法中就需要一个实例属性来保存这个函数体的引用</span><br><span class="line">#    所以才有了self.__func = func这句代码，从而在调用__call__方法中能够调用到test之前的函数体</span><br><span class="line">@Test</span><br><span class="line">def test():</span><br><span class="line">    print(&quot;----test---&quot;)</span><br><span class="line">test()</span><br><span class="line">showpy()#如果把这句话注释，重新运行程序，依然会看到&quot;--初始化--&quot;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---初始化---</span><br><span class="line">func name is test</span><br><span class="line">---装饰器中的功能---</span><br><span class="line">----test---</span><br></pre></td></tr></table></figure></p>
 
-def timefun(func):
-    def wrappedfunc():
-        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))
-        func()
-    return wrappedfunc
-
-@timefun
-def foo():
-    print(&quot;I am foo&quot;)
-
-foo()
-sleep(2)
-foo()
-</code></pre><p>上面代码理解装饰器执行行为可理解成</p>
-<pre><code>foo = timefun(foo)
-#foo先作为参数赋值给func后,foo接收指向timefun返回的wrappedfunc
-foo()
-#调用foo(),即等价调用wrappedfunc()
-#内部函数wrappedfunc被引用，所以外部函数的func变量(自由变量)并没有释放
-#func里保存的是原foo函数对象
-</code></pre><h2 id="被装饰的函数有参数"><a href="#被装饰的函数有参数" class="headerlink" title="被装饰的函数有参数"></a>被装饰的函数有参数</h2><pre><code>from time import ctime, sleep
-
-def timefun(func):
-    def wrappedfunc(a, b):
-        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))
-        print(a, b)
-        func(a, b)
-    return wrappedfunc
-
-@timefun
-def foo(a, b):
-    print(a+b)
-
-foo(3,5)
-sleep(2)
-foo(2,4)
-</code></pre><h2 id="被装饰的函数有不定长参数"><a href="#被装饰的函数有不定长参数" class="headerlink" title="被装饰的函数有不定长参数"></a>被装饰的函数有不定长参数</h2><pre><code>from time import ctime, sleep
-
-def timefun(func):
-    def wrappedfunc(*args, **kwargs):
-        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))
-        func(*args, **kwargs)
-    return wrappedfunc
-
-@timefun
-def foo(a, b, c):
-    print(a+b+c)
-
-foo(3,5,7)
-sleep(2)
-foo(2,4,9)
-</code></pre><h2 id="装饰器中的return"><a href="#装饰器中的return" class="headerlink" title="装饰器中的return"></a>装饰器中的return</h2><pre><code>from time import ctime, sleep
-
-def timefun(func):
-    def wrappedfunc():
-        print(&quot;%s called at %s&quot;%(func.__name__, ctime()))
-        func()
-    return wrappedfunc
-
-@timefun
-def foo():
-    print(&quot;I am foo&quot;)
-
-@timefun
-def getInfo():
-    return &#39;----hahah---&#39;
-
-foo()
-sleep(2)
-foo()
-
-
-print(getInfo())
-</code></pre><p>一般情况下为了让装饰器更通用，可以有return</p>
-<h2 id="装饰器带参数-在原有装饰器的基础上，设置外部变量"><a href="#装饰器带参数-在原有装饰器的基础上，设置外部变量" class="headerlink" title="装饰器带参数,在原有装饰器的基础上，设置外部变量"></a>装饰器带参数,在原有装饰器的基础上，设置外部变量</h2><pre><code>#decorator2.py
-
-from time import ctime, sleep
-
-def timefun_arg(pre=&quot;hello&quot;):
-    def timefun(func):
-        def wrappedfunc():
-            print(&quot;%s called at %s %s&quot;%(func.__name__, ctime(), pre))
-            return func()
-        return wrappedfunc
-    return timefun
-
-@timefun_arg(&quot;test&quot;)
-def foo():
-    print(&quot;I am foo&quot;)
-
-@timefun_arg(&quot;python&quot;)
-def too():
-    print(&quot;I am too&quot;)
-
-foo()
-sleep(2)
-foo()
-
-too()
-sleep(2)
-too()
-</code></pre><p>可以理解为</p>
-<pre><code>foo()==timefun_arg(&quot;test&quot;)(foo)()
-</code></pre><h2 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h2><p>装饰器函数其实是这样一个接口约束，它必须接受一个callable对象作为参数，然后返回一个callable对象。在Python中一般callable对象都是函数，但也有例外。只要某个对象重写了 __call__() 方法，那么这个对象就是callable的。</p>
-<pre><code>class Test():
-    def __call__(self):
-        print(&#39;call me!&#39;)
-
-t = Test()
-t()  # call me
-</code></pre><p>类装饰器demo</p>
-<pre><code>class Test(object):
-    def __init__(self, func):
-        print(&quot;---初始化---&quot;)
-        print(&quot;func name is %s&quot;%func.__name__)
-        self.__func = func
-    def __call__(self):
-        print(&quot;---装饰器中的功能---&quot;)
-        self.__func()
-#说明：
-#1. 当用Test来装作装饰器对test函数进行装饰的时候，首先会创建Test的实例对象
-#    并且会把test这个函数名当做参数传递到__init__方法中
-#    即在__init__方法中的func变量指向了test函数体
-#
-#2. test函数相当于指向了用Test创建出来的实例对象
-#
-#3. 当在使用test()进行调用时，就相当于让这个对象()，因此会调用这个对象的__call__方法
-#
-#4. 为了能够在__call__方法中调用原来test指向的函数体，所以在__init__方法中就需要一个实例属性来保存这个函数体的引用
-#    所以才有了self.__func = func这句代码，从而在调用__call__方法中能够调用到test之前的函数体
-@Test
-def test():
-    print(&quot;----test---&quot;)
-test()
-showpy()#如果把这句话注释，重新运行程序，依然会看到&quot;--初始化--&quot;
-</code></pre><p>运行结果如下：</p>
-<pre><code>---初始化---
-func name is test
----装饰器中的功能---
-----test---
-</code></pre>
         </div>
 
         <blockquote class="post-copyright">

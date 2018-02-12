@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,23 +193,12 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>在Python中，我们使用lambda关键字创造匿名函数。使用匿名函数时，我们不再使用def语句这样标准的形式定义一个函数，而是使用一种函数表达式的方式，一般只是实现一些简单的功能。<br><a id="more"></a></p>
-<h1 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h1><p>lambda函数在调用时，绕过函数的栈分配。其语法是：</p>
-<pre><code>lambda [arg1[, arg2, ... argN]]: expression
-</code></pre><p>例子:</p>
-<pre><code>add = lambda x, y: x + y
+<h1 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h1><p>lambda函数在调用时，绕过函数的栈分配。其语法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lambda [arg1[, arg2, ... argN]]: expression</span><br></pre></td></tr></table></figure></p>
+<p>例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">add = lambda x, y: x + y</span><br><span class="line"></span><br><span class="line">print(add(3, 5))</span><br><span class="line"># Output: 8</span><br></pre></td></tr></table></figure></p>
+<p>lambda表达式还可以可以在一些特殊情况下使用，看下面的几个例子：</p>
+<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = [(1, 2), (4, 1), (9, 10), (13, -3)]</span><br><span class="line">a.sort(key=lambda x: x[1])</span><br><span class="line"></span><br><span class="line">print(a)</span><br><span class="line"># Output: [(13, -3), (4, 1), (1, 2), (9, 10)]</span><br></pre></td></tr></table></figure>
+<h1 id="列表并行排序"><a href="#列表并行排序" class="headerlink" title="列表并行排序"></a>列表并行排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = zip(list1, list2)</span><br><span class="line">data = sorted(data)</span><br><span class="line">list1, list2 = map(lambda t: list(t), zip(*data))</span><br></pre></td></tr></table></figure>
 
-print(add(3, 5))
-# Output: 8
-</code></pre><p>lambda表达式还可以可以在一些特殊情况下使用，看下面的几个例子：</p>
-<h1 id="列表排序"><a href="#列表排序" class="headerlink" title="列表排序"></a>列表排序</h1><pre><code>a = [(1, 2), (4, 1), (9, 10), (13, -3)]
-a.sort(key=lambda x: x[1])
-
-print(a)
-# Output: [(13, -3), (4, 1), (1, 2), (9, 10)]
-</code></pre><h1 id="列表并行排序"><a href="#列表并行排序" class="headerlink" title="列表并行排序"></a>列表并行排序</h1><pre><code>data = zip(list1, list2)
-data = sorted(data)
-list1, list2 = map(lambda t: list(t), zip(*data))
-</code></pre>
         </div>
 
         <blockquote class="post-copyright">

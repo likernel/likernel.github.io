@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -196,40 +194,12 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h3 id="Two-Sum"><a href="#Two-Sum" class="headerlink" title="Two Sum"></a>Two Sum</h3><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
 <p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-<p><strong>Example:</strong></p>
-<pre><code>Given nums = [2, 7, 11, 15], target = 9,
-Because nums[0] + nums[1] = 2 + 7 = 9,
-return [0, 1].
-</code></pre><a id="more"></a>
-<p><strong>思路：</strong></p>
-<pre><code>1.题目未说明是有序数组，因此，为了方便我们进行处理，首先需要进行排序。
-2.第二步进行查找，找出排序之后小于target的元素。
-3.在剩下的数组中进行遍历，找出两个数。
-4.找出这两个数对应原数组的下标。
-</code></pre><p><strong>实现：</strong></p>
-<pre><code>def twoSum(nums, target):
-  item_index = nums
-  arr = [i for i in nums if i &lt; target]
-  arr.sort()
-
-  for i in range(len(arr)):
-    for j in range(i+1,len(arr)):
-      if arr[i] + arr[j] == target:
-        return([findIndex(arr[i],item_index),
-               findIndex(arr[j],item_index)])
-
-def findIndex(item,item_index):
-  for index in range(len(item_index)):
-    if item == item_index[index]:
-      return index
-</code></pre><p><strong>其他解法：</strong></p>
-<pre><code>def twoSum(nums, target):
-  process={}
-  for index in range(len(nums)):
-    if target-nums[index] in process:
-      return [process[target-nums[index]],index]
-        process[nums[index]]=index
-</code></pre><p>注：这个解法是在网上看到的，确实简单许多，采用hashtable，数值记为key,value记为index，target-num[index]作为搜索条件。</p>
+<p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Given nums = [2, 7, 11, 15], target = 9,</span><br><span class="line">Because nums[0] + nums[1] = 2 + 7 = 9,</span><br><span class="line">return [0, 1].</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><strong>思路：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.题目未说明是有序数组，因此，为了方便我们进行处理，首先需要进行排序。</span><br><span class="line">2.第二步进行查找，找出排序之后小于target的元素。</span><br><span class="line">3.在剩下的数组中进行遍历，找出两个数。</span><br><span class="line">4.找出这两个数对应原数组的下标。</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def twoSum(nums, target):</span><br><span class="line">  item_index = nums</span><br><span class="line">  arr = [i for i in nums if i &lt; target]</span><br><span class="line">  arr.sort()</span><br><span class="line"></span><br><span class="line">  for i in range(len(arr)):</span><br><span class="line">    for j in range(i+1,len(arr)):</span><br><span class="line">      if arr[i] + arr[j] == target:</span><br><span class="line">        return([findIndex(arr[i],item_index),</span><br><span class="line">               findIndex(arr[j],item_index)])</span><br><span class="line"></span><br><span class="line">def findIndex(item,item_index):</span><br><span class="line">  for index in range(len(item_index)):</span><br><span class="line">    if item == item_index[index]:</span><br><span class="line">      return index</span><br></pre></td></tr></table></figure></p>
+<p><strong>其他解法：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def twoSum(nums, target):</span><br><span class="line">  process=&#123;&#125;</span><br><span class="line">  for index in range(len(nums)):</span><br><span class="line">    if target-nums[index] in process:</span><br><span class="line">      return [process[target-nums[index]],index]</span><br><span class="line">        process[nums[index]]=index</span><br></pre></td></tr></table></figure></p>
+<p>注：这个解法是在网上看到的，确实简单许多，采用hashtable，数值记为key,value记为index，target-num[index]作为搜索条件。</p>
 
         </div>
 

@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -204,17 +202,8 @@
 <li>这个时候谁短谁向中间移，这个时候更新一下面积即可，移动的时候可以借助两个变量当做指针。短的向中间移，即我们说的贪婪算法，选取局部最优。</li>
 <li>当指针相等的时候结束遍历。算法时间复杂度为O(n)。</li>
 </ol>
-<p><strong>实现：</strong></p>
-<pre><code>def maxArea(height):
-        left, right, max_area = 0, len(height)-1, 0
-        while left &lt; right:
-            max_area = max(max_area,min(height[right],height[left])*(right-left))
-            if height[left] &lt;= height[right]:
-                left += 1
-            elif height[left] &gt; height[right]:
-                right -= 1
-        return max_area
-</code></pre>
+<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def maxArea(height):</span><br><span class="line">        left, right, max_area = 0, len(height)-1, 0</span><br><span class="line">        while left &lt; right:</span><br><span class="line">            max_area = max(max_area,min(height[right],height[left])*(right-left))</span><br><span class="line">            if height[left] &lt;= height[right]:</span><br><span class="line">                left += 1</span><br><span class="line">            elif height[left] &gt; height[right]:</span><br><span class="line">                right -= 1</span><br><span class="line">        return max_area</span><br></pre></td></tr></table></figure></p>
+
         </div>
 
         <blockquote class="post-copyright">

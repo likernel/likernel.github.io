@@ -46,8 +46,6 @@
 
     <!-- custom head -->
     
-
-    <link rel="stylesheet" href="/plugins/styles/dracula.css">
 </head>
 
 <body>
@@ -195,53 +193,12 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>主要针对之前的鸭子类型，我们对Python的多态的知识点进行一个总结。<br><a id="more"></a></p>
-<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>先看一个例子：</p>
-<pre><code>&gt;&gt;&gt; &quot;This is a book&quot;.count(&quot;s&quot;)
-2
-&gt;&gt;&gt; [1,2,4,3,5,3].count(3)
-2
-</code></pre><p>上面的count()的作用是数一数某个元素在对象中出现的次数。从例子中可以看出，我们并没有限定count的参数。类似的例子还有：</p>
-<pre><code>&gt;&gt;&gt; f = lambda x,y:x+y
-&gt;&gt;&gt; f(2,3)
-5
-&gt;&gt;&gt; f(&quot;qiw&quot;,&quot;sir&quot;)
-&#39;qiwsir&#39;
-&gt;&gt;&gt; f([&quot;python&quot;,&quot;java&quot;],[&quot;c++&quot;,&quot;lisp&quot;])
-[&#39;python&#39;, &#39;java&#39;, &#39;c++&#39;, &#39;lisp&#39;]
-</code></pre><p>在那个lambda函数中，我们没有限制参数的类型，也一定不能限制，因为如果限制了，就不是pythonic了。在使用的时候，可以给参数任意类型，都能到的不报错的结果。当然，这样做之所以合法，更多的是来自于+的功能强悍。</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>先看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &quot;This is a book&quot;.count(&quot;s&quot;)</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; [1,2,4,3,5,3].count(3)</span><br><span class="line">2</span><br></pre></td></tr></table></figure></p>
+<p>上面的count()的作用是数一数某个元素在对象中出现的次数。从例子中可以看出，我们并没有限定count的参数。类似的例子还有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = lambda x,y:x+y</span><br><span class="line">&gt;&gt;&gt; f(2,3)</span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; f(&quot;qiw&quot;,&quot;sir&quot;)</span><br><span class="line">&apos;qiwsir&apos;</span><br><span class="line">&gt;&gt;&gt; f([&quot;python&quot;,&quot;java&quot;],[&quot;c++&quot;,&quot;lisp&quot;])</span><br><span class="line">[&apos;python&apos;, &apos;java&apos;, &apos;c++&apos;, &apos;lisp&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>在那个lambda函数中，我们没有限制参数的类型，也一定不能限制，因为如果限制了，就不是pythonic了。在使用的时候，可以给参数任意类型，都能到的不报错的结果。当然，这样做之所以合法，更多的是来自于+的功能强悍。</p>
 <p>其实上面的例子就体现了什么叫做多态。其实就是“有多种形式”，就算不知道变量（参数）所引用的对象类型，也一样能进行操作，来者不拒。</p>
-<p>下面给一个关于猫和狗的例子：</p>
-<pre><code>#!/usr/bin/env python
-# coding=utf-8
-
-&quot;the code is from: http://zetcode.com/lang/python/oop/&quot;
-
-__metaclass__ = type
-
-class Animal:
-    def __init__(self, name=&quot;&quot;):
-        self.name = name
-
-    def talk(self):
-        pass
-
-class Cat(Animal):
-    def talk(self):
-        print &quot;Meow!&quot;
-
-class Dog(Animal):
-    def talk(self):
-        print &quot;Woof!&quot;
-
-a = Animal()
-a.talk()    # 无结果
-
-c = Cat(&quot;Missy&quot;)
-c.talk()    # Meow!
-
-d = Dog(&quot;Rocky&quot;)
-d.talk()    # Woof!
-</code></pre><p>代码中有Cat和Dog两个类，都继承了类Animal，它们都有talk()方法，输入不同的动物名称，会得出相应的结果。</p>
+<p>下面给一个关于猫和狗的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding=utf-8</span><br><span class="line"></span><br><span class="line">&quot;the code is from: http://zetcode.com/lang/python/oop/&quot;</span><br><span class="line"></span><br><span class="line">__metaclass__ = type</span><br><span class="line"></span><br><span class="line">class Animal:</span><br><span class="line">    def __init__(self, name=&quot;&quot;):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    def talk(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class Cat(Animal):</span><br><span class="line">    def talk(self):</span><br><span class="line">        print &quot;Meow!&quot;</span><br><span class="line"></span><br><span class="line">class Dog(Animal):</span><br><span class="line">    def talk(self):</span><br><span class="line">        print &quot;Woof!&quot;</span><br><span class="line"></span><br><span class="line">a = Animal()</span><br><span class="line">a.talk()    # 无结果</span><br><span class="line"></span><br><span class="line">c = Cat(&quot;Missy&quot;)</span><br><span class="line">c.talk()    # Meow!</span><br><span class="line"></span><br><span class="line">d = Dog(&quot;Rocky&quot;)</span><br><span class="line">d.talk()    # Woof!</span><br></pre></td></tr></table></figure></p>
+<p>代码中有Cat和Dog两个类，都继承了类Animal，它们都有talk()方法，输入不同的动物名称，会得出相应的结果。</p>
 <p>备注：</p>
 <blockquote>
 <p>可以回忆一下鸭子类型里面的内容，可以加深你的理解。</p>
