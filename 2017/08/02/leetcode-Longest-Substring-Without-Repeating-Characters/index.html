@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="Given a string, find the length of the longest substring without repeating characters.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T14:45:26.273Z">
+<meta property="og:updated_time" content="2018-02-12T02:05:17.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode--Longest Substring Without Repeating Characters">
 <meta name="twitter:description" content="Given a string, find the length of the longest substring without repeating characters.">
@@ -187,17 +187,14 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>Given a string, find the length of the longest substring without repeating characters.<br><a id="more"></a></p>
 <p><strong>Examples:</strong></p>
-<p>Given <code>&quot;abcabcbb&quot;</code>, the answer is <code>&quot;abc&quot;</code>, which the length is 3.</p>
-<p>Given <code>&quot;bbbbb&quot;</code>, the answer is <code>&quot;b&quot;</code>, with the length of 1.</p>
-<p>Given <code>&quot;pwwkew&quot;</code>, the answer is <code>&quot;wke&quot;</code>, with the length of 3. Note that the answer must be a substring, <code>&quot;pwke&quot;</code> is a subsequence and not a substring.</p>
-<p><strong>思路一：</strong></p>
-<p>使用hash表</p>
+<p>Given <code>&quot;abcabcbb&quot;</code>, the answer is <code>&quot;abc&quot;</code>, which the length is 3.<br>Given <code>&quot;bbbbb&quot;</code>, the answer is <code>&quot;b&quot;</code>, with the length of 1.<br>Given <code>&quot;pwwkew&quot;</code>, the answer is <code>&quot;wke&quot;</code>, with the length of 3. Note that the answer must be a substring, <code>&quot;pwke&quot;</code> is a subsequence and not a substring.</p>
+<p><strong>思路一：</strong><br>使用hash表</p>
 <ol>
 <li>变量start记录了子串的起点。</li>
 <li>used用来记录字符串的字符，key是字符c，value是索引i。</li>
 <li>如果字符之前出现过，start右移，否则，更新最大长度。</li>
 </ol>
-<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def lengthOfLongestSubstring(self, s):</span><br><span class="line">        used = &#123;&#125;</span><br><span class="line">        max_len = start = 0</span><br><span class="line">        for i, c in enumerate(s):</span><br><span class="line">            if c in used and start &lt;= used[c]:</span><br><span class="line">                start = used[c] + 1</span><br><span class="line">            else:</span><br><span class="line">                max_len = max(max_len, i-start+1)</span><br><span class="line">            used[c] = i</span><br><span class="line">        return max_len</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现：</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        used = &#123;&#125;</span><br><span class="line">        max_len = start = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(s):</span><br><span class="line">            <span class="keyword">if</span> c <span class="keyword">in</span> used <span class="keyword">and</span> start &lt;= used[c]:</span><br><span class="line">                start = used[c] + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                max_len = max(max_len, i-start+<span class="number">1</span>)</span><br><span class="line">            used[c] = i</span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure></p>
 <p>备注：注意当前子串的长度为i-start+1。</p>
 
         </div>
@@ -207,7 +204,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:45:26.273Z" itemprop="dateUpdated">2018-02-11 22:45:26</time>
+    最后更新时间：<time datetime="2018-02-12T02:05:17.624Z" itemprop="dateUpdated">2018-02-12 10:05:17</time>
 </span><br>
 
 

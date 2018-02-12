@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="Given an integer, write a function to determine if it is a power of two.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T14:44:48.500Z">
+<meta property="og:updated_time" content="2018-02-12T02:04:22.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode--Power of Two">
 <meta name="twitter:description" content="Given an integer, write a function to determine if it is a power of two.">
@@ -189,10 +189,8 @@
 <p><strong>思路：</strong></p>
 <p>这道题有一个技巧，还是和位运算有关，首先看下面规律：</p>
 <p>2的0次方0001<br>2的1次方0010<br>2的2次方0100<br>2的3次方1000</p>
-<p>实际上，因为是二进制数（二进制数不是白叫的），因此所有的Power of Two的二进制数形式均为最高位（不考虑1左边的位）为1，其它都为0。</p>
-<p>如果此时我们减1的话，则最高位会降一位，其余为0的位现在都为变为1，那么我们把两数相与，就会得到0。</p>
-<p>如果这个数不是Power of Two就没有这个性质。</p>
-<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def isPowerOfTwo(n):</span><br><span class="line">        return (n &gt; 0 and not(n &amp; n-1))</span><br></pre></td></tr></table></figure></p>
+<p>实际上，因为是二进制数（二进制数不是白叫的），因此所有的Power of Two的二进制数形式均为最高位（不考虑1左边的位）为1，其它都为0。<br>如果此时我们减1的话，则最高位会降一位，其余为0的位现在都为变为1，那么我们把两数相与，就会得到0。<br>如果这个数不是Power of Two就没有这个性质。</p>
+<p><strong>实现：</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isPowerOfTwo</span><span class="params">(n)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (n &gt; <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span>(n &amp; n<span class="number">-1</span>))</span><br></pre></td></tr></table></figure></p>
 
         </div>
 
@@ -201,7 +199,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:44:48.500Z" itemprop="dateUpdated">2018-02-11 22:44:48</time>
+    最后更新时间：<time datetime="2018-02-12T02:04:22.353Z" itemprop="dateUpdated">2018-02-12 10:04:22</time>
 </span><br>
 
 

@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="Given an input string, reverse the string word by word.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T14:44:09.906Z">
+<meta property="og:updated_time" content="2018-02-12T02:03:55.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode--Reverse Words in a String">
 <meta name="twitter:description" content="Given an input string, reverse the string word by word.">
@@ -192,7 +192,7 @@
 <li>去掉空字符，字符串最后一位为空字符。</li>
 <li>reverse整个数组并连接。</li>
 </ol>
-<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def reverseWords(s):</span><br><span class="line">        arr = s.split(&apos; &apos;)</span><br><span class="line">        while &apos;&apos; in arr:</span><br><span class="line">            arr.remove(&apos;&apos;)</span><br><span class="line">        arr.reverse()</span><br><span class="line">        str = &apos; &apos;.join(arr)</span><br><span class="line"></span><br><span class="line">        return str</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现：</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(s)</span>:</span></span><br><span class="line">        arr = s.split(<span class="string">' '</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="string">''</span> <span class="keyword">in</span> arr:</span><br><span class="line">            arr.remove(<span class="string">''</span>)</span><br><span class="line">        arr.reverse()</span><br><span class="line">        str = <span class="string">' '</span>.join(arr)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> str</span><br></pre></td></tr></table></figure></p>
 
         </div>
 
@@ -201,7 +201,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:44:09.906Z" itemprop="dateUpdated">2018-02-11 22:44:09</time>
+    最后更新时间：<time datetime="2018-02-12T02:03:55.769Z" itemprop="dateUpdated">2018-02-12 10:03:55</time>
 </span><br>
 
 

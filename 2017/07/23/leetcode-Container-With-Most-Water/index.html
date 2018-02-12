@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="Container With Most WaterGiven n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T14:41:13.840Z">
+<meta property="og:updated_time" content="2018-02-12T02:05:38.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode--Container With Most Water">
 <meta name="twitter:description" content="Container With Most WaterGiven n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai">
@@ -202,7 +202,7 @@
 <li>这个时候谁短谁向中间移，这个时候更新一下面积即可，移动的时候可以借助两个变量当做指针。短的向中间移，即我们说的贪婪算法，选取局部最优。</li>
 <li>当指针相等的时候结束遍历。算法时间复杂度为O(n)。</li>
 </ol>
-<p><strong>实现：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def maxArea(height):</span><br><span class="line">        left, right, max_area = 0, len(height)-1, 0</span><br><span class="line">        while left &lt; right:</span><br><span class="line">            max_area = max(max_area,min(height[right],height[left])*(right-left))</span><br><span class="line">            if height[left] &lt;= height[right]:</span><br><span class="line">                left += 1</span><br><span class="line">            elif height[left] &gt; height[right]:</span><br><span class="line">                right -= 1</span><br><span class="line">        return max_area</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现：</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxArea</span><span class="params">(height)</span>:</span></span><br><span class="line">        left, right, max_area = <span class="number">0</span>, len(height)<span class="number">-1</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            max_area = max(max_area,min(height[right],height[left])*(right-left))</span><br><span class="line">            <span class="keyword">if</span> height[left] &lt;= height[right]:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> height[left] &gt; height[right]:</span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> max_area</span><br></pre></td></tr></table></figure></p>
 
         </div>
 
@@ -211,7 +211,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:41:13.840Z" itemprop="dateUpdated">2018-02-11 22:41:13</time>
+    最后更新时间：<time datetime="2018-02-12T02:05:38.608Z" itemprop="dateUpdated">2018-02-12 10:05:38</time>
 </span><br>
 
 

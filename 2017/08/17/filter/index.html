@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="Python内建的filter()函数用于过滤序列。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T15:51:17.795Z">
+<meta property="og:updated_time" content="2018-02-12T02:46:04.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="filter()">
 <meta name="twitter:description" content="Python内建的filter()函数用于过滤序列。">
@@ -186,8 +186,8 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>Python内建的filter()函数用于过滤序列。<br><a id="more"></a><br>和map()类似，filter()也接收一个函数和一个序列。和map()不同的时，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素。</p>
-<p>例如，在一个list中，删掉偶数，只保留奇数，可以这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def is_odd(n):</span><br><span class="line">    return n % 2 == 1</span><br><span class="line"></span><br><span class="line">filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15])</span><br><span class="line"># 结果: [1, 5, 9, 15]</span><br></pre></td></tr></table></figure></p>
-<p>把一个序列中的空字符串删掉，可以这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def not_empty(s):</span><br><span class="line">    return s and s.strip()</span><br><span class="line"></span><br><span class="line">filter(not_empty, [&apos;A&apos;, &apos;&apos;, &apos;B&apos;, None, &apos;C&apos;, &apos;  &apos;])</span><br><span class="line"># 结果: [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>例如，在一个list中，删掉偶数，只保留奇数，可以这么写：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">filter(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">15</span>])</span><br><span class="line"><span class="comment"># 结果: [1, 5, 9, 15]</span></span><br></pre></td></tr></table></figure></p>
+<p>把一个序列中的空字符串删掉，可以这么写：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">not_empty</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> s <span class="keyword">and</span> s.strip()</span><br><span class="line"></span><br><span class="line">filter(not_empty, [<span class="string">'A'</span>, <span class="string">''</span>, <span class="string">'B'</span>, <span class="keyword">None</span>, <span class="string">'C'</span>, <span class="string">'  '</span>])</span><br><span class="line"><span class="comment"># 结果: ['A', 'B', 'C']</span></span><br></pre></td></tr></table></figure></p>
 <p>可见用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
 
         </div>
@@ -197,7 +197,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T15:51:17.795Z" itemprop="dateUpdated">2018-02-11 23:51:17</time>
+    最后更新时间：<time datetime="2018-02-12T02:46:04.025Z" itemprop="dateUpdated">2018-02-12 10:46:04</time>
 </span><br>
 
 

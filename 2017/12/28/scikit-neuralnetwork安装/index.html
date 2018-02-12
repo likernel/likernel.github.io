@@ -34,12 +34,12 @@
 <meta property="og:description" content="scikit-neuralnetwork是一个开源的深度学习的库，scikit-neuralnetwork的接口和设计规范都是参照scikit-learn，之前用过scikit-learn，对它比较熟悉，因此，准备用它作为深度学习的工具。本文主要介绍它的安装过程以及期间可能遇到的一些问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/12/libs.png">
-<meta property="og:image" content="http://likernel.github.io/content/images/2017/12/mkl.png">
+<meta property="og:image" content="http://likernel.github.io/assets/images/2017/12/mkl.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/12/mylib.conf.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/12/ld.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/12/Figure-1_001.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/12/bench.png">
-<meta property="og:updated_time" content="2018-02-11T14:54:13.499Z">
+<meta property="og:updated_time" content="2018-02-12T02:49:24.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scikit-neuralnetwork安装">
 <meta name="twitter:description" content="scikit-neuralnetwork是一个开源的深度学习的库，scikit-neuralnetwork的接口和设计规范都是参照scikit-learn，之前用过scikit-learn，对它比较熟悉，因此，准备用它作为深度学习的工具。本文主要介绍它的安装过程以及期间可能遇到的一些问题。">
@@ -207,9 +207,9 @@
 <p>注：选择Linux的原因，由于这些库的开发者在开发的时候用的都是Linux，出问题的话对应的好解决，Windows环境也可以部署，但是稍微麻烦一些。</p>
 <p>Python的版本选择的是3.5，在沙箱环境virtualenv中，使用virtualenv的好处就是方便管理包，出现问题也可以直接删除这个环境，避免不必要的麻烦。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装scikit-neuralnetwork之前需要安装一些依赖（需要依赖的库）。</p>
-<p>1.进入Python的沙箱环境，安装以下依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip install scikit-learn==0.17</span><br><span class="line">pip install scipy==0.17.0</span><br><span class="line">pip install Theano==0.8.1</span><br><span class="line">pip install git+https://github.com/Lasagne/Lasagne.git@0440814#egg=Lasagne==0.2-dev</span><br><span class="line">sudo pip install -U numpy</span><br><span class="line">pip install -e git+https://github.com/lisa-lab/pylearn2.git=Package</span><br><span class="line">pip install pandas</span><br><span class="line">pip install matplotlib</span><br></pre></td></tr></table></figure></p>
-<p>2.安装scikit-neuralnetwork<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 将scikit-neuralnetwork源码从github上拷贝下来。</span><br><span class="line">git clone https://github.com/aigamedev/scikit-neuralnetwork.git</span><br><span class="line"># 进入scikit-neuralnetwork文件夹</span><br><span class="line">cd scikit-neuralnetwork</span><br><span class="line"># 安装</span><br><span class="line">python setup.py develop</span><br></pre></td></tr></table></figure></p>
-<p>3.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install nose</span><br><span class="line">nosetests -v sknn.tests</span><br></pre></td></tr></table></figure></p>
+<p>1.进入Python的沙箱环境，安装以下依赖。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip install scikit-learn==0.17</span><br><span class="line">pip install scipy==0.17.0</span><br><span class="line">pip install Theano==0.8.1</span><br><span class="line">pip install git+https://github.com/Lasagne/Lasagne.git@0440814#egg=Lasagne==0.2-dev</span><br><span class="line">sudo pip install -U numpy</span><br><span class="line">pip install -e git+https://github.com/lisa-lab/pylearn2.git=Package</span><br><span class="line">pip install pandas</span><br><span class="line">pip install matplotlib</span><br></pre></td></tr></table></figure></p>
+<p>2.安装scikit-neuralnetwork<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 将scikit-neuralnetwork源码从github上拷贝下来。</span><br><span class="line">git clone https://github.com/aigamedev/scikit-neuralnetwork.git</span><br><span class="line"><span class="meta">#</span> 进入scikit-neuralnetwork文件夹</span><br><span class="line">cd scikit-neuralnetwork</span><br><span class="line"><span class="meta">#</span> 安装</span><br><span class="line">python setup.py develop</span><br></pre></td></tr></table></figure></p>
+<p>3.测试<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install nose</span><br><span class="line">nosetests -v sknn.tests</span><br></pre></td></tr></table></figure></p>
 <p>正常情况下，到这一步不出现问题就安装好了。实际情况会遇到很多问题，下面总结一下常见的问题，和解决方案。</p>
 <h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p>####各种依赖安装出错<br>最常见的是pylearn2。各种module不存在，cannot import等问题。</p>
 <p>解决方案：在测试或者源码安装时，往往会出现上述情况，原因一般是版本的问题。由于网上的很多教程时间比较早，可能他们安装时不会出现这样的问题。因此，这里最好使用推荐的版本。下图是笔者安装时测试没问题的一些版本的包。</p>
@@ -224,7 +224,13 @@
 <h4 id="测试时出现问题"><a href="#测试时出现问题" class="headerlink" title="测试时出现问题"></a>测试时出现问题</h4><p>1.ERROR：no modole named XXX<br>通常是上述包未安装完，可以根据提示安装完对应的包。记住安装完成后，可以通过 <code>pip list/freeze</code> check一下。</p>
 <p>2.ImportError: libmkl_rt.so:cannot open shared object file: No such file or directory.</p>
 <p>mkl是英特尔数学核心函数库，这个.so（shared object）文件就在进行上述测试时需要调用。但是找不到了。需要我们重新配置一番。<br>①进入<a href="https://software.intel.com/en-us/mkl" target="_blank" rel="noopener">官网</a>下载。</p>
-<p>②找到libmkl_rt.so，一般在”/opt/intel/compilers_and_libraries_2018.1.163/linux/mkl/lib“下。“2018.1.163”一般是你下载的版本。可以看到，下面可以找到其所在位置。<br><img src="/content/images/2017/12/mkl.png" width="550px"></p>
+<p>②找到libmkl_rt.so，一般在”/opt/intel/compilers_and_libraries_2018.1.163/linux/mkl/lib“下。“2018.1.163”一般是你下载的版本。可以看到，下面可以找到其所在位置。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/2017/12/mkl.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 <p>③让系统能找到，这里使用ldconfig方式。<br>在/etc/ld.so.conf.d下创建一个文件mylibs.conf（注意修改其权限为可写的）。编辑文件，将对应的路径添加进去。<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -268,7 +274,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:54:13.499Z" itemprop="dateUpdated">2018-02-11 22:54:13</time>
+    最后更新时间：<time datetime="2018-02-12T02:49:24.010Z" itemprop="dateUpdated">2018-02-12 10:49:24</time>
 </span><br>
 
 

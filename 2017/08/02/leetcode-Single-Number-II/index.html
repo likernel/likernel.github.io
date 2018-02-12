@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T14:43:08.859Z">
+<meta property="og:updated_time" content="2018-02-12T02:03:31.970Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode--Single Number II">
 <meta name="twitter:description" content="Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.">
@@ -189,7 +189,7 @@
 <p><strong>Note:</strong><br>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
 <p><strong>思路1：</strong></p>
 <p>使用hash实现，这种方法不做赘述，实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def singleNumber(self, nums):</span><br><span class="line">        dict = &#123;&#125;</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            if nums[i] not in dict:</span><br><span class="line">                dict[nums[i]] = 1</span><br><span class="line">            else:</span><br><span class="line">                dict[nums[i]] += 1</span><br><span class="line">        for single in dict:</span><br><span class="line">            if dict[single] == 1:</span><br><span class="line">                return single</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        dict = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">not</span> <span class="keyword">in</span> dict:</span><br><span class="line">                dict[nums[i]] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dict[nums[i]] += <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> single <span class="keyword">in</span> dict:</span><br><span class="line">            <span class="keyword">if</span> dict[single] == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> single</span><br></pre></td></tr></table></figure>
 <p><strong>思路2：</strong></p>
 <p>和Single Number类似的解法：</p>
 <p>1.当数字num第一出现时：ones,twos = num, 0;<br>2.当其第二次出现时：ones,twos = 0, num;<br>3.第三次出现时：ones,twos = 0, 0，就相当于这个数字没有出现过，这样最后的结果就是ones了。</p>
@@ -202,7 +202,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T14:43:08.859Z" itemprop="dateUpdated">2018-02-11 22:43:08</time>
+    最后更新时间：<time datetime="2018-02-12T02:03:31.970Z" itemprop="dateUpdated">2018-02-12 10:03:31</time>
 </span><br>
 
 
