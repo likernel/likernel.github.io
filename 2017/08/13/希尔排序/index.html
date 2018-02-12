@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/08/shell-sort-step2.1.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/08/shell-sort-step2.2.png">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/08/shell-sort-step3.png">
-<meta property="og:updated_time" content="2018-02-11T15:25:22.625Z">
+<meta property="og:updated_time" content="2018-02-12T02:51:35.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="希尔排序">
 <meta name="twitter:description" content="通过之前的介绍，我们知道了插入排序的原理。但是，如果一个元素距离它的正确位置非常远，那么我们就要做很多次大小比较，才能找出其正确位置。因此，其设计者希尔（Donald Shell），在插入排序的基础上，提出了一种更高效的改进版本–希尔排序。">
@@ -244,7 +244,7 @@
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><h2 id="步长的选择"><a href="#步长的选择" class="headerlink" title="步长的选择"></a>步长的选择</h2><p>shell算法的性能与所选取的分区长度序列有很大关系。我们通常把步长取半直到步长达到1。</p>
 <p>已知的最好步长序列是由Sedgewick提出的<code>(1, 5, 19, 41, 109,…)</code>，该序列的项来自<code>94^i - 9 2^i + 1</code>和<code>2^{i+2} * (2^{i+2} - 3) + 1</code>这两个算式。这项研究也表明“比较在希尔排序中是最主要的操作，而不是交换。”用这样步长序列的希尔排序比插入排序和堆排序都要快，甚至在小数组中比快速排序还快，但是在涉及大量数据时希尔排序还是比快速排序慢。</p>
 <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>希尔排序的时间复杂度分析很复杂。总之可以证明，其最坏情况下的时间复杂度是 O(n^2) ，但是对希尔排序稍加一点改进，就可以使其时间复杂度提高到 O(n^1.5) 。</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def ShellSort(arr):</span><br><span class="line">    step = len(arr)/2</span><br><span class="line">    while step &gt;= 1:</span><br><span class="line">        for i in xrange(step, len(arr)):</span><br><span class="line">            while i &gt;= step and arr[i-step] &gt;arr[i]:</span><br><span class="line">                arr[i-step],arr[i] = arr[i], arr[i-step]</span><br><span class="line">                i -= step</span><br><span class="line">        step = step/2</span><br><span class="line">    return arr</span><br><span class="line"></span><br><span class="line">print ShellSort([80, 93, 60, 12, 42, 30, 68, 85, 10])</span><br></pre></td></tr></table></figure>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShellSort</span><span class="params">(arr)</span>:</span></span><br><span class="line">    step = len(arr)/<span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> step &gt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(step, len(arr)):</span><br><span class="line">            <span class="keyword">while</span> i &gt;= step <span class="keyword">and</span> arr[i-step] &gt;arr[i]:</span><br><span class="line">                arr[i-step],arr[i] = arr[i], arr[i-step]</span><br><span class="line">                i -= step</span><br><span class="line">        step = step/<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> ShellSort([<span class="number">80</span>, <span class="number">93</span>, <span class="number">60</span>, <span class="number">12</span>, <span class="number">42</span>, <span class="number">30</span>, <span class="number">68</span>, <span class="number">85</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -253,7 +253,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T15:25:22.625Z" itemprop="dateUpdated">2018-02-11 23:25:22</time>
+    最后更新时间：<time datetime="2018-02-12T02:51:35.703Z" itemprop="dateUpdated">2018-02-12 10:51:35</time>
 </span><br>
 
 

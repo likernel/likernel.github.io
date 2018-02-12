@@ -34,7 +34,7 @@
 <meta property="og:description" content="Recursion in computer science is a method where the solution to a problem depends on solutions to smaller instances of the same problem (as opposed to iteration).[1] The approach can be applied to man">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://likernel.github.io/assets/images/2017/07/fact.jpg">
-<meta property="og:updated_time" content="2018-02-11T15:29:08.148Z">
+<meta property="og:updated_time" content="2018-02-12T02:55:21.064Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="递归">
 <meta name="twitter:description" content="Recursion in computer science is a method where the solution to a problem depends on solutions to smaller instances of the same problem (as opposed to iteration).[1] The approach can be applied to man">
@@ -201,7 +201,7 @@
 <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈（stack）又名堆栈，它是一种运算受限的线性表。其限制是仅允许在表的一端进行插入和删除运算。这一端被称为栈顶，相对地，把另一端称为栈底。</p>
 <h4 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h4><p>这个概念对理解递归很重要，这里便于理解不做专业的解释。调用栈是计算机内部使用的。调用一个函数的时候，该函数就进入调用栈，在栈顶添加了函数的内存块。调用另一个函数的时候，当前函数暂停并处于未完成状态。</p>
 <h4 id="递归调用栈"><a href="#递归调用栈" class="headerlink" title="递归调用栈"></a>递归调用栈</h4><p>下面以阶乘factorial为例来展示一下递归调用栈。</p>
-<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def fact(x):</span><br><span class="line">  if x == 1:</span><br><span class="line">    return 1</span><br><span class="line">  else:</span><br><span class="line">    return x*fact(x-1)</span><br></pre></td></tr></table></figure></p>
+<p><strong>代码：</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fact</span><span class="params">(x)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> x == <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> x*fact(x<span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
 <p><strong>图解：</strong><br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -210,7 +210,7 @@
                 <div class="image-caption"></div>
             </figure></p>
 <h4 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h4><p>栈在递归中扮演了重要的角色，使用栈虽然方便，但要付出代价，每个函数调用都要占用一定内存，如果栈很高，会出现内存溢出。这时候有两种选择，使用循环或者尾递归。</p>
-<p>尾递归就是用来减少这种堆栈的耗用，在这种递归代码在执行过程中是可以不需要回溯。<strong>一般是把当前的运算结果放在参数里传给下层函数。</strong>还是以阶乘为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def fact(x,a):</span><br><span class="line">    if x &lt; 0:</span><br><span class="line">        return 0</span><br><span class="line">    elif x == 0:</span><br><span class="line">        return 1</span><br><span class="line">    elif x == 1:</span><br><span class="line">        return a</span><br><span class="line">    else:</span><br><span class="line">        return fact(x-1,x*a)</span><br></pre></td></tr></table></figure></p>
+<p>尾递归就是用来减少这种堆栈的耗用，在这种递归代码在执行过程中是可以不需要回溯。<strong>一般是把当前的运算结果放在参数里传给下层函数。</strong>还是以阶乘为例：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fact</span><span class="params">(x,a)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> x &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> x == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> x == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fact(x<span class="number">-1</span>,x*a)</span><br></pre></td></tr></table></figure></p>
 <p>备注：上述尾递归就是用了一个参数a来维护递归的层次。同上过程中，最后不需要再依次回调这些函数，每次的结果a都存储了下来。</p>
 <p><strong>参考书目：</strong><br>[^1]: 《算法图解》【美】Aditya Bhargava. 编著</p>
 
@@ -221,7 +221,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T15:29:08.148Z" itemprop="dateUpdated">2018-02-11 23:29:08</time>
+    最后更新时间：<time datetime="2018-02-12T02:55:21.064Z" itemprop="dateUpdated">2018-02-12 10:55:21</time>
 </span><br>
 
 

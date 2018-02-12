@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="likernel">
 <meta property="og:description" content="A hash table (hash map) is a data structure which implements an associative array abstract data type, a structure that can map keys to values. A hash table uses a hash function to compute an index int">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-11T15:26:07.987Z">
+<meta property="og:updated_time" content="2018-02-12T02:52:27.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="散列表">
 <meta name="twitter:description" content="A hash table (hash map) is a data structure which implements an associative array abstract data type, a structure that can map keys to values. A hash table uses a hash function to compute an index int">
@@ -199,13 +199,17 @@
 <li>散列函数总是将不同的输入映射到不同的索引。（有问题，暂且先这样理解）</li>
 <li>散列表知道数组有多大，只返回有效的索引。</li>
 </ol>
-<p>任何一门优秀的语言都提供了散列表的实现，python提供的散列表的实现为<strong>字典</strong>。可以通过dict来创建散列表。像之前leetcode中的Two Sum，最快捷的方法就是使用dict。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#第一种创建方法</span><br><span class="line">hash_table = dict()</span><br><span class="line">#第二种创建方法</span><br><span class="line">hash_table = &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>任何一门优秀的语言都提供了散列表的实现，python提供的散列表的实现为<strong>字典</strong>。可以通过dict来创建散列表。像之前leetcode中的Two Sum，最快捷的方法就是使用dict。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一种创建方法</span></span><br><span class="line">hash_table = dict()</span><br><span class="line"><span class="comment">#第二种创建方法</span></span><br><span class="line">hash_table = &#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>散列表的用途十分广泛，下面介绍一下它的用途。</p>
 <h4 id="将散列表用于查找"><a href="#将散列表用于查找" class="headerlink" title="将散列表用于查找"></a>将散列表用于查找</h4><p>散列表常被用于大海捞针式的查找。例如，我们常见的DNS解析（将网址映射到IP地址），散列表就是实现这种功能的方式之一。</p>
-<p>散列表用于查找,大致分为两个步骤：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 创建映射</span><br><span class="line">2. 查找</span><br></pre></td></tr></table></figure></p>
-<h4 id="防止重复"><a href="#防止重复" class="headerlink" title="防止重复"></a>防止重复</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 创建映射</span><br><span class="line">2. 检查是否重复</span><br></pre></td></tr></table></figure>
-<h4 id="将散列表用作缓存"><a href="#将散列表用作缓存" class="headerlink" title="将散列表用作缓存"></a>将散列表用作缓存</h4><p>缓存是一种常用的加速方式，所有的大型网站都使用缓存，而缓存的数据就是存储在散列表中的。</p>
-<p>当URL不在缓存中时，才让服务器做处理，并将生成的数据存储到缓存中，再返回它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cache = &#123;&#125;</span><br><span class="line"></span><br><span class="line">def get_page(url):</span><br><span class="line">  if cache.get(url):</span><br><span class="line">    return cache[url]</span><br><span class="line">  else:</span><br><span class="line">    data = get_data_from_server(url)</span><br><span class="line">    cache[url] = data</span><br><span class="line">    return data</span><br></pre></td></tr></table></figure></p>
+<p>散列表用于查找,大致分为两个步骤：</p>
+<ol>
+<li>创建映射</li>
+<li>查找<h4 id="防止重复"><a href="#防止重复" class="headerlink" title="防止重复"></a>防止重复</h4></li>
+<li>创建映射</li>
+<li>检查是否重复<h4 id="将散列表用作缓存"><a href="#将散列表用作缓存" class="headerlink" title="将散列表用作缓存"></a>将散列表用作缓存</h4>缓存是一种常用的加速方式，所有的大型网站都使用缓存，而缓存的数据就是存储在散列表中的。</li>
+</ol>
+<p>当URL不在缓存中时，才让服务器做处理，并将生成的数据存储到缓存中，再返回它。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cache = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_page</span><span class="params">(url)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> cache.get(url):</span><br><span class="line">    <span class="keyword">return</span> cache[url]</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    data = get_data_from_server(url)</span><br><span class="line">    cache[url] = data</span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
 <h3 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h3><p>这里我们没有讨论散列表内部的原理，但是我们依旧需要考虑散列表的性能，我们需要搞清楚什么是冲突。</p>
 <p>之前谈到散列函数总是将不同的输入映射到不同的索引，这句话实际上是有问题的。因为这只是最理想的情况，实际上散列函数可能将不同的输入映射到同一个索引。这种情况就是冲突。处理冲突的方法有很多，最简单的办法就是：如果两个键映射到了同一个位置，就在这个位置存储一个链表，但是链表很长依然会影响散列表的性能。<br>因此，需要记住：</p>
 <ol>
@@ -232,7 +236,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-02-11T15:26:07.987Z" itemprop="dateUpdated">2018-02-11 23:26:07</time>
+    最后更新时间：<time datetime="2018-02-12T02:52:27.548Z" itemprop="dateUpdated">2018-02-12 10:52:27</time>
 </span><br>
 
 
